@@ -9,9 +9,11 @@ In general, here's a suggested workflow:
 
 2. Clone your fork onto your machine.
 
-3. Create a new feature branch for *one specific change that you wish to make*.
+3. Create a new feature branch for *one specific change that you wish
+   to make*.
 
-4. Create a pull request once you have made your changes and pushed them.
+4. Create a pull request once you have made your changes and pushed
+   them.
 
 5. Actively participate in your pull request&mdash;if the maintainers
    ask for a revision to your proposed changes, make it promptly to

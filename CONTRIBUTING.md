@@ -7,7 +7,7 @@ In general, here's a suggested workflow:
 
 1. Fork `dot` to your user or organization account.
 
-2. Clone your fork onto your machine.
+2. Clone your fork of this repository onto your machine.
 
 3. Create a new feature branch for *one specific change that you wish
    to make*.

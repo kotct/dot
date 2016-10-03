@@ -20,3 +20,30 @@ In general, here's a suggested workflow:
 6. Actively participate in your pull request&mdash;if the maintainers
    ask for a revision to your proposed changes, make it promptly to
    keep them happy.
+
+## Options
+
+Contributions we want to see include:
+
+* Pull Requests containing fixes for breaking changes on all
+  architectures running all platforms.
+
+* Pull Requests containing fixes for internal errors, even if they are
+  edge cases.
+
+* Pull Requests containing fixes for breaking userspace issues.
+
+* Pull Requests containing work on refactoring of big functions and
+  sucky craftmanship.
+
+* Issues if errors show up somewhere.
+
+* Issues if something is slow or broken or old.
+
+* Issues containing suggestions.
+
+Contributions we don't want to see include:
+
+* Poorly-worded issues.
+
+* Stuff that doesn't work.

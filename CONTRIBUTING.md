@@ -14,4 +14,5 @@ In general, here's a suggested workflow:
 4. Create a pull request once you have made your changes and pushed them.
 
 5. Actively participate in your pull request&mdash;if the maintainers
-   ask for a change, make it.
+   ask for a revision to your proposed changes, make it promptly to
+   keep them happy.

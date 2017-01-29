@@ -17,6 +17,7 @@
     "file"
     "visual"
     "behavior"
+    "code"
     "user")
   "A list of hubs to load at init.")
 

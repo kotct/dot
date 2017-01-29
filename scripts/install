@@ -6,72 +6,72 @@ DOT_NULL = '/dev/null'.freeze
 
 module Tty
 
-  module_function
+	module_function
 
-  def blue
-    bold 34
-  end
+	def blue
+		bold 34
+	end
 
-  def red
-    bold 31
-  end
+	def red
+		bold 31
+	end
 
-  def reset
-    escape 0
-  end
+	def reset
+		escape 0
+	end
 
-  def bold(n = 39)
-    escape "1;#{n}"
-  end
+	def bold(n = 39)
+		escape "1;#{n}"
+	end
 
-  def underline
-    escape "4;39"
-  end
+	def underline
+		escape "4;39"
+	end
 
-  def escape(n)
-    "\033[#{n}m" if STDOUT.tty?
-  end
+	def escape(n)
+		"\033[#{n}m" if STDOUT.tty?
+	end
 
 end
 
 class Array
 
 	def shell_s
-    copy = dup
-    first = copy.shift
-    copy.map { |argument| argument.gsub " ", "\\ " }.unshift(first).join(" ")
-  end
+		copy = dup
+		first = copy.shift
+		copy.map { |argument| argument.gsub " ", "\\ " }.unshift(first).join(" ")
+	end
 
 end
 
 def ohai(*args)
-  puts "#{Tty.blue}==>#{Tty.bold} #{args.shell_s}#{Tty.reset}"
+	puts "#{Tty.blue}==>#{Tty.bold} #{args.shell_s}#{Tty.reset}"
 end
 
 def warn(warning)
-  puts "#{Tty.red}Warning#{Tty.reset}: #{warning.chomp}"
+	puts "#{Tty.red}Warning#{Tty.reset}: #{warning.chomp}"
 end
 
 def system(*args)
-  abort "Failed during: #{args.shell_s}" unless Kernel.system(*args)
+	abort "Failed during: #{args.shell_s}" unless Kernel.system(*args)
 end
 
 def sudo(*args)
-  args.unshift("-A") unless ENV["SUDO_ASKPASS"].nil?
-  ohai DOT_SUDO, *args
-  system DOT_SUDO, *args
+	args.unshift("-A") unless ENV["SUDO_ASKPASS"].nil?
+	ohai DOT_SUDO, *args
+	system DOT_SUDO, *args
 end
 
 def getc # NOTE only tested on macOS
 	system "/bin/stty raw -echo"
 
-  if STDIN.respond_to?(:getbyte)
-    STDIN.getbyte
-  else
-    STDIN.getc
-  end
+	if STDIN.respond_to?(:getbyte)
+		STDIN.getbyte
+	else
+		STDIN.getc
+	end
 ensure
-  system "/bin/stty -raw echo"
+	system "/bin/stty -raw echo"
 end
 
 puts "Press RETURN to make me happy, or any other key to abort"

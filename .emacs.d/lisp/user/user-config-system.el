@@ -10,21 +10,38 @@
   "~/.emacs.d/lisp/user/default-username"
   "The file that sets the default username for the machine.  (Ignored by git.)")
 
+(defun kotct/run-git (&rest args)
+  "Run a git command, specified by ARGS."
+  (let ((process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))
+    (with-temp-buffer
+      (let ((exit-code (apply 'call-process
+                              (append (list (executable-find "git")
+                                            nil (current-buffer) nil
+                                            "--no-pager" )
+                                      args))))
+        (if (zerop exit-code)
+            (buffer-string)
+          (error "Error running git %s\n%s" args (buffer-string)))))))
+
 (defun kotct/user-fetch-config (username)
   "Fetch USERNAME's personal config from GitHub, out of the
 repository USERNAME/.emacs."
   (message "fetching config for %s" username)
   (let ((default-directory "~/.emacs.d/lisp/user/users")
-        (url (format "https://github.com/%s/.emacs.git" username))
-        (process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))
-    (with-temp-buffer
-      (let ((exit-code (apply 'call-process
-                              (list (executable-find "git")
-                                    nil (current-buffer) nil
-                                    "--no-pager" "clone" url username))))
-        (if (zerop exit-code)
-            (buffer-string)
-          (error "Error cloning %s\n%s" url (buffer-string)))))))
+        (url (format "https://github.com/%s/.emacs.git" username)))
+    (kotct/run-git "clone" url username)))
+
+(defun kotct/user-update-config (&optional username)
+  "Update USERNAME's personal config git repository.
+If USERNAME is nil, the value of `kotct/user-current-username' is used."
+  (interactive)
+  (unless username (setf username kotct/user-current-username))
+  (let ((default-directory (format "~/.emacs.d/lisp/user/users/%s" username)))
+    (kotct/run-git "pull" "origin" "master"))
+  (if (eq username kotct/user-current-username)
+      ;; reload the config
+      (kotct/user-switch-username username))
+  (message "@%s's config updated!" username))
 
 (defun kotct/user-get-default-username ()
   "Look up the default username set on this machine."

@@ -7,11 +7,12 @@
         volatile-highlights ;; highlight changed areas
         buffer-move ;; easily move buffers between windows
         expand-region ;; expand region to successively larger sexps
+        magit ;; make Git and Emacs both way cooler
+        auto-complete ;; code autocompletion
+        markdown-mode ;; major mode for markdown
 
         ;; THEMES
         solarized-theme
-
-        magit ;; make Git and Emacs both way cooler
         )
       "A list of all packages required for operation.")
 

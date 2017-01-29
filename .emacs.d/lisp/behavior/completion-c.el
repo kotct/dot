@@ -51,4 +51,7 @@ MODE is a symbol which can be grid (default), vertical, or normal."
 ;; keep things contained within ~/.emacs.d
 (setf smex-save-file "~/.emacs.d/smex-items")
 
+;;; autocomplete
+(ac-config-default)
+
 (provide 'completion-c)

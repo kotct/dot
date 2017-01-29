@@ -63,6 +63,7 @@ If USERNAME is nil, prompt the user for the username."
   (with-temp-file kotct/user-default-username-file
     (erase-buffer)
     (insert username))
+  (kotct/user-switch-username username)
   username)
 
 (defun kotct/user-load-username (username)

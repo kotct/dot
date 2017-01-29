@@ -15,7 +15,8 @@
 (defvar kotct/hub-list
   '("package"
     "file"
-    "visual")
+    "visual"
+    "behavior")
   "A list of hubs to load at init.")
 
 ;; populated by kotct/hub
@@ -58,8 +59,8 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 (let ((load-prefer-newer t))
   ;; require all hubs
   (mapc (lambda (hub)
-		  (require (intern (concat hub "-hub"))))
-		kotct/hub-list))
+          (require (intern (concat hub "-hub"))))
+        kotct/hub-list))
 
 ;; load autoloads
 (require 'kotct-loaddefs)
@@ -77,7 +78,11 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 
 
 (if (list-load-path-shadows)
-	(message "There are shadowed files on your load path.
+    (message "There are shadowed files on your load path.
 This could indiciate an issue with your emacs installation.
 Despite this, your config appears to have loaded successfully.")
   (message "Your config appears to have loaded successfully."))
+
+
+;;; custom-set-{variables,faces}
+(setf custom-file "~/.emacs.d/custom.el")

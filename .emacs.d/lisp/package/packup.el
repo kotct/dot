@@ -5,6 +5,7 @@
 
 (require 'dependencies)
 (require 'package)
+(require 'cl)
 
 (package-initialize)
 

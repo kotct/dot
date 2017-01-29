@@ -56,12 +56,6 @@ def system(*args)
 	abort "Failed during: #{args.shell_s}" unless Kernel.system(*args)
 end
 
-def sudo(*args)
-	args.unshift("-A") unless ENV["SUDO_ASKPASS"].nil?
-	ohai DOT_SUDO, *args
-	system DOT_SUDO, *args
-end
-
 def getc # NOTE only tested on macOS
 	system "/bin/stty raw -echo"
 

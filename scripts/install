@@ -88,3 +88,7 @@ at_exit { Kernel.system "#{DOT_SUDO}", "-k >#{DOT_NULL} 2>&1" } unless $?.succes
 puts "kotct/dot Installation Script (v0.0.0)"
 puts
 puts "  This script will help you install kotct/dot on your computer."
+
+# Go ahead and clone Dot
+ohai "Cloning https://github.com/kotct/dot.git into ~/.dot/"
+Kernel.system "git clone https://github.com/kotct/dot.git ~/.dot/"

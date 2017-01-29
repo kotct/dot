@@ -28,6 +28,12 @@ configuration, so make sure that you are sure of what you want to do.
 You can remove the pipe to `sh` if you want to see what this script
 does.
 
+This script assumes a fairly regular system.  It will check to see if
+certain prerequisites are installed, but if you are in an esoteric
+environment, you can plan on manually installing this.  If something
+breaks down on a normal system, (like an Ubuntu, Fedora, or older MacOS
+installation) please open an Issue and we will get back to you ASAP.
+
 ## Emacs
 
 The Emacs configuration is the primary focus of this project and is

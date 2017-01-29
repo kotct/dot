@@ -8,6 +8,25 @@ module Tty
 
   module_function
 
+  def blue
+    bold 34
+  end
+
+  def red
+    bold 31
+  end
+
+  def reset
+    escape 0
+  end
+
+  def bold(n = 39)
+    escape "1;#{n}"
+  end
+
+  def underline
+    escape "4;39"
+  end
 
   def escape(n)
     "\033[#{n}m" if STDOUT.tty?

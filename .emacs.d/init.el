@@ -56,14 +56,14 @@
 (require 'kotct-loaddefs)
 
 
-;;; byte compilation
-;; TODO
+;;; async byte compilation
 (let* ((to-eval `(let ((default-directory "~/.emacs.d/lisp/"))
                    (add-to-list 'load-path default-directory)
                    (normal-top-level-add-to-load-path ',kotct/hub-list)
                    (batch-byte-compile t)))
-      (args `("config-compilation" "*config-compilation*" "emacs" "--batch" "--eval" ,(format "%S" to-eval) ,@kotct/files-to-compile)))
-  (message "%s" args)
+       ;; command-line args as a list
+       (args `("config-compilation" "*config-compilation*" "emacs" "--batch" "--eval" ,(format "%S" to-eval) ,@kotct/files-to-compile)))
+  ;; start the process in *config-compilation* buffer
   (apply #'start-process args))
 
 

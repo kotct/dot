@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 DOT_HOME = ENV['HOME'].freeze
+
+Kernel.system "/usr/bin/sudo -n -v 2>/dev/null"

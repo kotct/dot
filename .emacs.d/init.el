@@ -69,6 +69,7 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 
 ;;; async byte compilation
 (let* ((to-eval `(let ((default-directory "~/.emacs.d/lisp/"))
+                   (package-initialize)
                    (add-to-list 'load-path default-directory)
                    (normal-top-level-add-to-load-path ',kotct/hub-list)
                    (batch-byte-compile t)))

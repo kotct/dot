@@ -81,3 +81,7 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 This could indiciate an issue with your emacs installation.
 Despite this, your config appears to have loaded successfully.")
   (message "Your config appears to have loaded successfully."))
+
+
+;;; custom-set-{variables,faces}
+(setq custom-file "~/.emacs.d/custom.el")

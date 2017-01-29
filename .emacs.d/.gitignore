@@ -16,6 +16,7 @@ tramp
 network-security.data
 session.*
 recentf
+custom.el
 
 # packages
 elpa/

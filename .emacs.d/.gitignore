@@ -4,6 +4,7 @@
 
 # compiled files
 *.elc
+lisp/kotct-loaddefs.el
 
 # various files
 ac-comphist.dat

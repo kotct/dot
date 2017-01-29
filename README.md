@@ -21,7 +21,7 @@ written under the following principles:
 You can use this command to install our configuration.  (Ruby must be
 installed for this to work, so make sure you have done that.)
 
-    $ \ruby -e $(\curl -fsSL https://raw.githubusercontent.com/kotct/dot/install/scripts/install)
+    $ \ruby -e "$(\curl -fsSL https://raw.githubusercontent.com/kotct/dot/install/scripts/install)"
 
 This script will interactively ask you if there are any conflicts or
 decisions to be made, but will immediately start installing the

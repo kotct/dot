@@ -82,5 +82,9 @@ end
 # hasn't timed out) store a time stamp to refresh our session.
 #
 # If this worked, then set an at_exit call.
-Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"
-at_exit { Kernel.system "#{DOT_SUDO}", "-k" } unless $?.success?
+Kernel.system "#{DOT_SUDO}", "-n -v >#{DOT_NULL} 2>&1"
+at_exit { Kernel.system "#{DOT_SUDO}", "-k >#{DOT_NULL} 2>&1" } unless $?.success?
+
+puts "kotct/dot Installation Script (v0.0.0)"
+puts
+puts "  This script will help you install kotct/dot on your computer."

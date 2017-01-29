@@ -13,6 +13,7 @@
 
         ;; THEMES
         solarized-theme
+        material-theme
         )
       "A list of all packages required for operation.")
 

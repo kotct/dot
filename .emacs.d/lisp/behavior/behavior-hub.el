@@ -1,4 +1,5 @@
 (kotct/hub "behavior"
-           (ido-c))
+           (ido-c
+            smex-c))
 
 (provide 'behavior-hub)

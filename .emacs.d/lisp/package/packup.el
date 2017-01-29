@@ -29,7 +29,7 @@ If UPDATE is non-nil, out-of-date packages will be updated."
 
       (let ((updating nil))
         (if (or (not (package-installed-p package))
-                (and update (not (kotct/package-up-to-date-p package)) (setq updating t)))
+                (and update (not (kotct/package-up-to-date-p package)) (setf updating t)))
             (add-to-list 'install-list
                          (cons package
                                ;; haxily say we need the next version by adding a .1 to the version

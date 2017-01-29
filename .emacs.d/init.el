@@ -84,4 +84,4 @@ Despite this, your config appears to have loaded successfully.")
 
 
 ;;; custom-set-{variables,faces}
-(setq custom-file "~/.emacs.d/custom.el")
+(setf custom-file "~/.emacs.d/custom.el")

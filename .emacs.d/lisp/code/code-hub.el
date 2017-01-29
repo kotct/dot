@@ -1,5 +1,5 @@
 (kotct/hub "code"
            (magit-c
-           indentation))
+            indentation))
 
 (provide 'code-hub)

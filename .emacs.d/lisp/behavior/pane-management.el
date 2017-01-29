@@ -1,3 +1,6 @@
+;;; C-x C-c: close current frame or, with confirmation, emacs session
+;;; C-c C-x C-c: old C-x C-c
+
 (defun kotct/close-current-frame-or-emacs (&optional arg)
   "Closes the current frame or Emacs.
 

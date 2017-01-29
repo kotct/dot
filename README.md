@@ -30,8 +30,13 @@ configuration, so make sure that you are sure of what you want to do.
 This script assumes a fairly regular system.  It will check to see if
 certain prerequisites are installed, but if you are in an esoteric
 environment, you can plan on manually installing this.  If something
-breaks down on a normal system, (like an Ubuntu, Fedora, or older MacOS
-installation) please open an Issue and we will get back to you ASAP.
+breaks down on a normal system, (like Ubuntu, Fedora) please open an
+Issue and we will get back to you ASAP.
+
+If your system is running an older version of a dependency software,
+(i.e. Emacs < 25.1, Ruby < 2.4) please do your best to update to the
+latest version directly available from your package manager.  If an
+issue is not reproducible on our system, we cannot fix it.
 
 It is worth noting that you should be able to simply simlink the
 respective files and directories into your `HOME` directory.

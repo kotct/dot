@@ -78,21 +78,6 @@ def wait_for_user
 	abort unless (c == 13) || (c == 10)
 end
 
-class Version
-
-	include Comparable
-	attr_reader :parts
-
-	def initialize(str)
-		@parts = str.split(".").map(&:to_i)
-	end
-
-	def <=>(other)
-		parts <=> self.class.new(other).parts
-	end
-
-end
-
 # If sudo is still active, (we can still use sudo because our session
 # hasn't timed out) store a time stamp to refresh our session.
 #

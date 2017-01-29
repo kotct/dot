@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 DOT_HOME = ENV['HOME'].freeze
+DOT_SUDO = (`which sudo` || ENV['SUDO'] || `/usr/bin/sudo`).freeze
+DOT_NULL = '/dev/null'.freeze
 
 module Tty
 
@@ -15,5 +17,5 @@ end
 
 # Drop sudo privileges (really just invalidate the timestamp)
 # prior to exiting, if sudo had been used.
-Kernel.system "/usr/bin/sudo -n -v >/dev/null 2>&1"
-at_exit { Kernel.system "/usr/bin/sudo", "-k" } unless $?.success?
+Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"
+at_exit { Kernel.system "#{DOT_SUDO}", "-k" } unless $?.success?

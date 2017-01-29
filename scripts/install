@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 DOT_HOME = ENV['HOME'].freeze
+DOT_LOCATION = "#{DOT_HOME}/.dot".freeze
 DOT_SUDO = (`which sudo` || ENV['SUDO'] || `/usr/bin/sudo`).freeze
 DOT_NULL = '/dev/null'.freeze
 
@@ -89,6 +90,18 @@ puts "kotct/dot Installation Script (v0.0.0)"
 puts
 puts "  This script will help you install kotct/dot on your computer."
 
-# Go ahead and clone Dot
+# Go ahead and clone Dot into a directory.
 ohai "Cloning https://github.com/kotct/dot.git into ~/.dot/"
-Kernel.system "git clone https://github.com/kotct/dot.git ~/.dot/"
+Kernel.system "git clone https://github.com/kotct/dot.git #{DOT_LOCATION}/"
+
+# Change directories
+Dir.chdir(DOT_LOCATION) do
+
+	ohai "Running `gem install bundler` and `bundle install`..."
+	Kernel.system "gem install bundler"
+	Kernel.system "bundle install"
+
+	ohai "Running `rake install`..."
+	Kernel.system "rake install"
+
+end

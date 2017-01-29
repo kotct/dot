@@ -1,2 +1,3 @@
 #!/usr/bin/env ruby
 
+DOT_HOME = ENV['HOME'].freeze

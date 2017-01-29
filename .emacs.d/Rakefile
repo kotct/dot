@@ -1,0 +1,27 @@
+require 'fileutils'
+
+namespace :emacs do
+
+	desc 'Installs the Emacs configuration'
+	task :install do
+
+		target = File.join(Dir.home, '.emacs.d')
+		file = File.dirname(__FILE__)
+
+		puts "Installing #{file} to #{target}."
+
+		if File.exist?(target)
+			puts "#{target} already exists. Removing."
+
+			FileUtils.remove_entry(target)
+		end
+
+		puts "Symlinking #{file} to #{target}."
+
+		File.symlink(file, target)
+
+		puts "Done!"
+
+	end
+
+end

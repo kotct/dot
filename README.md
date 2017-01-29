@@ -34,6 +34,9 @@ environment, you can plan on manually installing this.  If something
 breaks down on a normal system, (like an Ubuntu, Fedora, or older MacOS
 installation) please open an Issue and we will get back to you ASAP.
 
+It is worth noting that you should be able to simply simlink the
+respective files and directories into your `HOME` directory.
+
 ## Emacs
 
 The Emacs configuration is the primary focus of this project and is

@@ -1,4 +1,10 @@
+# Ignore all files in here (since they are
+# dynamically cloned in, we don't want to track them)
 *
+
+# Keep .gitignore tracked
 !.gitignore
+
+# Keep the base configuration tracked.
 !base-config
 !base-config/*

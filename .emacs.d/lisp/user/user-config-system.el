@@ -8,8 +8,7 @@
 
 (defvar kotct/user-default-username-file
   "~/.emacs.d/lisp/user/default-username"
-  "The file that sets the default username for the machine.
-(Ignored by git.)")
+  "The file that sets the default username for the machine.  (Ignored by git.)")
 
 (defun kotct/user-fetch-config (username)
   "Fetch USERNAME's personal config from GitHub, out of the
@@ -61,8 +60,7 @@ Fetch the personal config from GitHub if it doesn't exist locally."
     (setf kotct/user-current-username username)))
 
 (defun kotct/user-ask-username (prompt)
-  "Use ido to ask the user for a username,
-prompting the user with PROMPT."
+  "Use ido to ask the user for a username, prompting the user with PROMPT."
   (ido-completing-read prompt
                        (directory-files "~/.emacs.d/lisp/user/users/" nil "^[^.].*$")))
 
@@ -82,10 +80,10 @@ If USERNAME is nil, prompt for a username."
   ;; make sure that if the load fails we reload the stuff we just unloaded
   ;; so that we are actually loaded with current-username's config
 
-  (message "loading with username: %s" username)
+  (message "Loading for username: %s" username)
   (condition-case err
       (kotct/user-load-username username)
-    (test (message "handling error, username: %s" kotct/user-current-username)
+    (test (message "Handling error, username: %s" kotct/user-current-username)
            (kotct/user-load-username kotct/user-current-username)
            (signal (car err) (cdr err))))
   ;; maybe then also reload/rerun all the hooks and stuff for open buffers

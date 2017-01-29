@@ -2,7 +2,9 @@
 ;;; different keybindings for ido navigation based on menu mode
 ;;; see docs for ido, ido-vertical-mode, and ido-grid-mode
 
+;;; ido
 (ido-mode t)
+(setf ido-enable-flex-matching t)
 
 (defvar kotct/ido-current-menu-mode
   ;; set initially below, using kotct/ido-set-menu-mode
@@ -28,6 +30,7 @@ MODE is a symbol which can be grid (default), vertical, or normal."
     (setf kotct/ido-current-menu-mode 'grid))
    ((eq mode 'vertical)
     (ido-vertical-mode 1)
+    (setq ido-vertical-show-count t)
     (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
     (setf kotct/ido-current-menu-mode 'vertical))
    (t ;; note that for 'normal we don't need to do anything
@@ -35,5 +38,12 @@ MODE is a symbol which can be grid (default), vertical, or normal."
 
 ;; default to grid mode
 (kotct/ido-set-menu-mode 'grid)
+
+
+;;; smex
+(smex-initialize)
+(global-set-key (kbd "M-x") #'smex)
+;; keep things contained within ~/.emacs.d
+(setf smex-save-file "~/.emacs.d/smex-items")
 
 (provide 'ido-c)

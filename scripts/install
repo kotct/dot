@@ -34,6 +34,33 @@ module Tty
 
 end
 
+class Array
+
+	def shell_s
+    copy = dup
+    first = copy.shift
+    copy.map { |argument| argument.gsub " ", "\\ " }.unshift(first).join(" ")
+  end
+
+end
+
+def ohai(*args)
+  puts "#{Tty.blue}==>#{Tty.bold} #{args.shell_s}#{Tty.reset}"
+end
+
+def warn(warning)
+  puts "#{Tty.red}Warning#{Tty.reset}: #{warning.chomp}"
+end
+
+def system(*args)
+  abort "Failed during: #{args.shell_s}" unless Kernel.system(*args)
+end
+
+def sudo(*args)
+  args.unshift("-A") unless ENV["SUDO_ASKPASS"].nil?
+  ohai DOT_SUDO, *args
+  system DOT_SUDO, *args
+end
 # Drop sudo privileges (really just invalidate the timestamp)
 # prior to exiting, if sudo had been used.
 Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"

@@ -25,6 +25,15 @@
 
 ;; used to define hubs in hub files
 (defmacro kotct/hub (hubname features &optional autoloads)
+  "Loads the hub denoted by HUBNAME.
+
+Defines a variable of the format kotct/HUBNAME-features to be the
+list FEATURES.
+
+Adds a list containing all of the files that need to be compiled
+in that directory to `kotct/files-to-compile'.
+
+If AUTOLOADS is non-nil, update the autoloads for that directory."
   (let ((feature-var (intern (concat "kotct/" hubname "-features"))))
     `(progn (defvar ,feature-var
               ',features

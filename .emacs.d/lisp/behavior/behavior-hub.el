@@ -3,6 +3,7 @@
             smex-c
             pane-management
             window-management
+            text
             theme))
 
 (provide 'behavior-hub)

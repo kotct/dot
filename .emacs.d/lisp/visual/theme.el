@@ -8,7 +8,12 @@
   (if (member theme custom-known-themes)
       (enable-theme theme)
     (load-theme theme 'no-confirm))
-  (setf current-theme theme))
+  (setf current-theme theme)
+  (cond ((or (string= current-theme 'solarized-dark)
+	     (string= current-theme 'solarized-light))
+	 (progn
+	   (setf x-underline-at-descent-line t)))
+	(t nil)))
 
 (switch-to-theme 'solarized-dark)
 

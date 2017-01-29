@@ -16,6 +16,18 @@ written under the following principles:
 * Configurations should also have clear error messages handling common
   PEBKAC errors.
 
+## Installation
+
+You can use this command to install our configuration.
+
+    $ curl -fsSL https://raw.githubusercontent.com/kotct/dot/install/scripts/install | sh
+
+This script will interactively ask you if there are any conflicts or
+decisions to be made, but will immediately start installing the
+configuration, so make sure that you are sure of what you want to do.
+You can remove the pipe to `sh` if you want to see what this script
+does.
+
 ## Emacs
 
 The Emacs configuration is the primary focus of this project and is

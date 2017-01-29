@@ -73,6 +73,12 @@ def getc # NOTE only tested on macOS
 ensure
   system "/bin/stty -raw echo"
 end
+
+puts "Press RETURN to make me happy, or any other key to abort"
+
+c = getc
+puts " 0x#{c.to_s(16)}"
+abort unless (c == 13) || (c == 10)
 # Drop sudo privileges (really just invalidate the timestamp)
 # prior to exiting, if sudo had been used.
 Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"

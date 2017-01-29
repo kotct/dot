@@ -10,6 +10,8 @@
 
         ;; THEMES
         solarized-theme
+
+        magit ;; make Git and Emacs both way cooler
         )
       "A list of all packages required for operation.")
 

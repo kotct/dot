@@ -1,5 +1,5 @@
 (kotct/hub "behavior"
-           (completion
+           (completion-c
             pane-management
             window-management
             text))

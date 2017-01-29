@@ -57,7 +57,9 @@ Fetch the personal config from GitHub if it doesn't exist locally."
           (kotct/user-fetch-config username)
         (error "No config for %s." username)))
     (add-to-list 'load-path personal-dir)
+    (message "Loading @%s's configuration..." username)
     (require (intern (concat username "-hub")))
+    (message "Loaded successfully!")
     (setf kotct/user-current-username username)))
 
 (defun kotct/user-ask-username (prompt)

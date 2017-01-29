@@ -1,5 +1,5 @@
 (kotct/hub "visual"
-           (;mode-line
-            linum-c))
+           (linum-c
+            startup-c))
 
 (provide 'visual-hub)

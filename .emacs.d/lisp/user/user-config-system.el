@@ -10,6 +10,10 @@
   "~/.emacs.d/lisp/user/default-username"
   "The file that sets the default username for the machine.  (Ignored by git.)")
 
+(defmacro kotct/personal-packages (&rest packages)
+  (setf kotct/dependency-list (append kotct/dependency-list packages))
+  (kotct/check-dependency-list))
+
 (defun kotct/run-git (&rest args)
   "Run a git command, specified by ARGS."
   (let ((process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))

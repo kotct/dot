@@ -25,7 +25,7 @@ If UPDATE is non-nil, out-of-date packages will be updated."
   (unless no-refresh (package-refresh-contents))
 
   (let ((install-list nil))
-    (dolist (package dependency-list)
+    (dolist (package kotct/dependency-list)
 
       (let ((updating nil))
         (if (or (not (package-installed-p package))

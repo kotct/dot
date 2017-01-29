@@ -15,7 +15,8 @@
 repository USERNAME/.emacs."
   (message "fetching config for %s" username)
   (let ((default-directory "~/.emacs.d/lisp/user/users")
-        (url (format "git@github.com:%s/.emacs.git" username)))
+        (url (format "https://github.com/%s/.emacs.git" username))
+        (process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))
     (with-temp-buffer
       (let ((exit-code (apply 'call-process
                               (list (executable-find "git")

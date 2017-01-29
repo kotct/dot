@@ -99,7 +99,9 @@ class Version
 
 end
 
-# Drop sudo privileges (really just invalidate the timestamp)
-# prior to exiting, if sudo had been used.
+# If sudo is still active, (we can still use sudo because our session
+# hasn't timed out) store a time stamp to refresh our session.
+#
+# If this worked, then set an at_exit call.
 Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"
 at_exit { Kernel.system "#{DOT_SUDO}", "-k" } unless $?.success?

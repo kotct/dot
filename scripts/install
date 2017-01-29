@@ -61,6 +61,18 @@ def sudo(*args)
   ohai DOT_SUDO, *args
   system DOT_SUDO, *args
 end
+
+def getc # NOTE only tested on macOS
+	system "/bin/stty raw -echo"
+
+  if STDIN.respond_to?(:getbyte)
+    STDIN.getbyte
+  else
+    STDIN.getc
+  end
+ensure
+  system "/bin/stty -raw echo"
+end
 # Drop sudo privileges (really just invalidate the timestamp)
 # prior to exiting, if sudo had been used.
 Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"

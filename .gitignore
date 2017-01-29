@@ -5,3 +5,4 @@
 # in development mode.
 .saves/
 .gnupg/
+.cache/

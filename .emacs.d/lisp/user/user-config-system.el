@@ -1,12 +1,23 @@
 ;;; C-x C-z: switch personal configs
 
+(require 'git)
+
 (defvar kotct/user-current-username
   nil
   "The username associated with the currently loaded personal config.")
 
 (defun kotct/user-fetch-config (username)
   (message "fetching config for %s" username)
-  (error "not gonna happen cause i suck"))
+  (let ((default-directory "~/.emacs.d/lisp/user/users")
+        (url (format "git://github.com/%s/.emacs" username)))
+    (with-temp-buffer
+      (let ((exit-code (apply 'call-process
+                              (list (executable-find "git")
+                                    nil (current-buffer) nil
+                                    "--no-pager" "clone" url username))))
+        (if (zerop exit-code)
+            (buffer-string)
+          (error "Error cloning %s\n%s" url (buffer-string)))))))
 
 (defun kotct/user-get-default-username ()
   "Look up the default username set on this machine."
@@ -42,13 +53,16 @@ If USERNAME is nil, prompt for a username."
   (unless username
     (setf username
           (ido-completing-read "Switch to username: "
-                               (cddr (directory-files "~/.emacs.d/lisp/user/users/")))))
+                               (directory-files "~/.emacs.d/lisp/user/users/" nil "^[^.].*$"))))
   (kotct/user-unload-username)
   ;; make sure that if the load fails we reload the stuff we just unloaded
   ;; so that we are actually loaded with current-username's config
+
+  (message "loading with username: %s" username)
   (condition-case err
       (kotct/user-load-username username)
-    (error (kotct/user-load-username kotct/user-current-username)
+    (test (message "handling error, username: %s" kotct/user-current-username)
+           (kotct/user-load-username kotct/user-current-username)
            (signal (car err) (cdr err))))
   ;; maybe then also reload/rerun all the hooks and stuff for open buffers
   )

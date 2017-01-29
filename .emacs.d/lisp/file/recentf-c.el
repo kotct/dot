@@ -3,12 +3,13 @@
 ;; require is okay because recentf will be autoloaded at the end of this
 ;; file anyway if we don't require it now, and we need some of its definitions
 (require 'recentf)
+(require 'cl)
 
 ;; only keep last 200 recent files
 (setf recentf-max-saved-items 200)
 
 ;; save every five minutes
-(run-at-time nil (* 5 60) 'recentf-save-list)
+(run-at-time t (* 5 60) #'recentf-save-list)
 
 ;; recentf completion using ido
 (defun kotct/ido-recentf-open ()

@@ -16,6 +16,31 @@ written under the following principles:
 * Configurations should also have clear error messages handling common
   PEBKAC errors.
 
+## Installation
+
+You can use this command to install our configuration.  (Ruby must be
+installed for this to work, so make sure you have done that.)
+
+    \ruby -e "$(\curl -fsSL https://raw.githubusercontent.com/kotct/dot/master/scripts/install)"
+
+This script will interactively ask you if there are any conflicts or
+decisions to be made, but will immediately start installing the
+configuration, so make sure that you are sure of what you want to do.
+
+This script assumes a fairly regular system with the requisite
+software installed, so if you are in an esoteric environment, you can
+plan on manually installing this by symlinking into `~`.  If something
+breaks down on a normal system, (like Ubuntu, Fedora) please open an
+Issue and we will get back to you ASAP.
+
+If your system is running an older version of a dependency software,
+(i.e. Emacs < 25.1, Ruby < 2.4) please do your best to update to the
+latest version directly available from your package manager.  If an
+issue is not reproducible on our system, we cannot fix it.
+
+It is worth noting that you should be able to simply simlink the
+respective files and directories into your `HOME` directory.
+
 ## Emacs
 
 The Emacs configuration is the primary focus of this project and is

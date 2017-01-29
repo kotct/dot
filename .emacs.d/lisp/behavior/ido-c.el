@@ -13,11 +13,11 @@
 Should be either 'grid, 'vertical, or 'normal.")
 
 (defun kotct/ido-unset-menu-mode ()
-    "Unsets the current menu mode for ido, to allow a new mode to be set."
-    (cond ((eq kotct/ido-current-menu-mode 'grid)
-           (ido-grid-mode -1))
-          ((eq kotct/ido-current-menu-mode 'vertical)
-           (ido-vertical-mode -1))))
+  "Unsets the current menu mode for ido, to allow a new mode to be set."
+  (cond ((eq kotct/ido-current-menu-mode 'grid)
+         (ido-grid-mode -1))
+        ((eq kotct/ido-current-menu-mode 'vertical)
+         (ido-vertical-mode -1))))
 
 (defun kotct/ido-set-menu-mode (mode)
   "Set ido to use a menu type MODE.
@@ -38,12 +38,5 @@ MODE is a symbol which can be grid (default), vertical, or normal."
 
 ;; default to grid mode
 (kotct/ido-set-menu-mode 'grid)
-
-
-;;; smex
-(smex-initialize)
-(global-set-key (kbd "M-x") #'smex)
-;; keep things contained within ~/.emacs.d
-(setf smex-save-file "~/.emacs.d/smex-items")
 
 (provide 'ido-c)

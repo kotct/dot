@@ -84,6 +84,21 @@ def wait_for_user
 	abort unless (c == 13) || (c == 10)
 end
 
+class Version
+
+	include Comparable
+	attr_reader :parts
+
+	def initialize(str)
+		@parts = str.split(".").map(&:to_i)
+	end
+
+	def <=>(other)
+		parts <=> self.class.new(other).parts
+	end
+
+end
+
 # Drop sudo privileges (really just invalidate the timestamp)
 # prior to exiting, if sudo had been used.
 Kernel.system "#{DOT_SUDO} -n -v >#{DOT_NULL} 2>&1"

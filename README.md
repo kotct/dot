@@ -64,15 +64,27 @@ IDE-level support for many languages.
 - Make sure everything is well-thought-out and well-documented.
 - Have clear error messages handling most user fuckups.
 
+### Personal Configs
+
+To create a personal config, create a personal, public GitHub repo 
+called `.emacs`. Emacs may prompt you to add a "personal config" on 
+start. If your emacs is already up and running, and no longer prompts 
+you as such, you can add your personal config by doing 
+`M-x kotct/user-set-default-username`. Emacs will automatically grab
+your config from GitHub and load it. The clone that emacs uses is 
+stored in a directory named after your GitHub username in 
+`.emacs.d/lisp/user/users/`.
+
+To update the clone of your personal config, do 
+`M-x kotct/user-update-config`. In addition, to switch to another user
+config, do `C-x C-z`.
+
 ### Structure
 
-Currently the rewrite is stored in the `new.emacs.d` directory.
-Symlink this to `~/.emacs.d` to use the config.
-
-Within the base `.emacs.d` directory, the only checked-in file is
-`init.el`.  This file contains any code that must be loaded before the
-elisp hubs and any code that manages loading, autoloading, or byte
-compilation.
+Within the base `.emacs.d` directory, the only checked-in emacs lisp 
+file is `init.el`.  This file contains any code that must be loaded
+before the elisp hubs and any code that manages loading, autoloading, 
+or byte compilation.
 
 All other codes is organized into directories based on language.  For
 instance, all emacs lisp code goes into the `lisp` directory, and ruby

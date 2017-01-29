@@ -2,6 +2,7 @@
            (linum-c
             startup-c
             frame-c
-            text-visuals))
+            text-visuals
+            theme))
 
 (provide 'visual-hub)

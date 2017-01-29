@@ -1,7 +1,8 @@
 (kotct/hub "behavior"
            (ido-c
             smex-c
+            pane-management
             window-management
-            theme))
+            text))
 
 (provide 'behavior-hub)

@@ -1,30 +1,22 @@
-(defun close-current-frame-or-emacs (&optional arg)
-  "Closes the current frame or Emacs.
+;;; C-s-l: switch focus to window above current
+;;; C-s-k: switch focus to window below current
+;;; C-s-j: switch focus to window to the left of current
+;;; C-s-;: switch focus to window to the right of current
+;;; C-M-s-l: move current buffer to window above current
+;;; C-M-s-k: move current buffer to window below current
+;;; C-M-s-j: move current buffer to window to the left of current
+;;; C-M-s-;: move current buffer to window to the right of current
 
-Kills Emacs if 1 frame is in (frame-list) and not a server process,
-or if passed an argument, but just current frame if otherwise."
-  (interactive "P")
+;;; windmove
+(global-set-key (kbd "C-s-l") #'windmove-up)
+(global-set-key (kbd "C-s-k") #'windmove-down)
+(global-set-key (kbd "C-s-j") #'windmove-left)
+(global-set-key (kbd "C-s-;") #'windmove-right)
 
-  (condition-case nil
-      (let ((frame-list (frame-list)))
-        (if (or (= (length frame-list) 1) arg)
-            (if (not (boundp 'server-process))
-                (if (y-or-n-p "Kill Emacs?")
-                    (kill-emacs)
-                  (message "Didn't do anything, promise!"))
-              (if (y-or-n-p "Kill Emacs?")
-                  (kill-emacs)
-                (if (y-or-n-p "Delete current frame?")
-                    (delete-frame)
-                  (message "Didn't do anything, promise!"))))
-          (delete-frame)))
-    (error (kill-emacs))))
-
-;; bind old C-x C-c to C-c C-x C-c
-(global-set-key (kbd "C-c C-x C-c") (key-binding (kbd "C-x C-c")))
-(global-set-key (kbd "C-x C-c") #'close-current-frame-or-emacs)
-
-;; Set yes-or-no prompt to y or n
-(fset 'yes-or-no-p 'y-or-n-p)
+;;; buffer-move
+(global-set-key (kbd "C-M-s-l") #'buf-move-up)
+(global-set-key (kbd "C-M-s-k") #'buf-move-down)
+(global-set-key (kbd "C-M-s-j") #'buf-move-left)
+(global-set-key (kbd "C-M-s-;") #'buf-move-right)
 
 (provide 'window-management)

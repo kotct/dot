@@ -1,7 +1,6 @@
-(setq dependency-list
+(defvar dependency-list
       '(linum-off ;; turn linum off in certain modes
-        ))
-
-;;; TODO check to make sure all dependencies are installed before continuing
+        )
+      "A list of all packages required for operation.")
 
 (provide 'dependencies)

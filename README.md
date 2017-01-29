@@ -125,7 +125,11 @@ be loaded after the package is autoloaded.
 
 ### Byte compilation
 
-Still in progress.
+All files are automatically bytecompiled asynchnonously after emacs
+starts. This aims to be a totally hands-off experience. That said,
+any files more than one subdirectory below the `lisp/` directory
+need to be manually added to `kotct/files-to-compile`, which keeps
+track of all the files that are to be byte compiled.
 
 ### Keybindings
 

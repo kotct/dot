@@ -1,20 +1,20 @@
-(defvar current-theme
+(defvar kotct/current-theme
   nil
   "The currently enabled theme.")
 
-(defun switch-to-theme (theme)
+(defun kotct/switch-to-theme (theme)
   "Enable the theme THEME. Disable the current theme."
-  (if current-theme (disable-theme current-theme))
+  (if kotct/current-theme (disable-theme kotct/current-theme))
   (if (member theme custom-known-themes)
       (enable-theme theme)
     (load-theme theme 'no-confirm))
-  (setf current-theme theme)
-  (cond ((or (string= current-theme 'solarized-dark)
-	     (string= current-theme 'solarized-light))
+  (setf kotct/current-theme theme)
+  (cond ((or (string= kotct/current-theme 'solarized-dark)
+	     (string= kotct/current-theme 'solarized-light))
 	 (progn
 	   (setf x-underline-at-descent-line t)))
 	(t nil)))
 
-(switch-to-theme 'solarized-dark)
+(kotct/switch-to-theme 'solarized-dark)
 
 (provide 'theme)

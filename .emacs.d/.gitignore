@@ -1,0 +1,20 @@
+# autosaves
+*~
+\#*\#
+
+# compiled files
+*.elc
+
+# various files
+ac-comphist.dat
+smex-items
+ido.last
+tramp
+.emacs.desktop
+.emacs.desktop.lock
+network-security.data
+session.*
+recentf
+
+# packages
+elpa/

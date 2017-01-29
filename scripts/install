@@ -2,5 +2,7 @@
 
 DOT_HOME = ENV['HOME'].freeze
 
+# Drop sudo privileges (really just invalidate the timestamp)
+# prior to exiting, if sudo had been used.
 Kernel.system "/usr/bin/sudo -n -v >/dev/null 2>&1"
 at_exit { Kernel.system "/usr/bin/sudo", "-k" } unless $?.success?

@@ -1,6 +1,7 @@
-(kotct/hub "packgae"
+(kotct/hub "package"
            (dependencies
-            repositories)
+            repositories
+            verification)
            (packup))
 
 (provide 'package-hub)

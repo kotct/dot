@@ -5,6 +5,9 @@
         smex ;; ido-enabled M-x
         anzu ;; nicer search environment
         volatile-highlights ;; highlight changed areas
+
+        ;; THEMES
+        solarized-theme
         )
       "A list of all packages required for operation.")
 

@@ -2,6 +2,17 @@
 
 DOT_HOME = ENV['HOME'].freeze
 
+module Tty
+
+  module_function
+
+
+  def escape(n)
+    "\033[#{n}m" if STDOUT.tty?
+  end
+
+end
+
 # Drop sudo privileges (really just invalidate the timestamp)
 # prior to exiting, if sudo had been used.
 Kernel.system "/usr/bin/sudo -n -v >/dev/null 2>&1"

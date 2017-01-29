@@ -1,6 +1,5 @@
 (kotct/hub "behavior"
-           (ido-c
-            smex-c
+           (completion
             pane-management
             window-management
             text))

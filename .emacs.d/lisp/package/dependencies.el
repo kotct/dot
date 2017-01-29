@@ -5,6 +5,8 @@
         smex ;; ido-enabled M-x
         anzu ;; nicer search environment
         volatile-highlights ;; highlight changed areas
+        buffer-move ;; easily move buffers between windows
+        expand-region ;; expand region to successively larger sexps
 
         ;; THEMES
         solarized-theme

@@ -4,3 +4,5 @@
 
 (setq-default indent-tabs-mode nil)
 (setf backward-delete-char-untabify-method nil)
+
+(provide 'indentation)

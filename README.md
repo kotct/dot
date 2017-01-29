@@ -147,8 +147,9 @@ Up for debate:
 - When referencing a function name, always use a function quote (`#'`)
   instead of a regular quote (`'`). This function quote (or funquote)
   translates to a call to `function` instead of `quote`.
-- As described in the Autoloading section, avoid `require` and use
-  `with-eval-after-load`.
+- As described in
+  the [Autoloading](https://github.com/kotct/dot#autoloading) section,
+  avoid `require` and use `with-eval-after-load`.
 - Make sure all `defun`s, `defvar`s, and `defmacro`s (and any other
   global definitions) have docstrings that are properly formatted.
 - Comment when it's not immediately clear what the code is doing.

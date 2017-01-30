@@ -11,6 +11,7 @@
   "The file that sets the default username for the machine.  (Ignored by git.)")
 
 (defmacro kotct/personal-packages (&rest packages)
+  "Appends PACKAGES to `kotct/dependency-list'"
   (setf kotct/dependency-list (append kotct/dependency-list packages))
   (kotct/check-dependency-list))
 

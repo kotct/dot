@@ -12,9 +12,7 @@
     markdown-mode ;; major mode for markdown
 
     ;; THEMES
-    solarized-theme
-    material-theme
-    )
+    solarized-theme)
   "A list of all packages required for operation.")
 
 (provide 'dependencies)

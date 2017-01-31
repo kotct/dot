@@ -10,6 +10,7 @@
     magit ;; make Git and Emacs both way cooler
     auto-complete ;; code autocompletion
     markdown-mode ;; major mode for markdown
+    smart-tabs-mode ;; indentation with tabs and spaces
 
     ;; THEMES
     solarized-theme)

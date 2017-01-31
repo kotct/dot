@@ -55,7 +55,7 @@ If USERNAME is nil, the value of `kotct/user-current-username' is used."
           (insert-file-contents filename)
           (replace-regexp-in-string "\n\\'" "" (buffer-string)))
       (if (y-or-n-p "Would you like to set a default personal config?")
-          (kotct/user-write-default-username)
+          (kotct/user-write-default-username (kotct/user-ask-username "Choose default username: "))
         ;; default to base-config, save so that we don't keep asking
         (kotct/user-write-default-username "base-config")))))
 
@@ -63,13 +63,12 @@ If USERNAME is nil, the value of `kotct/user-current-username' is used."
   "Set the default username to USERNAME, and switch to USERNAME's personal config.
 If USERNAME is nil, prompt the user for the username."
   (interactive)
+  (unless username (setf username (kotct/user-ask-username "Choose default username: ")))
   (kotct/user-write-default-username username)
   (kotct/user-switch-username username))
 
-(defun kotct/user-write-default-username (&optional username)
-  "Write the default username as USERNAME to `kotct/user-default-username-file'.
-If USERNAME is nil, prompt the user for the username."
-  (unless username (setf username (kotct/user-ask-username "Choose default username: ")))
+(defun kotct/user-write-default-username (username)
+  "Write the default username as USERNAME to `kotct/user-default-username-file'. "
   (with-temp-file kotct/user-default-username-file
     (erase-buffer)
     (insert username))
@@ -103,6 +102,7 @@ Fetch the personal config from GitHub if it doesn't exist locally."
   "Unload the current personal config and load USERNAME's personal config.
 If USERNAME is nil, prompt for a username."
   (interactive)
+  (message "switch: %s" username)
   (unless username
     (setf username
           (kotct/user-ask-username "Switch to username: ")))

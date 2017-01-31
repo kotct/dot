@@ -38,9 +38,11 @@ repository USERNAME/.emacs."
 
 (defun kotct/user-update-config (&optional username)
   "Update USERNAME's personal config git repository.
-If USERNAME is nil, the value of `kotct/user-current-username' is used."
+If USERNAME is nil, prompt for a username."
   (interactive)
-  (unless username (setf username kotct/user-current-username))
+  (unless username
+    (setf username
+          (kotct/user-ask-username "Update config for: " 'require-match)))
   (let ((default-directory (format "~/.emacs.d/lisp/user/users/%s" username)))
     (kotct/run-git "pull" "origin" "master"))
   (if (eq username kotct/user-current-username)
@@ -89,10 +91,18 @@ Fetch the personal config from GitHub if it doesn't exist locally."
     (message "Loaded successfully!")
     (setf kotct/user-current-username username)))
 
-(defun kotct/user-ask-username (prompt)
-  "Use ido to ask the user for a username, prompting the user with PROMPT."
+(defun kotct/user-ask-username (prompt &optional require-match)
+  "Use ido to ask the user for a username, prompting the user with PROMPT.
+
+If REQUIRE-MATCH is non-nil, the user is not allowed to exit
+ unless the input is (or completes to) a file in the
+ ~/.emacs.d/lisp/user/users/ directory or is null.
+
+If REQUIRE-MATCH is non-nil and the input is null, return the
+ value of `kotct/user-current-username'."
   (ido-completing-read prompt
-                       (directory-files "~/.emacs.d/lisp/user/users/" nil "^[^.].*$")))
+                       (directory-files "~/.emacs.d/lisp/user/users/" nil "^[^.].*$")
+                       nil require-match nil nil kotct/user-current-username))
 
 (defun kotct/user-unload-username (&optional username)
   "Unload the personal config of USERNAME, or if USERNAME is nil, `kotct/user-current-username'."

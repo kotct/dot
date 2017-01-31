@@ -11,6 +11,7 @@
   "The file that sets the default username for the machine.  (Ignored by git.)")
 
 (defmacro kotct/personal-packages (&rest packages)
+  "Appends PACKAGES to `kotct/dependency-list'"
   (setf kotct/dependency-list (append kotct/dependency-list packages))
   (kotct/check-dependency-list))
 
@@ -31,7 +32,7 @@
   "Fetch USERNAME's personal config from GitHub, out of the
 repository USERNAME/.emacs."
   (message "fetching config for %s" username)
-  (let ((default-directory "~/.emacs.d/lisp/user/users")
+  (let ((default-directory "~/.emacs.d/lisp/user/users/")
         (url (format "https://github.com/%s/.emacs.git" username)))
     (kotct/run-git "clone" url username)))
 

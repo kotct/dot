@@ -2,7 +2,7 @@
 
 (kotct/hub "code"
            (magit-c
-           indentation
-		   language-hub))
+            indentation
+            language-hub))
 
 (provide 'code-hub)

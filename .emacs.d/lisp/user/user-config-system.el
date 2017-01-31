@@ -38,9 +38,11 @@ repository USERNAME/.emacs."
 
 (defun kotct/user-update-config (&optional username)
   "Update USERNAME's personal config git repository.
-If USERNAME is nil, the value of `kotct/user-current-username' is used."
+If USERNAME is nil, prompt for a username."
   (interactive)
-  (unless username (setf username kotct/user-current-username))
+  (unless username
+    (setf username
+          (kotct/user-ask-username "Update config for: " 'require-match)))
   (let ((default-directory (format "~/.emacs.d/lisp/user/users/%s" username)))
     (kotct/run-git "pull" "origin" "master"))
   (if (eq username kotct/user-current-username)

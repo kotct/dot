@@ -18,10 +18,6 @@
 (setf web-mode-enable-control-block-indentation nil)
 (setf web-mode-script-padding 0)
 
-;; Set the indentation offsets for various web modes.
-(require 'indentation)
-(kotct/setf-tab web-mode-markup-indent-offset)
-(kotct/setf-tab web-mode-css-indent-offset)
-(kotct/setf-tab web-mode-code-indent-offset)
+(add-hook 'web-mode-hook (lambda () (setf indent-tabs-mode t)))
 
 (provide 'web-c)

@@ -1,8 +1,10 @@
+(require 'indentation)
+
 ;; set style to linux
 (setf c-default-style "linux")
 
 ;; use tab-width for indentation
-(setf c-basic-offset tab-width)
+(kotct/setf-tab c-basic-offset)
 
 ;; use smart tabs
 (smart-tabs-insinuate 'c)

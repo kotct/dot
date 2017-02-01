@@ -9,4 +9,19 @@
 
 (add-hook 'editorconfig-custom-hooks 'kotct/editorconfig--disable-smart-tabs-if-indent-tabs-mode-disabled)
 
+(defvar kotct/editorconfig--suppress-core-not-found-warning
+  nil
+  "If non-nil, warning on startup is suppressed.")
+
+(defun kotct/editorconfig-check-for-core (&optional suppress)
+  "Checks if EditorConfig C core is installed.
+
+Debug warning is suppressed if SUPPRESS is non-nil."
+
+  (if (not suppress)
+      (if (not (executable-find editorconfig-exec-path))
+          (lwarn '(editorconfig core) :debug "EditorConfig executable not found."))))
+
+(kotct/editorconfig-check-for-core kotct/editorconfig--suppress-core-not-found-warning)
+
 (provide 'editorconfig-c)

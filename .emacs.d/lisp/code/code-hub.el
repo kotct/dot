@@ -3,6 +3,7 @@
 (kotct/hub "code"
            (magit-c
             indentation
+            code-navigation
             language-hub))
 
 (provide 'code-hub)

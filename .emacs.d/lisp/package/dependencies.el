@@ -13,6 +13,7 @@
     smart-tabs-mode ;; indentation with tabs and spaces
     ace-jump-mode ;; immediately jump to any visible character
     ace-jump-zap ;; zap-to-char but harnessing ace-jump
+    editorconfig ;; editorconfig plugin
 
     ;; THEMES
     solarized-theme)

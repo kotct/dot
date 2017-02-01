@@ -2,6 +2,7 @@
            (completion-c
             pane-management
             window-management
-            text))
+            text
+            ace-jump))
 
 (provide 'behavior-hub)

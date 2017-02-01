@@ -4,31 +4,34 @@
 
 ;; define automated tab-setting system
 (defvar kotct/tab-variable-setters
-  '((global-tab-width . #'set))
+  '((global-tab-width . setf))
   "An alist of symbols representing variables and the method
 used to set them to the tab width 
-(almost always either #'set or #'set-default).")
+(almost always either setf or setq-default).")
 
 (defmacro kotct/setf-tab (var)
   "Set the variable VAR to the tab width and keep it updated
 if the tab width changes."
   `(progn
-     (setf var global-tab-width)
-     (setf kotct/tab-variable-setters (acons var #'set kotct/tab-variable-setters))))
+     (setf ,var global-tab-width)
+     (setf kotct/tab-variable-setters (cons  '(,var . setf) kotct/tab-variable-setters))))
 
 (defmacro kotct/setq-default-tab (var)
   "Set default value of the variable VAR to the tab width 
 and keep it updated if the tab width changes."
   `(progn
-     (setq-default var global-tab-width)
-     (setf kotct/tab-variable-setters (acons var #'set-default kotct/tab-variable-setters))))
+     (setq-default ,var global-tab-width)
+     (setf kotct/tab-variable-setters (cons '(,var . setq-default) kotct/tab-variable-setters))))
 
-(defun kotct/set-tab-width (width)
-  (dolist (pair)
-    (apply (cdr pair) (car pair) (list width))))
+(defmacro kotct/set-tab-width (width)
+  "Set `global-tab-width' and all other associated tab width
+variables in `kotct/tab-variable-setters' to WIDTH."
+  (cons 'progn
+        (mapcar (lambda (pair) (list (cdr pair) (car pair) width))
+                kotct/tab-variable-setters)))
 
-(setq-default-tab tab-width global-tab-width)
-(setf-tab smie-indent-basic global-tab-width)
+(kotct/setq-default-tab tab-width)
+(kotct/setf-tab smie-indent-basic)
 
 ;; by default, don't use tabs
 (setq-default indent-tabs-mode nil)

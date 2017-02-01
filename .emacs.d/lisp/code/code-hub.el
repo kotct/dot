@@ -4,6 +4,7 @@
            (editorconfig-c
             magit-c
             indentation
+            code-navigation
             language-hub))
 
 (provide 'code-hub)

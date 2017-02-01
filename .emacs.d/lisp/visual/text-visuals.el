@@ -7,6 +7,9 @@
 ;; in the mode line.
 (global-anzu-mode +1)
 
+;; Minor mode which highlights TODO, FIXME, DONE, FAIL, etc.
+(add-hook 'prog-mode-hook 'hl-todo-mode)
+
 ;; Any matching parenthesis is highlighted
 (show-paren-mode +1)
 

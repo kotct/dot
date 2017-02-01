@@ -1,5 +1,5 @@
-;; Set ruby-indent-line to global-tab-width
-(setq-default ruby-indent-line global-tab-width)
+;; Set ruby-indent-level to global-tab-width
+(setq-default ruby-indent-level global-tab-width)
 
 ;; Provide advice to Smart Tabs about how to handle Ruby's special
 ;; indentation variables.

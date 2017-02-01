@@ -11,6 +11,8 @@
     auto-complete ;; code autocompletion
     markdown-mode ;; major mode for markdown
     smart-tabs-mode ;; indentation with tabs and spaces
+    ace-jump-mode ;; immediately jump to any visible character
+    ace-jump-zap ;; zap-to-char but harnessing ace-jump
 
     ;; THEMES
     solarized-theme)

@@ -75,7 +75,6 @@ optional argument NO-DIR is non-nil, or its directory otherwise."
 ;; track when directories are opened and closed
 (defun kotct/recentf-track-opened-directory ()
   "Insert the name of the directory just opened with dired into the recent list."
-  (message "add dir %s" dired-directory)
   (and dired-directory
        (recentf-add-file dired-directory)))
 

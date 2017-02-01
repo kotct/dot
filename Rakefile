@@ -13,8 +13,6 @@ RAKEFILES.each do |rakefile|
 
 end
 
-require 'pry'
-
 desc "Runs the install task from all sub-Rakefiles if they have it"
 task :install do
 

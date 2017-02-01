@@ -1,10 +1,6 @@
 ;; Set ruby-indent-level to global-tab-width
 (setq-default ruby-indent-level global-tab-width)
 
-;; ;; Provide advice to Smart Tabs about how to handle Ruby's special
-;; ;; indentation variables.
-;; (smart-tabs-advice ruby-indent-line ruby-indent-level)
-
 ;; Add Smart Tabs language support for Ruby using the
 ;; `smart-tabs-add-language-support' macro.
 (smart-tabs-add-language-support ruby ruby-mode-hook

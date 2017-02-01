@@ -14,6 +14,7 @@
     ace-jump-mode ;; immediately jump to any visible character
     ace-jump-zap ;; zap-to-char but harnessing ace-jump
     hl-todo ;; highlight TODO, FIXME, FAIL, etc.
+    highlight-symbol ;; navigate between and highlight symbols
 
     ;; THEMES
     solarized-theme)

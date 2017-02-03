@@ -16,7 +16,9 @@
 (defvar kotct/sexp-copy-count
   0
   "Number of commands since last `kotct/sexp-copy-as-kill'.")
+
 (add-hook 'pre-command-hook (lambda () (incf kotct/sexp-copy-count)))
+
 (defun kotct/sexp-copy-as-kill (arg)
   "Save next sexp as if killed, but don't kill it, appending if called repeatedly."
   (interactive "p")
@@ -28,6 +30,7 @@
         (append-next-kill))
     (clipboard-kill-ring-save beg (point))
     (setq kotct/sexp-copy-count 0)))
+
 (global-set-key (kbd "C-M-w") #'kotct/sexp-copy-as-kill)
 
 (provide 'text)

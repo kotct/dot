@@ -33,6 +33,9 @@ variables in `kotct/tab-variable-setters' to WIDTH."
 (kotct/setq-default-tab tab-width)
 (kotct/setf-tab smie-indent-basic)
 
+;; Set the base indent variable.
+(kotct/setf-tab standard-indent)
+
 ;; by default, don't use tabs
 (setq-default indent-tabs-mode nil)
 

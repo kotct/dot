@@ -1,4 +1,4 @@
-;;; kotct.emacs
+;;; dot/.emacs
 
 ;;; autoload configuration
 

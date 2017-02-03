@@ -1,7 +1,8 @@
 (defvar languages
   '(c
     elisp
-    ruby)
+    ruby
+    web-c)
   "A list of packages configured by the language-hub.")
 
 (let ((to-compile ()))

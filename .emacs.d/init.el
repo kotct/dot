@@ -87,5 +87,10 @@ Despite this, your config appears to have loaded successfully.")
   (message "Your config appears to have loaded successfully. Rock on!"))
 
 
+(let ((loaddefs-buffer (get-buffer (file-name-nondirectory generated-autoload-file))))
+  (if loaddefs-buffer
+      (kill-buffer loaddefs-buffer)))
+
+
 ;;; custom-set-{variables,faces}
 (setf custom-file "~/.emacs.d/custom.el")

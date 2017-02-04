@@ -17,12 +17,13 @@
     "user")
   "A list of hubs to load at init.")
 
-;; populated by kotct/hub
+;; This variable is `nil' to begin with but gets populated by
+;; `kotct/hub' later on.
 (defvar kotct/files-to-compile
   nil
   "A list of files that ought to be byte-compiled.")
 
-;; used to define hubs in hub files
+;; Used by hubs to register themselves
 (defmacro kotct/hub (hubname features &optional autoloads)
   "Loads the hub denoted by HUBNAME.
 
@@ -48,19 +49,19 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 
             (mapc #'require ,feature-var))))
 
-;; add hub directories to load path
+;; Add hub directories to the load paths.
 (let ((default-directory "~/.emacs.d/lisp/"))
   (add-to-list 'load-path default-directory)
   (normal-top-level-add-to-load-path kotct/hub-list))
 
-;; if byte-compiled files are out of date, load newer version
+;; If byte-compiled files are older, load newer version.
 (let ((load-prefer-newer t))
   ;; require all hubs
   (mapc (lambda (hub)
           (require (intern (concat hub "-hub"))))
         kotct/hub-list))
 
-;; load autoloads
+;; Load the loaddefs.
 (require 'kotct-loaddefs)
 
 
@@ -70,9 +71,9 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
                    (add-to-list 'load-path default-directory)
                    (normal-top-level-add-to-load-path ',kotct/hub-list)
                    (batch-byte-compile t)))
-       ;; command-line args as a list
+       ;; Command-line args as a list
        (args `("config-compilation" "*config-compilation*" "emacs" "--batch" "--eval" ,(format "%S" to-eval) ,@kotct/files-to-compile)))
-  ;; start the process in *config-compilation* buffer
+  ;; Start the process in *config-compilation* buffer
   (apply #'start-process args))
 
 ;; Warn the user about shadowed files on the load path.  This usually
@@ -91,4 +92,6 @@ Despite this, your config appears to have loaded successfully.")
 
 
 ;;; Customization File
+;; We set this to something we don't track because it can be unique
+;; for each system.
 (setf custom-file "~/.emacs.d/custom.el")

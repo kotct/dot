@@ -79,7 +79,8 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
   ;; start the process in *config-compilation* buffer
   (apply #'start-process args))
 
-
+;; Warn the user about shadowed files on the load path.  This usually
+;; happens when one keeps .elc files from removed .el files.
 (if (list-load-path-shadows)
     (message "There are shadowed files on your load path.
 This could indicate an issue with your emacs installation.
@@ -87,6 +88,8 @@ Despite this, your config appears to have loaded successfully.")
   (message "Your config appears to have loaded successfully. Rock on!"))
 
 
+;; Kill the buffer corresponding to `generated-autoload-file'.  After
+;; loading autoloads, we don't need it anymore.
 (let ((loaddefs-buffer (get-buffer (file-name-nondirectory generated-autoload-file))))
   (if loaddefs-buffer
       (kill-buffer loaddefs-buffer)))

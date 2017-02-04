@@ -1,14 +1,13 @@
 ;;; dot/.emacs
 
-;;; autoload configuration
-
 ;; Initialize the package repository.
 (package-initialize)
 
+;;; Autoload Configuration
 (setf generated-autoload-file "~/.emacs.d/lisp/kotct-loaddefs.el")
 
 
-;;; hub initialization
+;;; Hub Initialization
 (defvar kotct/hub-list
   '("package"
     "file"
@@ -65,7 +64,7 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 (require 'kotct-loaddefs)
 
 
-;;; async byte compilation
+;;; Asynchronous Byte Compilation
 (let* ((to-eval `(let ((default-directory "~/.emacs.d/lisp/"))
                    (package-initialize)
                    (add-to-list 'load-path default-directory)
@@ -84,7 +83,6 @@ This could indicate an issue with your emacs installation.
 Despite this, your config appears to have loaded successfully.")
   (message "Your config appears to have loaded successfully. Rock on!"))
 
-
 ;; Kill the buffer corresponding to `generated-autoload-file'.  After
 ;; loading autoloads, we don't need it anymore.
 (let ((loaddefs-buffer (get-buffer (file-name-nondirectory generated-autoload-file))))
@@ -92,5 +90,5 @@ Despite this, your config appears to have loaded successfully.")
       (kill-buffer loaddefs-buffer)))
 
 
-;;; custom-set-{variables,faces}
+;;; Customization File
 (setf custom-file "~/.emacs.d/custom.el")

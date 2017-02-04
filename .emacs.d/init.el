@@ -10,7 +10,6 @@
 
 (setf generated-autoload-file "~/.emacs.d/lisp/kotct-loaddefs.el")
 
-
 ;;; hub initialization
 (defvar kotct/hub-list
   '("package"
@@ -52,6 +51,7 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 
             (mapc #'require ,feature-var))))
 
+
 ;; add hub directories to load path
 (let ((default-directory "~/.emacs.d/lisp/"))
   (add-to-list 'load-path default-directory)
@@ -64,9 +64,9 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
           (require (intern (concat hub "-hub"))))
         kotct/hub-list))
 
+
 ;; load autoloads
 (require 'kotct-loaddefs)
-
 
 ;;; async byte compilation
 (let* ((to-eval `(let ((default-directory "~/.emacs.d/lisp/"))

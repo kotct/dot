@@ -82,7 +82,7 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 
 (if (list-load-path-shadows)
     (message "There are shadowed files on your load path.
-This could indiciate an issue with your emacs installation.
+This could indicate an issue with your emacs installation.
 Despite this, your config appears to have loaded successfully.")
   (message "Your config appears to have loaded successfully. Rock on!"))
 

@@ -18,7 +18,8 @@
     "visual"
     "behavior"
     "code"
-    "user")
+    "user"
+    "system")
   "A list of hubs to load at init.")
 
 ;; populated by kotct/hub

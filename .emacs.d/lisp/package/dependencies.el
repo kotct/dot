@@ -17,6 +17,7 @@
     hl-todo ;; highlight TODO, FIXME, FAIL, etc.
     highlight-symbol ;; navigate between and highlight symbols
     web-mode ;; for editing web files
+    exec-path-from-shell ;; for fixing and unifying environment variables on macOS
 
     ;; THEMES
     solarized-theme)

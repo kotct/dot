@@ -14,8 +14,8 @@
     "visual"
     "behavior"
     "code"
-    "user"
-    "system")
+    "system"
+    "user")
   "A list of hubs to load at init.")
 
 ;; This variable is `nil' to begin with but gets populated by

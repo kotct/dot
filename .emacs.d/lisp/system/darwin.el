@@ -25,7 +25,6 @@ As such, access to things like Homebrew-installed packages is
 restricted.  This function calls the shell and asks it to print
 out the 'PATH' variable after it loads the `.profile'-related
 stuff.  This also respects the user's shell decision."
-
   ;; Only run this once.  After you perform this step, TERM_PROGRAM is
   ;; set, and the path should already be okay.
   (if (not (getenv "TERM_PROGRAM"))

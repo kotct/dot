@@ -53,7 +53,7 @@ stuff.  This also respects the user's shell decision."
 
 (if (eq system-type 'darwin)
     (progn
-      (add-hook 'after-init-hook 'kotct/darwin-maybe-swap-command-option)
-      (add-hook 'after-init-hook 'kotct/darwin-maybe-load-path-from-shell)))
+      (add-hook 'after-init-hook #'kotct/darwin-maybe-swap-command-option)
+      (add-hook 'after-init-hook #'kotct/darwin-maybe-load-path-from-shell)))
 
 (provide 'darwin)

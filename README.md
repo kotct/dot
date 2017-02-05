@@ -21,7 +21,7 @@ written under the following principles:
 You can use this command to install our configuration.  (Ruby must be
 installed for this to work, so make sure you have done that.)
 
-    \ruby -e "$(\curl -fsSL https://raw.githubusercontent.com/kotct/dot/master/scripts/install)"
+    $ \ruby -e "$(\curl -fsSL https://raw.githubusercontent.com/kotct/dot/master/scripts/install)"
 
 This script will interactively ask you if there are any conflicts or
 decisions to be made, but will immediately start installing the
@@ -40,6 +40,14 @@ issue is not reproducible on our system, we cannot fix it.
 
 It is worth noting that you should be able to simply simlink the
 respective files and directories into your `HOME` directory.
+
+You can do this by cloning this repository, then running:
+
+    $ bundle install
+    $ rake install
+
+This is effectively what the above script does, except it allows you
+to clone to your own desired location.
 
 ## Emacs
 

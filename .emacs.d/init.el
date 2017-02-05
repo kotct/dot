@@ -3,6 +3,7 @@
 ;; Initialize the package repository.
 (package-initialize)
 
+
 ;;; Autoload Configuration
 (setf generated-autoload-file "~/.emacs.d/lisp/kotct-loaddefs.el")
 
@@ -14,6 +15,7 @@
     "visual"
     "behavior"
     "code"
+    "system"
     "user")
   "A list of hubs to load at init.")
 

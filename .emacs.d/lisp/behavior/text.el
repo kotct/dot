@@ -33,4 +33,7 @@
 
 (global-set-key (kbd "C-M-w") #'kotct/sexp-copy-as-kill)
 
+;; Always delete trailing whitespace before saving.
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
+
 (provide 'text)

@@ -8,9 +8,11 @@
 ;;; ace jump mode
 (global-set-key (kbd "C-c SPC") #'ace-jump-mode)
 
+
 ;;; expand-region
 (global-set-key (kbd "C-=") #'er/expand-region)
 (global-set-key (kbd "C-+") #'er/contract-region)
+
 
 ;;; appending sexp copy
 (defvar kotct/sexp-copy-count

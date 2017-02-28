@@ -1,21 +1,24 @@
 ;;; C-x C-r: find recent files and directories using recentf
 
-;; require is okay because recentf will be autoloaded at the end of this
-;; file anyway if we don't require it now, and we need some of its definitions
+;; `require' these because we need some of recentf's things now prior
+;; to the autoload at the end of the file.
 (require 'recentf)
 (require 'cl)
 
-;; only keep last 200 recent files
+;; Keep only the last 200 saved items.
 (setf recentf-max-saved-items 200)
 
-;; save every five minutes
+;; Set timer to save `recentf-list' every 5 minutes.
 (run-at-time t (* 5 60) #'recentf-save-list)
 
-;; recentf completion using ido
+;; recentf completion using `ido-mode'
+;;
+;; TODO Remove `~/.emacs.d/recentf` from completion list?
 (defun kotct/ido-recentf-open ()
   "Use `ido-completing-read' to \\[find-file] a recent file"
   (interactive)
-  (let ((recent-alist (kotct/recentf-show-basenames-modified-directories (recentf-menu-elements recentf-max-saved-items))))
+  (let ((recent-alist (kotct/recentf-show-basenames-modified-directories
+                       (recentf-menu-elements recentf-max-saved-items))))
     (if (find-file (assoc-default
                     (ido-completing-read "Find recent file: " (mapcar #'car recent-alist))
                     recent-alist))
@@ -24,12 +27,14 @@
 
 (global-set-key (kbd "C-x C-r") #'kotct/ido-recentf-open)
 
-;; custom recentf additions that can handle directories
+;; Handle directories (incl. remotes) for recentf.
 (defun kotct/file-directory-nonremote-p (filename)
   "Return t if FILENAME names an existing directory.
-Remote directories are assumed to exist unless there is
-already an open connection that we can use to verify existence."
-  (if (or (not (file-remote-p filename)) (file-remote-p filename nil t))
+
+Remote directories are assumed to exist unless there is already
+an open connection that we can use to verify existence."
+  (if (or (not (file-remote-p filename))
+          (file-remote-p filename nil t))
       (file-directory-p filename)
     (string= (substring filename -1) "/")))
 
@@ -47,20 +52,21 @@ optional argument NO-DIR is non-nil, or its directory otherwise."
   ;; as a whole to run in linear time
   (let* ((file-name-directory-translators '())
          (translators-cons nil)
-         (list-for-recentf (mapcar (lambda (item)
-                                     (let ((translated nil))
-                                       (prog1
-                                           (if (kotct/file-directory-nonremote-p (cdr item))
-                                               (progn
-                                                 (setf translated (cdr item))
-                                                 (cons (car item) (directory-file-name (cdr item))))
-                                             item)
-                                         (if translators-cons
-                                             (setf (cdr translators-cons) (list translated)
-                                                   translators-cons (cdr translators-cons))
-                                           (setf file-name-directory-translators (list translated)
-                                                 translators-cons file-name-directory-translators)))))
-                                   l))
+         (list-for-recentf
+          (mapcar (lambda (item)
+                    (let ((translated nil))
+                      (prog1
+                          (if (kotct/file-directory-nonremote-p (cdr item))
+                              (progn
+                                (setf translated (cdr item))
+                                (cons (car item) (directory-file-name (cdr item))))
+                            item)
+                        (if translators-cons
+                            (setf (cdr translators-cons) (list translated)
+                                  translators-cons (cdr translators-cons))
+                          (setf file-name-directory-translators (list translated)
+                                translators-cons file-name-directory-translators)))))
+                  l))
          (list-with-basenames (recentf-show-basenames list-for-recentf no-dir)))
     (mapcar (lambda (item)
               (if (equal item '("" . "/"))
@@ -87,7 +93,7 @@ That is, remove a non kept directory from the recent list."
 (add-to-list 'recentf-used-hooks '(dired-mode-hook  kotct/recentf-track-opened-directory))
 (add-to-list 'recentf-used-hooks '(kill-buffer-hook kotct/recentf-track-closed-directory))
 
-;; enable recentf-mode
+;; Finally, enable `recentf-mode'
 (recentf-mode 1)
 
 (provide 'recentf-c)

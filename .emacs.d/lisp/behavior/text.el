@@ -9,6 +9,10 @@
 (global-set-key (kbd "C-c SPC") #'ace-jump-mode)
 
 
+;;; jump to line
+(global-set-key (kbd "C-x g") #'goto-line)
+
+
 ;;; expand-region
 (global-set-key (kbd "C-=") #'er/expand-region)
 (global-set-key (kbd "C-+") #'er/contract-region)

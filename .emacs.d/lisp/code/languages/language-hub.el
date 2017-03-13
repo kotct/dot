@@ -1,5 +1,6 @@
 (defvar languages
   '(c
+    elixir
     elisp
     ruby
     web-c)

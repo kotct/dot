@@ -1,6 +1,7 @@
 (defvar languages
   '(c
     elisp
+    elixir
     ruby
     web-c)
   "A list of packages configured by the language-hub.")

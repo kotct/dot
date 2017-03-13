@@ -1,3 +1,5 @@
+;; for editing Elixir code
+
 (require 'elixir-mode)
 
-(provide 'elixir-configuration)
+(provide 'elixir)

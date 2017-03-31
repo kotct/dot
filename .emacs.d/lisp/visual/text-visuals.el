@@ -1,3 +1,8 @@
+;;; (rebind) C-x C-+: increases font size by scaling `:height' frame parameter
+;;; (rebind) C-x C-=: increases font size by scaling `:height' frame parameter
+;;; (rebind) C-x C--: decreases font size by scaling `:height' frame parameter
+;;; (rebind) C-x C-0: resets font size to `kotct/font-default-height'
+
 ;; Minor mode to provide visual feedback for
 ;; some operations.
 (require 'volatile-highlights)
@@ -57,7 +62,7 @@
 ;; Reset the font height to the default.
 (kotct/font-reset-height)
 
-;; Any matching parenthesis is highlighted
+;; Any matching parenthesis is highlighted.
 (show-paren-mode +1)
 
 (provide 'text-visuals)

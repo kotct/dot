@@ -1,4 +1,5 @@
 ;;; C-c SPC: jump to any visible word
+;;; M-z: like C-c SPC but deletes all characters between and including point and the destination char
 ;;; C-=: expand reigon to surrounding sexp
 ;;; C-+: undo C-=
 ;;; C-M-w: copy sexp to kill ring, appending if called repeatedly
@@ -7,6 +8,10 @@
 
 ;;; ace jump mode
 (global-set-key (kbd "C-c SPC") #'ace-jump-mode)
+
+;; save zapped chars to kill ring
+(setf ajz/zap-function #'kill-region)
+(global-set-key (kbd "M-z") #'ace-jump-zap-to-char)
 
 
 ;;; jump to line

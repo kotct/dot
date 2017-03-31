@@ -1,7 +1,5 @@
 ;;; C-x C-z: switch personal configs
 
-(require 'git)
-
 (defvar kotct/user-current-username
   nil
   "The username associated with the currently loaded personal config.")

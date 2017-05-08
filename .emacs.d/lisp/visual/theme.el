@@ -9,11 +9,11 @@
       (enable-theme theme)
     (load-theme theme 'no-confirm))
   (setf kotct/current-theme theme)
-  (cond ((or (string= kotct/current-theme 'solarized-dark)
-	     (string= kotct/current-theme 'solarized-light))
-	 (progn
-	   (setf x-underline-at-descent-line t)))
-	(t nil)))
+  ;; make specific theme customizations
+  (cond ((or (eq kotct/current-theme 'solarized-dark)
+             (eq kotct/current-theme 'solarized-light))
+         (progn
+           (setf x-underline-at-descent-line t)))))
 
 (kotct/switch-to-theme 'solarized-dark)
 

@@ -2,6 +2,10 @@
 ;;; (rebind) C-x C-=: increases font size by scaling `:height' frame parameter
 ;;; (rebind) C-x C--: decreases font size by scaling `:height' frame parameter
 ;;; (rebind) C-x C-0: resets font size to `kotct/font-default-height'
+;;; (rebind) C-s / C-r: isearch with all matches highlighted and match count in mode line
+;;; (rebind) C-M-s / C-M-r: regexp isearch with all matches highlighted and match count in mode line
+;;; (rebind) M-%: query-replace with all matches highlighted and match count in mode line
+;;; (rebind) C-M-%: query-replace-regexp with all matches highlighted and match count in mode line
 
 ;; Minor mode to provide visual feedback for
 ;; some operations.
@@ -11,6 +15,8 @@
 ;; Minor mode which displays search information
 ;; in the mode line.
 (global-anzu-mode +1)
+(global-set-key [remap query-replace] #'anzu-query-replace)
+(global-set-key [remap query-replace-regexp] #'anzu-query-replace-regexp)
 
 ;; Minor mode which highlights TODO, FIXME, DONE, FAIL, etc.
 (add-hook 'prog-mode-hook 'hl-todo-mode)

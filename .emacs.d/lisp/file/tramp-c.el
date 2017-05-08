@@ -11,9 +11,9 @@ Will also prompt for a file to visit if current
 buffer is not visiting a file."
   (interactive "P")
   (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:"
+      (find-file (concat "/sudo::"
                          (ido-read-file-name "Find file (as root): ")))
-    (find-alternate-file (concat "/sudo:" buffer-file-name))))
+    (find-alternate-file (concat "/sudo::" buffer-file-name))))
 
 (global-set-key (kbd "C-c C-f") #'kotct/sudo-edit)
 

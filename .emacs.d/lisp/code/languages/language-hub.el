@@ -3,6 +3,7 @@
     elisp
     elixir
     ruby
+    java
     web-c)
   "A list of packages configured by the language-hub.")
 

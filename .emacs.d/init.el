@@ -56,15 +56,32 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
   (add-to-list 'load-path default-directory)
   (normal-top-level-add-to-load-path kotct/hub-list))
 
-;; If byte-compiled files are older, load newer version.
-(let ((load-prefer-newer t))
-  ;; require all hubs
-  (mapc (lambda (hub)
-          (require (intern (concat hub "-hub"))))
-        kotct/hub-list))
+(defun kotct/load-hubs (&optional frame)
+  "Does the majority of initialization for dot/.emacs,
+by loading the hubs defined in `kotct/hub-list'.
 
-;; Load the loaddefs.
-(require 'kotct-loaddefs)
+Pass FRAME if the function is being called on `after-make-frame-functions'
+and we need to remove the hook and specifically use the frame."
+  ;; If byte-compiled files are older, load newer version.
+  (let ((load-prefer-newer t))
+    (when frame
+      (select-frame frame)
+      ;; second run, we already have the resources to verify packages
+      (kotct/check-dependency-list frame)
+      (remove-hook 'after-make-frame-functions #'kotct/load-hubs))
+    ;; require all hubs
+    (mapc (lambda (hub)
+            (require (intern (concat hub "-hub"))))
+          kotct/hub-list)
+    ;; Load the loaddefs.
+    (require 'kotct-loaddefs)))
+
+;; if we are running in daemon-mode and some packages aren't installed,
+;; wait until a frame is created to finish loading
+(if (eq 'daemon-mode
+        (catch 'daemon-mode
+          (kotct/load-hubs)))
+    (add-hook 'after-make-frame-functions #'kotct/load-hubs))
 
 
 ;;; Asynchronous Byte Compilation

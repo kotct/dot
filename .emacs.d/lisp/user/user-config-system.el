@@ -55,10 +55,12 @@ If USERNAME is nil, prompt for a username."
         (with-temp-buffer
           (insert-file-contents filename)
           (replace-regexp-in-string "\n\\'" "" (buffer-string)))
-      (if (y-or-n-p "Would you like to set a default personal config?")
-          (kotct/user-write-default-username (kotct/user-ask-username "Choose default username: "))
-        ;; default to base-config, save so that we don't keep asking
-        (kotct/user-write-default-username "base-config")))))
+      (if (string= (terminal-name (frame-terminal frame)) "initial_terminal")
+          (throw 'daemon-mode 'daemon-mode)
+        (if (y-or-n-p "Would you like to set a default personal config?")
+            (kotct/user-write-default-username (kotct/user-ask-username "Choose default username: "))
+          ;; default to base-config, save so that we don't keep asking
+          (kotct/user-write-default-username "base-config"))))))
 
 (defun kotct/user-set-default-username (&optional username)
   "Set the default username to USERNAME, and switch to USERNAME's personal config.

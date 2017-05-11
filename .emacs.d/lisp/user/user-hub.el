@@ -1,4 +1,5 @@
 (kotct/hub "user"
-           (user-config-system))
+           (user-config-system
+            machine-local))
 
 (provide 'user-hub)

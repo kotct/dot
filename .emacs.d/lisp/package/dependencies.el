@@ -18,6 +18,7 @@
     highlight-symbol ;; navigate between and highlight symbols
     web-mode ;; for editing web files
     elixir-mode ;; for editing Elixir code
+    rust-mode ;; for editing Rust code
 
     ;; THEMES
     solarized-theme)

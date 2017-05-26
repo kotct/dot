@@ -1,5 +1,14 @@
-(let ((dot-config (concat (file-name-directory (or (getenv "XDG_CONFIG_HOME") "~/.config/")) "dot/"))
-      (emacs-subdir "emacs/"))
-  (load (concat dot-config emacs-subdir "init") 'noerror nil nil 'must-suffix))
+(defun kotct/dot-config-directory ()
+  "Returns the directory name for where our machine-local Dot configuration directory should be."
+  (concat (file-name-directory (or (getenv "XDG_CONFIG_HOME") "~/.config")) "dot/"))
+
+(defun kotct/dot-emacs-config-directory ()
+  "Returns the directory name for where our machine-local Emacs subconfiguration directory should be."
+  (let ((dot-config-dir (kotct/dot-config-directory))
+        (emacs-subdir "emacs/"))
+    (concat dot-config-dir emacs-subdir)))
+
+(let (emacs-config-directory (kotct/dot-emacs-config-directory))
+  (load (concat emacs-config-directory "init") 'noerror nil nil 'must-suffix))
 
 (provide 'machine-local)

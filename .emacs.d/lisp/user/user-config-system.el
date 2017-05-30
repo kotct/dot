@@ -124,7 +124,7 @@ If USERNAME is nil, prompt for a username."
   (message "Loading for username: %s" username)
   (condition-case err
       (kotct/user-load-username username)
-    (test (message "Handling error, username: %s" kotct/user-current-username)
+    (error (message "Handling error, username: %s" kotct/user-current-username)
            (kotct/user-load-username kotct/user-current-username)
            (signal (car err) (cdr err))))
   ;; maybe then also reload/rerun all the hooks and stuff for open buffers

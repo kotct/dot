@@ -19,6 +19,8 @@
     web-mode ;; for editing web files
     elixir-mode ;; for editing Elixir code
     rust-mode ;; for editing Rust code
+    tern ;; IDE-level JS support
+    tern-auto-complete ;; ac support with tern
 
     ;; THEMES
     solarized-theme)

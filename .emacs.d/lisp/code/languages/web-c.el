@@ -20,4 +20,12 @@
 
 (add-hook 'web-mode-hook (lambda () (setf indent-tabs-mode t)))
 
+;; add IDE-level JS support through tern
+;; must have tern executable installed
+;; easiest way is just to do `npm i -g tern`
+(when (executable-find "tern")
+  (add-hook 'web-mode-hook (lambda () (tern-mode +1)))
+  (with-eval-after-load 'tern
+    (tern-ac-setup)))
+
 (provide 'web-c)

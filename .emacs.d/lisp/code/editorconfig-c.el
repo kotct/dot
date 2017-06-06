@@ -23,7 +23,7 @@ Debug warning is suppressed if SUPPRESS is non-nil."
 
   (if (not suppress)
       (if (not (executable-find editorconfig-exec-path))
-          (lwarn '(editorconfig core) :debug "EditorConfig executable not found."))))
+          (message "EditorConfig C Core not found in `editorconfig-exec-path'."))))
 
 (kotct/editorconfig-check-for-core kotct/editorconfig-suppress-core-not-found-warning)
 

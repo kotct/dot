@@ -19,6 +19,7 @@
     web-mode ;; for editing web files
     elixir-mode ;; for editing Elixir code
     rust-mode ;; for editing Rust code
+    buttercup ;; for tests
 
     ;; THEMES
     solarized-theme)

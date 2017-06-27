@@ -1,0 +1,17 @@
+language: emacs-lisp
+sudo: false
+cache: apt
+env:
+  - EVM_EMACS=emacs-25.1-travis
+  - EVM_EMACS=emacs-25.2-travis
+before_install:
+  - export PATH="/home/travis/.evm/bin:$PATH"
+  - git clone https://github.com/rejeep/evm.git /home/travis/.evm
+  - evm config path /tmp
+  - evm install $EVM_EMACS --use --skip
+  - ln -s "$(pwd)/.emacs.d" ~/.emacs.d
+install:
+  - emacs --script .emacs.d/test/lisp/install.el
+script:
+  - emacs --version
+  - emacs --script .emacs.d/test/lisp/run-tests.el

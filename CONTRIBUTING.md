@@ -36,3 +36,32 @@ In general, here's a suggested workflow:
 6. Actively participate in your pull request.
    If the maintainers ask for a revision to your proposed changes, make it promptly to help get your PR merged as soon as possible.
    Inactive PR's or Issues may be marked as Deferred or closed if no response is given.
+
+## Branching/Versioning Scheme
+
+***Note: This guide is intended mainly for core contributors.***
+
+Dot uses [SemVer v2](http://semver.org/spec/v2.0.0.html) as a model to standardize our versioning system.
+A "breaking change" in our context is something that might cause a user to have to change their personal config; any change to the "API" (which is the set of functions exposed to the user) is considered as such.
+
+In general, our branching workflow consists of two persistent branches:
+
+- `master`, which contains all of the latest changes and should be in a stable state.
+  This is used as the base for all of the `release-` branches (see below.)
+- `stable`, which is a tracking branch that gets releases merged into it.
+  This is the branch to be used by users who only want stable features to be added to their configuration.
+
+In addition, we use the following scheme for additional branches:
+
+- `release-vX.Y` and `release-vX.Y.Z` branches are branches used to control versioning.
+  - To release a new version from `master`,
+    1. after merging all PR's into `master`,
+    2. Create your `release-v` branch.
+    3. Bump the version on the `release-v` branch, either through a PR on a separate branch or something like that.
+       If you have any release notes to add, do so here.
+    4. Merge the branch back into `master` via a PR, including writing release notes and such.
+    5. Create a release targeting the PR merge commit.
+- `feature/` can be used as a prefix for feature branches, but this is not recommended.
+  (Just use `kebab-case` for your branch names, we assume that anything without a special prefix is a normal feature PR.)
+- `hotfix/` should be used as a prefix for hotfix branches.
+  If a hotfix targets a release, (typical) a `release-vX.Y.Z` branch should be used as the base of the PR instead; submit a PR for both the `release-vX.Y.Z` and the `hotfix/` branch.

@@ -8,8 +8,8 @@ However, being an active part of the development process will help the core deve
 
 We really like to see the following types of contributions:
 
-* Issues containing feature suggestions, reports of any bugs/bad features.
-* Pull Requests containing new features, fixes for edge cases or problems, new test examples, refactoring, and documentation.
+- Issues containing feature suggestions, reports of any bugs/bad features.
+- Pull Requests containing new features, fixes for edge cases or problems, new test examples, refactoring, and documentation.
 
 We'd rather not see any poorly-worded issues or stuff that doesn't work.
 

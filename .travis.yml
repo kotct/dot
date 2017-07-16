@@ -12,7 +12,9 @@ install:
   - evm install $EVM_EMACS --use --skip
   - ln -s "$(pwd)/.emacs.d" ~/.emacs.d
   - emacs --script .emacs.d/test/lisp/install.el
+  - echo "base-config" > .emacs.d/lisp/user/default-username
 before_script:
   - emacs --version
 script:
+  - emacs --script ~/.emacs.d/init.el
   - emacs --script .emacs.d/test/lisp/run-tests.el

@@ -5,7 +5,7 @@
     :var (orig-mode)
 
     (before-all
-      ; record orignal setting for later
+      ; record original setting for later
       (setf orig-mode kotct/ido-current-menu-mode))
 
     (after-all

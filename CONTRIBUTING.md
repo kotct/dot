@@ -59,4 +59,4 @@ In addition, we use the following scheme for additional branches:
 - `feature/` can be used as a prefix for feature branches, but this is not recommended.
   (Just use `kebab-case` for your branch names, we assume that anything without a special prefix is a normal feature PR.)
 - `hotfix/` should be used as a prefix for hotfix branches.
-  If a hotfix targets a release, (typical) a `release-vX.Y.Z` branch should be used as the base of the PR instead; submit a PR for both the `release-vX.Y.Z` and the `hotfix/` branch.
+  If a hotfix targets a release, (which is the typical case) a `release-vX.Y.Z` branch should be used as the base of the PR instead; submit a PR for both the `release-vX.Y.Z` and the `hotfix/` branch.

@@ -16,5 +16,5 @@ install:
 before_script:
   - emacs --version
 script:
-  - emacs --script ~/.emacs.d/init.el
   - emacs --script .emacs.d/test/lisp/run-tests.el
+  - emacs --script ~/.emacs.d/init.el

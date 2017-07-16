@@ -42,21 +42,21 @@ A "breaking change" in our context is something that might cause a user to have 
 In general, our branching workflow consists of two persistent branches:
 
 - `master`, which contains all of the latest changes and should be in a stable state.
-  This is used as the base for all of the `release-` branches (see below.)
+  This is used as the base for all of the `release/*` branches (see below.)
 - `stable`, which is a tracking branch that gets releases merged into it.
   This is the branch to be used by users who only want stable features to be added to their configuration.
 
 In addition, we use the following scheme for additional branches:
 
-- `release-vX.Y` and `release-vX.Y.Z` branches are branches used to control versioning.
+- `release/vX.Y` and `release/vX.Y.Z` branches are branches used to control versioning.
   - To release a new version from `master`,
     1. after merging all PR's into `master`,
-    2. Create your `release-v` branch.
-    3. Bump the version on the `release-v` branch, either through a PR on a separate branch or something like that.
+    2. Create your `release/vX.Y(.Z)` branch.
+    3. Bump the version on the `release/vX.Y(.Z)` branch, either through a PR on a separate branch or something like that.
        If you have any release notes to add, do so here.
     4. Merge the branch back into `master` via a PR, including writing release notes and such.
     5. Create a release targeting the PR merge commit.
 - `feature/` can be used as a prefix for feature branches, but this is not recommended.
   (Just use `kebab-case` for your branch names, we assume that anything without a special prefix is a normal feature PR.)
 - `hotfix/` should be used as a prefix for hotfix branches.
-  If a hotfix targets a release, (which is the typical case) a `release-vX.Y.Z` branch should be used as the base of the PR instead; submit a PR for both the `release-vX.Y.Z` and the `hotfix/` branch.
+  If a hotfix targets a release, (which is the typical case) a `release/vX.Y.Z` branch should be used as the base of the PR instead; submit a PR for both the `release/vX.Y.Z` and the `hotfix/` branch.

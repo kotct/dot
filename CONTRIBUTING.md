@@ -52,7 +52,7 @@ In addition, we use the following scheme for additional branches:
   - To release a new version from `master`,
     1. After merging all PR's into `master`,
     2. Create your `release/vX.Y(.Z)` branch.
-    3. Bump the version on the `release/vX.Y(.Z)` branch, either through a PR on a separate branch or something like that.
+    3. Bump the version on the `release/vX.Y(.Z)` branch in a commit.
        If you have any release notes to add, do so here.
     4. Merge the branch back into `master` via a PR, including writing release notes and such.
     5. Create a release targeting the PR merge commit.

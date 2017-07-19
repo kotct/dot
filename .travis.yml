@@ -5,8 +5,8 @@ env:
   - EVM_EMACS=emacs-25.1-travis
   - EVM_EMACS=emacs-25.2-travis
 before_install:
-  - git clone https://github.com/rejeep/evm.git /home/travis/.evm
-  - export PATH="/home/travis/.evm/bin:$PATH"
+  - git clone https://github.com/rejeep/evm.git ~/.evm
+  - export PATH="~/.evm/bin:$PATH"
   - evm config path /tmp
 install:
   - evm install $EVM_EMACS --use --skip
@@ -16,5 +16,5 @@ install:
 before_script:
   - emacs --version
 script:
-  - emacs --script ~/.emacs.d/init.el
+  - emacs --script .emacs.d/init.el
   - emacs --script .emacs.d/test/lisp/run-tests.el

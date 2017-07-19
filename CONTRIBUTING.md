@@ -50,7 +50,7 @@ In addition, we use the following scheme for additional branches:
 
 - `release/vX.Y` and `release/vX.Y.Z` branches are branches used to control versioning.
   - To release a new version from `master`,
-    1. after merging all PR's into `master`,
+    1. After merging all PR's into `master`,
     2. Create your `release/vX.Y(.Z)` branch.
     3. Bump the version on the `release/vX.Y(.Z)` branch, either through a PR on a separate branch or something like that.
        If you have any release notes to add, do so here.

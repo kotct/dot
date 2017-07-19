@@ -56,6 +56,7 @@ In addition, we use the following scheme for additional branches:
        If you have any release notes to add, do so here.
     4. Merge the branch into `stable` via a PR.
     5. Create a release targeting the PR merge commit into `stable`.
+    6. Make a PR to merge back into `master`.
 - `feature/` can be used as a prefix for feature branches, but this is not recommended.
   (Just use `kebab-case` for your branch names, we assume that anything without a special prefix is a normal feature PR.)
 - `hotfix/` should be used as a prefix for hotfix branches.

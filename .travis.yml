@@ -4,6 +4,7 @@ cache: apt
 env:
   - EVM_EMACS=emacs-25.1-travis
   - EVM_EMACS=emacs-25.2-travis
+  - EVM_EMACS=emacs-git-snapshot-travis
 before_install:
   - git clone https://github.com/rejeep/evm.git ~/.evm
   - export PATH="~/.evm/bin:$PATH"

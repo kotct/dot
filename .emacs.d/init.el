@@ -125,3 +125,4 @@ Despite this, your config appears to have loaded successfully.")
 ;; We set this to something we don't track because it can be unique
 ;; for each system.
 (setf custom-file "~/.emacs.d/custom.el")
+(load custom-file)

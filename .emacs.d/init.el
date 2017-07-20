@@ -3,6 +3,13 @@
 ;; Initialize the package repository.
 (package-initialize)
 
+;; Create variable to determine if we are in dev mode or not.
+;; (Set this in your user hub.)
+(defvar kotct/dev-mode
+  nil
+  "Whether or not kotct/dot emacs dev mode is enabled.
+Makes tests runnable and other dev-only goodies.")
+
 
 ;;; Autoload Configuration
 (setf generated-autoload-file "~/.emacs.d/lisp/kotct-loaddefs.el")
@@ -108,6 +115,10 @@ Despite this, your config appears to have loaded successfully.")
 (let ((loaddefs-buffer (get-buffer (file-name-nondirectory generated-autoload-file))))
   (if loaddefs-buffer
       (kill-buffer loaddefs-buffer)))
+
+;; If in dev mode, load the test runner.
+(when kotct/dev-mode
+  (require 'dot-tests "~/.emacs.d/test/lisp/dot-tests"))
 
 
 ;;; Customization File

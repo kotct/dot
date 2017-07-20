@@ -1,0 +1,28 @@
+# autosaves
+*~
+\#*\#
+
+# compiled files
+*.elc
+lisp/kotct-loaddefs.el
+
+# various files
+ac-comphist.dat
+smex-items
+ido.last
+tramp
+.emacs.desktop
+.emacs.desktop.lock
+network-security.data
+session.*
+recentf
+custom.el
+
+# packages
+elpa/
+
+# games
+games/
+
+# tutorial data
+tutorial/

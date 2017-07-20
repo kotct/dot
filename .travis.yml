@@ -1,0 +1,24 @@
+language: emacs-lisp
+sudo: false
+cache: apt
+env:
+- EVM_EMACS=emacs-25.1-travis
+- EVM_EMACS=emacs-25.2-travis
+- EVM_EMACS=emacs-git-snapshot-travis
+before_install:
+- git clone https://github.com/rejeep/evm.git ~/.evm
+- export PATH="~/.evm/bin:$PATH"
+- evm config path /tmp
+install:
+- evm install $EVM_EMACS --use --skip
+- ln -s "$(pwd)/.emacs.d" ~/.emacs.d
+- emacs --script .emacs.d/test/lisp/install.el
+- echo "base-config" > .emacs.d/lisp/user/default-username
+before_script:
+- emacs --version
+script:
+- emacs --script .emacs.d/init.el
+- emacs --script .emacs.d/test/lisp/run-tests.el
+notifications:
+  slack:
+    secure: Pu2AagcBjx2iBPwsIJ3oNdB5koGfqSP12Mat9KYajxtIwbyzgGsToiyma3+s+Yl02+IRZdGonZaKH/c2RGNF05PK4PAoNfkhYafiog4hKD5ZusIi1xVr0zWOREZVsqpAeu0cxs/b+p7Va66+CRukGYxTGs0LjfEXoJ3KRJYwziSVDYVEoujGHFTPKlyNZNU0fSW+pioVneiVy+hpVvfdzqby9WJG9nK/607xceJ+HVdntXABnUBDk6/1KVqbH36U2Xlw2hlRebGWIowqg/S6yOqn+NxvrM5FNb7LHWxx/mLM3o5Ml1pm9mcDS0M+sPOquLlW/0NPfiV3cz485W6aoSo37z9eassQ4DKQsEjiL4AfGXH4Wgu3BASnWTMkSXfGwW09rKSu1PCyozp76htkiMWp2tJQo/GUAey7PYTSEHhFWBhBL2UaJ3WY4H/1SdaVqHwnBNXU6YEMIJn0S7F31MmQUmSIcVMbqP9XojWl9DHDKP9o4S5CCshYlKR3XzdSeOzyQKb2PKr5NAtU2lYVMfL4XYEsz+sWO1yOCUB+U0yVXdk9kInGHY5AAwIJ6v/ODSDGW67SlXMAJcrkW2nlX8I9JZ+aR4vKo47j+MCPsPMBaPoHyGquVe9++iq67Kdxl18azrQ6fVbjNda3LRTZVH9ekWRf9eMsVBbSeyORUx8=

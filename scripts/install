@@ -1,0 +1,107 @@
+#!/usr/bin/env ruby
+
+DOT_HOME = ENV['HOME'].freeze
+DOT_LOCATION = "#{DOT_HOME}/.dot".freeze
+DOT_SUDO = (`which sudo` || ENV['SUDO'] || `/usr/bin/sudo`).freeze
+DOT_NULL = '/dev/null'.freeze
+
+module Tty
+
+	module_function
+
+	def blue
+		bold 34
+	end
+
+	def red
+		bold 31
+	end
+
+	def reset
+		escape 0
+	end
+
+	def bold(n = 39)
+		escape "1;#{n}"
+	end
+
+	def underline
+		escape "4;39"
+	end
+
+	def escape(n)
+		"\033[#{n}m" if STDOUT.tty?
+	end
+
+end
+
+class Array
+
+	def shell_s
+		copy = dup
+		first = copy.shift
+		copy.map { |argument| argument.gsub " ", "\\ " }.unshift(first).join(" ")
+	end
+
+end
+
+def ohai(*args)
+	puts "#{Tty.blue}==>#{Tty.bold} #{args.shell_s}#{Tty.reset}"
+end
+
+def warn(warning)
+	puts "#{Tty.red}Warning#{Tty.reset}: #{warning.chomp}"
+end
+
+def system(*args)
+	abort "Failed during: #{args.shell_s}" unless Kernel.system(*args)
+end
+
+def getc # NOTE only tested on macOS
+	system "/bin/stty raw -echo"
+
+	if STDIN.respond_to?(:getbyte)
+		STDIN.getbyte
+	else
+		STDIN.getc
+	end
+ensure
+	system "/bin/stty -raw echo"
+end
+
+def wait_for_user
+	puts
+	puts "Press RETURN to continue or any other key to abort"
+	c = getc
+
+	# Check for '\r' and '\n' since some keyboards/OS's
+	# send '\r' for enter.
+	abort unless (c == 13) || (c == 10)
+end
+
+# If sudo is still active, (we can still use sudo because our session
+# hasn't timed out) store a time stamp to refresh our session.
+#
+# If this worked, then set an at_exit call.
+Kernel.system "#{DOT_SUDO}", "-n -v >#{DOT_NULL} 2>&1"
+at_exit { Kernel.system "#{DOT_SUDO}", "-k >#{DOT_NULL} 2>&1" } unless $?.success?
+
+puts "kotct/dot Installation Script (v0.0.0)"
+puts
+puts "  This script will help you install kotct/dot on your computer."
+
+# Go ahead and clone Dot into a directory.
+ohai "Cloning https://github.com/kotct/dot.git into ~/.dot/"
+Kernel.system "git clone https://github.com/kotct/dot.git #{DOT_LOCATION}/"
+
+# Change directories
+Dir.chdir(DOT_LOCATION) do
+
+	ohai "Running `gem install bundler` and `bundle install`..."
+	Kernel.system "gem install bundler"
+	Kernel.system "bundle install"
+
+	ohai "Running `rake install`..."
+	Kernel.system "rake install"
+
+end

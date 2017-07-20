@@ -1,0 +1,8 @@
+# Ignore some artifacts of testing this system via
+#
+#     $ HOME=`pwd` emacs
+#
+# in development mode.
+.saves/
+.gnupg/
+.cache/

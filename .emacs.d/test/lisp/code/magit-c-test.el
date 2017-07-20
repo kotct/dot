@@ -4,6 +4,7 @@
   (describe "popups"
     :var (magit-sign-option)
     (before-all
+      (require 'magit)
       (setf magit-sign-option '(?S "Sign using gpg" "--gpg-sign=" magit-read-gpg-secret-key nil)))
     (describe "merge popup"
       (it "includes sign option"

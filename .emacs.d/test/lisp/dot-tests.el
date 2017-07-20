@@ -11,6 +11,7 @@ If THROW-ERROR is non-nil, re-throw the caught error."
        (if throw-error
            (error (cdr err))))))
 
+;; test helper functions
 (defun kotct/load-corresponding ()
   "Load the file corresponding to the current test.
 Only works when called in script mode."
@@ -22,6 +23,15 @@ Only works when called in script mode."
       (replace-regexp-in-string
        (regexp-quote "/test/") "/"
        load-file-name)))))
+
+(defmacro kotct/it-binds (fun binding)
+  "Generate a spec in the current test that makes sure FUN
+is bound to BINDING.
+
+For example, if `magit-status' is bound to \\[magit-status], then to use,
+write in the test: (kotct/it-binds magit-status \"\\[magit-status]\")"
+  `(it ,(format "binds %s to %s" fun binding)
+     (expect (global-key-binding (kbd ,binding)) :to-be #',fun)))
 
 (defun kotct/run-tests ()
   "Run all emacs lisp tests for the kotct/dot emacs configuration."

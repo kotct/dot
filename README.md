@@ -206,3 +206,9 @@ Up for debate:
   global definitions) have docstrings that are properly formatted.
 - Comment when it's not immediately clear what the code is doing.
 - Write modular, clean, and fast code.
+
+## License
+
+`dot` is released and distributed under the terms of the MIT license.
+See [`LICENSE`](https://github.com/kotct/dot/blob/master/LICENSE) for
+more information.

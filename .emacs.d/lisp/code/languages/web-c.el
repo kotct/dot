@@ -1,3 +1,5 @@
+(require 'indentation)
+
 ;; Make a bunch of extensions open as web mode things.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.sass\\'" . web-mode))
@@ -19,5 +21,10 @@
 (setf web-mode-script-padding 0)
 
 (add-hook 'web-mode-hook (lambda () (setf indent-tabs-mode t)))
+
+;; set and keep all of the indent-offsets updated
+(kotct/setf-tab web-mode-markup-indent-offset)
+(kotct/setf-tab web-mode-css-indent-offset)
+(kotct/setf-tab web-mode-code-indent-offset)
 
 (provide 'web-c)

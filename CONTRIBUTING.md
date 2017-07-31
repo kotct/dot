@@ -36,8 +36,9 @@ In general, here's a suggested workflow:
 
 ***Note: This guide is intended mainly for core contributors.***
 
-Dot uses [SemVer v2](http://semver.org/spec/v2.0.0.html) as a model to standardize our versioning system.
-A "breaking change" in our context is something that might cause a user to have to change their personal config; any change to the "API" (which is the set of functions exposed to the user) is considered as such.
+Dot uses a development flow very similar to [GitLab Flow](https://about.gitlab.com/2014/09/29/gitlab-flow/) as a model for development.
+For versioning, Dot complies with [SemVer v2](http://semver.org/spec/v2.0.0.html).
+In our context, a "breaking change" is something that causes users who used previous functions and such to have to change their personal configuration in order to continue working.
 
 In general, our branching workflow consists of two persistent branches:
 

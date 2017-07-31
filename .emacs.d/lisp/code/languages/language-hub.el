@@ -5,6 +5,7 @@
     ruby
     rust
     java
+    sh
     web-c)
   "A list of packages configured by the language-hub.")
 

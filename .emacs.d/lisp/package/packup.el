@@ -15,6 +15,37 @@ Does not automatically refresh package list."
   (every (lambda (x) (package-installed-p package (package-desc-version x)))
          (cdr (assq package package-archive-contents))))
 
+(defun kotct/insert-package-row (package-name package-update-date package-desc-version)
+  "Inserts a package row into current buffer."
+  (let ((inhibit-read-only t))
+    (insert (format "[x] %s %s %s\n" package-name package-update-date package-desc-version))))
+
+(defun kotct/packup-initialize-buffer ()
+  "Initializes the packup buffer."
+  (kill-all-local-variables)
+;;  (use-local-map packup-mode-map) ;; mapppppps
+  (setq major-mode 'packup-mode
+        mode-name "Packup"
+        buffer-read-only t ;; read only
+        mode-line-buffer-identification "packup")
+  (package-refresh-contents)
+  (let ((install-list nil))
+    (dolist (package kotct/dependency-list)
+      (let ()
+        (if (or (not (package-installed-p package))
+                (not (kotct/package-up-to-date-p package)))
+            (apply 'kotct/insert-package-row (cons package (package-desc-version (cadr (assq package package-alist))))))))))
+
+;;;###autoload
+(defun kotct/packup ()
+  "Creates an interactive buffer to install/update packages."
+  (interactive)
+  (let ((old-buf (current-buffer))
+        (buffer (create-file-buffer "*packup*"))) ;; this is wrong...
+    (set-buffer buffer)
+    (kotct/packup-initialize-buffer)
+    (pop-to-buffer-same-window buffer)))
+
 ;;;###autoload
 (defun kotct/packup-install-dependencies (no-refresh &optional update)
   "Installs the dependencies.

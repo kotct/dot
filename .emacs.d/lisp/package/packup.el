@@ -9,21 +9,72 @@
 
 (package-initialize)
 
+(defvar kotct/packup-marker-char ?x
+  "In Packup, the current mark character.
+This is what the do-commands look for, and the flag the mark-commands store."
+  )
+
 (defun kotct/package-up-to-date-p (package)
   "Returns true if PACKAGE is up-to-date.
 Does not automatically refresh package list."
   (every (lambda (x) (package-installed-p package (package-desc-version x)))
          (cdr (assq package package-archive-contents))))
 
-(defun kotct/insert-package-row (package-name package-update-date package-desc-version)
+(defun kotct/packup-insert-package-row (package-name package-update-date package-desc-version)
   "Inserts a package row into current buffer."
   (let ((inhibit-read-only t))
-    (insert (format "[x] %s %s %s\n" package-name package-update-date package-desc-version))))
+    (insert (format "[%c] %s %s %s\n" kotct/packup-marker-char package-name package-update-date package-desc-version))))
+
+(defun kotct/packup-mark-files-in-region (start end)
+  "" ;; TODO
+  (let ((inhibit-read-only t))
+    (if (> start end)
+        (error "start > end"))
+    (goto-char start)			; assumed at beginning of line
+    (while (< (point) end)
+      (forward-char 1)
+      (progn
+        (delete-char 1)
+        (insert kotct/packup-marker-char))
+      (forward-line 1))))
+
+(defun kotct/packup-repeat-over-lines (arg function)
+  (while (and (> arg 0) (not (eobp)))
+    (setq arg (1- arg))
+    (beginning-of-line)
+    (save-excursion (funcall function))))
+
+;; TODO advance the pointer
+(defun kotct/packup-mark (arg &optional interactive)
+  "Mark the package at point in the Packup buffer.
+If the region is active, mark all the files in the region."
+  (interactive (list current-prefix-arg t))
+  (cond
+   ((use-region-p)
+    (save-excursion
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (kotct/packup-mark-files-in-region
+         (progn (goto-char beg) (line-beginning-position))
+         (progn (goto-char end) (line-beginning-position))))))
+   (t
+    (let ((inhibit-read-only t))
+      (kotct/packup-repeat-over-lines
+       (prefix-numeric-value arg)
+       (lambda () (forward-char 1) (delete-char 1) (insert kotct/packup-marker-char)))))))
+
+(defun kotct/packup-unmark (arg &optional interactive)
+  "" ;; TODO: finish me
+  (interactive (list current-prefix-arg))
+  (let ((kotct/packup-marker-char ?\040))
+    (kotct/packup-mark arg interactive)))
+
+;; TODO (un)mark all
 
 (defun kotct/packup-initialize-buffer ()
   "Initializes the packup buffer."
   (kill-all-local-variables)
-;;  (use-local-map packup-mode-map) ;; mapppppps
+  (use-local-map packup-mode-map) ;; mapppppps
   (setq major-mode 'packup-mode
         mode-name "Packup"
         buffer-read-only t ;; read only
@@ -31,10 +82,18 @@ Does not automatically refresh package list."
   (package-refresh-contents)
   (let ((install-list nil))
     (dolist (package kotct/dependency-list)
-      (let ()
+      (let () ;; TODO: delete me?
         (if (or (not (package-installed-p package))
                 (not (kotct/package-up-to-date-p package)))
-            (apply 'kotct/insert-package-row (cons package (package-desc-version (cadr (assq package package-alist))))))))))
+            (apply 'kotct/packup-insert-package-row (cons package (package-desc-version (cadr (assq package package-alist))))))))))
+
+(defvar packup-mode-map
+  (let ((map (make-keymap)))
+    (define-key map "m" 'kotct/packup-mark)
+    (define-key map "u" 'kotct/packup-unmark)
+;;    (define-key map "g" 'kotct/packup-refresh) TODO
+
+    map))
 
 ;;;###autoload
 (defun kotct/packup ()

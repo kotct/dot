@@ -1,6 +1,7 @@
 (kotct/hub "code"
            (editorconfig-c
             magit-c
+            smartparens-c
             indentation
             code-navigation))
 

@@ -36,29 +36,40 @@ In general, here's a suggested workflow:
 
 ***Note: This guide is intended mainly for core contributors.***
 
-Dot uses [SemVer v2](http://semver.org/spec/v2.0.0.html) as a model to standardize our versioning system.
-A "breaking change" in our context is something that might cause a user to have to change their personal config; any change to the "API" (which is the set of functions exposed to the user) is considered as such.
+Dot uses a development flow very similar to [GitLab Flow](https://about.gitlab.com/2014/09/29/gitlab-flow/) as a model for development.
+For versioning, Dot complies with [SemVer v2](http://semver.org/spec/v2.0.0.html).
+In our context, a "breaking change" is something that causes users who used previous functions and such to have to change their personal configuration in order to continue working.
 
-In general, our branching workflow consists of two persistent branches:
+Our branching workflow consists of two persistent branches:
 
-- `master`, which contains all of the latest changes and should be in a stable state.
+- `master`, which contains all of the latest changes and should be in a usable state for testing.
   This is used as the base for all of the `release/*` branches (see below.)
 - `stable`, which is a tracking branch that gets releases merged into it.
-  This is the branch to be used by users who only want stable features to be added to their configuration.
+  This is the branch to be used by users who want only releases that have been deemed stable.
 
-In addition, we use the following scheme for additional branches:
+We use the following scheme for additional branches:
 
-- `release/vX.Y` and `release/vX.Y.Z` branches are branches used to control versioning.
-  - To release a new version from `master`,
-    1. After merging all PR's into `master`,
-    2. Create your `release/vX.Y(.Z)` branch.
-    3. Bump the version on the `release/vX.Y(.Z)` branch in a commit.
-       If you have any release notes to add, do so here.
-    4. Merge the branch into `stable` via a PR.
-    5. Create a release targeting the PR merge commit into `stable`.
-    6. Make a PR to merge back into `master`.
 - `feature/` can be used as a prefix for feature branches, but this is not recommended.
   (Just use `kebab-case` for your branch names, we assume that anything without a special prefix is a normal feature PR.)
 - `hotfix/` should be used as a prefix for hotfix branches.
-  In the discussion of a problem, the maintainers will decide what version to release the hotfixes as and will create a `release/vX.Y.Z` branch for you to use as your base.
-  If a hotfix targets a release, (which is the typical case) the nascent `release/vX.Y.Z` branch should thus be used; submit a PR for the `hotfix/` branch into the `release/vX.Y.Z` branch.
+  Hotfixes should _always_ target and be based off of `master`;
+  they will be cherry-picked into a `release` branch (see below) if a new patch version is necessary.
+- `release/vX.Y.Z` branches are used to control versioning.
+  The contents of the `VERSION` file on `master` will _always_ be something like `X.Y.0-pre`, as we do not do releasing on `master`.
+  There are two major situations in which `release/` branches get used, and here are the corresponding guidelines for the release process:
+  - When releasing a new minor version from `master`,
+    1. Create a `release/vX.Y.0` branch off of the latest version of `master`.
+    2. Change the `VERSION` file to contain `X.Y.0`.
+    3. If necessary, add any release notes here.
+    4. Merge the branch into `stable` via PR.
+    5. Create a release targeting the PR merge commit into `stable`.
+    6. Delete your `release/vX.Y.0` branch.
+  - When releasing a patch version of an existing minor version.
+    1. Create a `release/vX.Y.Z` branch off the previous `vX.Y.Z` tag.
+    2. Use `git cherry-pick` to cherry-pick the hotfix commits necessary to satisfy your patch requirements into the `release/vX.Y.Z` branch.
+       If the `hotfix` commits depend on any features (which is a nasty situation to get into) make sure to cherry-pick those features in order with the commits.
+    3. Change the `VERSION` file to contain `X.Y.Z`,
+    4. If necessary, add any release notes here.
+    5. Merge the branch into `stable` via PR.
+    6. Create a release targeting the PR merge commit into `stable`.
+    7. Delete your `release/vX.Y.Z` branch.

@@ -20,6 +20,7 @@
     elixir-mode ;; for editing Elixir code
     rust-mode ;; for editing Rust code
     buttercup ;; for tests
+    smartparens ;; for dealing with paired control flow symbols
 
     ;; THEMES
     solarized-theme)

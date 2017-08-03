@@ -1,4 +1,4 @@
-# kotct/dot
+# kotct/dot [![Build Status](https://travis-ci.org/kotct/dot.svg?branch=master)](https://travis-ci.org/kotct/dot) [![Coverage Status](https://coveralls.io/repos/github/kotct/dot/badge.svg)](https://coveralls.io/github/kotct/dot)
 
 Dot is a collective configuration system which contains configurations
 for programs like Emacs and zsh, but also (potentially) Vim.  Dot is

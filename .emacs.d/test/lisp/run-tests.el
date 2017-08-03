@@ -9,7 +9,7 @@
   ;; override a local function that fixes this
   (advice-add
    #'undercover--wildcards-to-files :override
-   (lambda (wildcards)
+   (lambda (_wildcards)
      (mapcar (lambda (filename)
                ;; undercover adds a leading "/", so remove the
                ;; "/" at the beginning of the absolute filename

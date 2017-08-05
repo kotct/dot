@@ -25,8 +25,7 @@ Does not automatically refresh package list."
   (let ((inhibit-read-only t))
     (insert (format "[%c] %s -> %s\n" kotct/packup-marker-char package-name package-desc-version))))
 
-(defun kotct/packup-mark-files-in-region (start end)
-  "" ;; TODO
+(defun kotct/packup-mark-packages-in-region (start end)
   (let ((inhibit-read-only t))
     (if (> start end)
         (error "start > end"))
@@ -39,32 +38,44 @@ Does not automatically refresh package list."
       (forward-line 1))))
 
 (defun kotct/packup-repeat-over-lines (arg function)
+  "Helper function for iterating over lines ARG times, and applying FUNCTION on each line."
   (while (and (> arg 0) (not (eobp)))
     (setq arg (1- arg))
     (beginning-of-line)
-    (save-excursion (funcall function))))
+    (save-excursion (funcall function))
+    (forward-line)))
 
-;; TODO advance the pointer
+;; TODO implement me
+(defun kotct/packup-do-update ()
+    ""
+    )
+
 (defun kotct/packup-mark (arg &optional interactive)
-  "Mark the package at point in the Packup buffer.
-If the region is active, mark all the files in the region."
+  "Mark the package for update at point in the Packup buffer.
+If a region is selected, mark all the packages in the region.
+If an prefix-arg is passed mark ARG times."
   (interactive (list current-prefix-arg t))
   (cond
    ((use-region-p)
     (save-excursion
       (let ((beg (region-beginning))
             (end (region-end)))
-        (kotct/packup-mark-files-in-region
+        (kotct/packup-mark-packages-in-region
          (progn (goto-char beg) (line-beginning-position))
          (progn (goto-char end) (line-beginning-position))))))
    (t
     (let ((inhibit-read-only t))
       (kotct/packup-repeat-over-lines
        (prefix-numeric-value arg)
-       (lambda () (forward-char 1) (delete-char 1) (insert kotct/packup-marker-char)))))))
+       (lambda ()
+         (forward-char 1)
+         (delete-char 1)
+         (insert kotct/packup-marker-char)))))))
 
 (defun kotct/packup-unmark (arg &optional interactive)
-  "" ;; TODO: finish me
+  "Unmark the package for update at point in the Packup buffer.
+If a region is selected, unmark all the packages in the region.
+If an prefix-arg is passed unmark ARG times."
   (interactive (list current-prefix-arg))
   (let ((kotct/packup-marker-char ?\040))
     (kotct/packup-mark arg interactive)))

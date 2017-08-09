@@ -1,4 +1,4 @@
-# kotct/dot
+# kotct/dot [![Build Status](https://travis-ci.org/kotct/dot.svg?branch=master)](https://travis-ci.org/kotct/dot) [![Coverage Status](https://coveralls.io/repos/github/kotct/dot/badge.svg)](https://coveralls.io/github/kotct/dot)
 
 Dot is a collective configuration system which contains configurations
 for programs like Emacs and zsh, but also (potentially) Vim.  Dot is
@@ -206,3 +206,9 @@ Up for debate:
   global definitions) have docstrings that are properly formatted.
 - Comment when it's not immediately clear what the code is doing.
 - Write modular, clean, and fast code.
+
+## License
+
+`dot` is released and distributed under the terms of the MIT license.
+See [`LICENSE`](https://github.com/kotct/dot/blob/master/LICENSE) for
+more information.

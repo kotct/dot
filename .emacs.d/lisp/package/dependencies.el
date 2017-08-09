@@ -20,6 +20,10 @@
     elixir-mode ;; for editing Elixir code
     rust-mode ;; for editing Rust code
     buttercup ;; for tests
+    smartparens ;; for dealing with paired control flow symbols
+    gitignore-mode ;; for editing .gitignore files
+    gitattributes-mode ;; for editing .gitattributes files
+    gitconfig-mode ;; for editing .git/config files
 
     ;; THEMES
     solarized-theme)

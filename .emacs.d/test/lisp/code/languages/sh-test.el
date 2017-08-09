@@ -1,3 +1,5 @@
+(add-to-list 'load-path (concat (file-name-directory load-file-name) "../../../../lisp/code/"))
+
 (kotct/load-corresponding)
 
 (describe "sh config"

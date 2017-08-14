@@ -131,7 +131,17 @@ If an prefix-arg is passed unmark ARG times."
   (let ((kotct/packup-marker-char ?\040))
     (kotct/packup-mark arg interactive)))
 
-;; TODO {,un}mark all
+(defun kotct/packup-mark-all ()
+  (interactive)
+  (save-excursion
+    (kotct/packup-mark-packages-in-region (point-min) (point-max))))
+
+
+(defun kotct/packup-unmark-all ()
+    (interactive)
+    (save-excursion
+      (let ((kotct/packup-marker-char ?\040))
+        (kotct/packup-mark-packages-in-region (point-min) (point-max)))))
 
 (defun kotct/packup-initialize-buffer-contents ()
   (package-refresh-contents)
@@ -149,8 +159,7 @@ If an prefix-arg is passed unmark ARG times."
         mode-name "Packup"
         buffer-read-only t ;; read only
         mode-line-buffer-identification "packup")
-  (kotct/packup-initialize-buffer-contents)
-)
+  (kotct/packup-initialize-buffer-contents))
 
 (defun kotct/packup-refresh ()
   "Refreshes packages in current buffer."
@@ -160,12 +169,19 @@ If an prefix-arg is passed unmark ARG times."
       (erase-buffer)
       (kotct/packup-initialize-buffer-contents))))
 
+(defun kotct/packup-help ()
+  (interactive)
+  (message "g-refresh m-mark u-unmark x-execute ?-help"))
+
 (defvar packup-mode-map
   (let ((map (make-keymap)))
     (define-key map "m" 'kotct/packup-mark)
+    (define-key map "M" 'kotct/packup-mark-all)
     (define-key map "u" 'kotct/packup-unmark)
+    (define-key map "U" 'kotct/packup-unmark-all)
     (define-key map "x" 'kotct/packup-do-update)
     (define-key map "g" 'kotct/packup-refresh)
+    (define-key map "?" 'kotct/packup-help)
     map))
 
 ;;;###autoload

@@ -144,6 +144,8 @@ If an prefix-arg is passed unmark ARG times."
         (kotct/packup-mark-packages-in-region (point-min) (point-max)))))
 
 (defun kotct/packup-initialize-buffer-contents ()
+  (let ((inhibit-read-only t))
+    (kill-region (point-min) (point-max)))
   (package-refresh-contents)
   (let ((install-list nil))
     (dolist (package kotct/dependency-list)
@@ -189,7 +191,7 @@ If an prefix-arg is passed unmark ARG times."
   "Creates an interactive buffer to install/update packages."
   (interactive)
   (let ((old-buf (current-buffer))
-        (buffer (create-file-buffer "*packup*"))) ;; this is wrong...
+        (buffer (get-buffer-create "*packup*")))
     (set-buffer buffer)
     (kotct/packup-initialize-buffer)
     (pop-to-buffer-same-window buffer)))

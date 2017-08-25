@@ -191,7 +191,11 @@ If an prefix-arg is passed unmark ARG times."
         (buffer (get-buffer-create "*packup*")))
     (set-buffer buffer)
     (kotct/packup-initialize-buffer)
-    (pop-to-buffer-same-window buffer)))
+    (if (= (point-min) (point-max))
+        (progn
+         (kill-buffer buffer)
+         (message "Nothing to update!"))
+      (pop-to-buffer-same-window buffer))))
 
 ;;;###autoload
 (defun kotct/packup-install-dependencies (no-refresh &optional update auto-update)

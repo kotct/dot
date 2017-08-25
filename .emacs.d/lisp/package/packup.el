@@ -79,14 +79,13 @@ Does not automatically refresh package list."
 Returns \"\" if there is no package name on the line."
     (save-excursion
       (beginning-of-line)
-      (let (p)
-           (forward-char 4)
-           (setq p (point-marker))
-           (if (re-search-forward " " nil t)
-               (prog2
-                   (backward-char)
-                   (buffer-substring p (point-marker)))
-             ""))))
+      (forward-char 4)
+      (let ((point (point-marker)))
+        (if (re-search-forward " " nil t)
+            (prog2
+                (backward-char)
+                (buffer-substring point (point-marker)))
+          ""))))
 
 (defun kotct/packup-do-update ()
   "Executes update in current buffer."

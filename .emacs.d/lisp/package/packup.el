@@ -11,8 +11,7 @@
 
 (defvar kotct/packup-marker-char ?x
   "In Packup, the current mark character.
-This is what the do-commands look for, and the flag the mark-commands store."
-  )
+This is what the do-commands look for, and the flag the mark-commands store.")
 
 (defun kotct/package-up-to-date-p (package)
   "Returns true if PACKAGE is up-to-date.
@@ -65,7 +64,6 @@ Does not automatically refresh package list."
              (while next-position
                (goto-char next-position)
                (setq results (cons ,body results))
-               (message "hi")
                ;; move after last match
                (goto-char next-position)
                (forward-line 1)
@@ -87,8 +85,7 @@ Returns \"\" if there is no package name on the line."
            (if (re-search-forward " " nil t)
                (prog2
                    (backward-char)
-                   (buffer-substring p (point-marker))
-                   )
+                   (buffer-substring p (point-marker)))
              ""))))
 
 (defun kotct/packup-do-update ()

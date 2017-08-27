@@ -152,11 +152,10 @@ If an prefix-arg is passed unmark ARG times."
 (defun kotct/packup-initialize-buffer ()
   "Initializes the packup buffer."
   (kill-all-local-variables)
-  (use-local-map packup-mode-map) ;; mapppppps
+  (use-local-map packup-mode-map)
   (setq major-mode 'packup-mode
         mode-name "Packup"
-        buffer-read-only t ;; read only
-        mode-line-buffer-identification "packup")
+        buffer-read-only t)
   (kotct/packup-initialize-buffer-contents))
 
 (defun kotct/packup-refresh ()

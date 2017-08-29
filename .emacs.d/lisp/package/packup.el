@@ -1,5 +1,6 @@
 ;;; THIS FILE IS NOT LOADED AT STARTUP.
 ;;; This file is autoloaded on the following symbols:
+;;;  kotct/packup
 ;;;  kotct/packup-install-dependencies
 ;;;  kotct/packup-update
 

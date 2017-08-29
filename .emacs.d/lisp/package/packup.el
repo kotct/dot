@@ -230,7 +230,7 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                    (princ (symbol-name (car package)))
                    (princ (if (cdr package) " (update)" " (install)"))))
                (if (or auto-update
-                       (y-or-n-p "Auto install/update these package?"))
+                       (y-or-n-p "Auto install/update these package(s)?"))
                    (progn (package-download-transaction (package-compute-transaction () install-list))
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed."))

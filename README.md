@@ -10,9 +10,9 @@ installed for this to work, so make sure you have done that.)
 
     $ \ruby -e "$(\curl -fsSL https://raw.githubusercontent.com/kotct/dot/master/scripts/install)"
 
-This script will interactively ask you if there are any conflicts or
-decisions to be made, but will immediately start installing the
-configuration, so make sure that you are sure of what you want to do.
+This script will interactively ask you if it doesn't know what to do.
+It will immediately start installing the configuration, though, so be
+sure that is what you want to do before running it.
 
 This script assumes a fairly regular system with the requisite
 software installed, so if you are in an esoteric environment, you can
@@ -26,7 +26,7 @@ latest version directly available from your package manager.  If an
 issue is not reproducible on our system, we cannot fix it.
 
 It is worth noting that you should be able to simply simlink the
-respective files and directories into your `HOME` directory.
+respective files and directories into your `$HOME` directory.
 
 You can do this by cloning this repository, then running:
 

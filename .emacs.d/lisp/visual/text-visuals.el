@@ -21,6 +21,14 @@
 ;; Minor mode which highlights TODO, FIXME, DONE, FAIL, etc.
 (add-hook 'prog-mode-hook 'hl-todo-mode)
 
+(defvar kotct/font-list
+  '((nil . 12.0))
+  "An alist containing cons cells of the form (\"Font Family Name\" . default-size)")
+
+(defun kotct/add-font (font-name default-size)
+  "Adds the information about the font to the font list."
+  (add-to-list 'kotct/font-list `(,font-name . ,default-size)))
+
 (defvar kotct/font-default-height
   12.0
   "The default font height.")

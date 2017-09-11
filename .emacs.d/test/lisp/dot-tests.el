@@ -1,5 +1,7 @@
 (require 'buttercup)
 
+(eval-when-compile (require 'cl))
+
 (defun kotct/quietly-load-file (filename &optional throw-error)
   "Load FILENAME, but do not send a message on success.
 If loading throws an error, send a message with FILENAME and the error.

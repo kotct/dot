@@ -1,10 +1,5 @@
 (require 'package)
 
-;; Add MELPA repository
-(add-to-list 'package-archives
-             '("melpa" .
-               "http://melpa.milkbox.net/packages/"))
-
 ;; Add MELPA Stable
 (add-to-list 'package-archives
              '("melpa-stable" .
@@ -14,6 +9,11 @@
 (add-to-list 'package-archives
              '("gnu" .
                "http://elpa.gnu.org/packages/"))
+
+;; Add MELPA repository
+(add-to-list 'package-archives
+             '("melpa" .
+               "http://melpa.milkbox.net/packages/"))
 
 (setf package-archive-priorities
       '(("melpa-stable" . 20)

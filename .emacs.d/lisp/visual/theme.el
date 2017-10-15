@@ -2,10 +2,13 @@
   nil
   "The currently enabled theme.")
 
-(defun kotct/switch-to-theme (theme)
-  "Enable the theme THEME. Disable the current theme."
+(defun kotct/switch-to-theme (theme &optional force-load)
+  "Enable the theme THEME. Disable the current theme.
+
+If FORCE-LOAD is set, THEME is always loaded."
   (if kotct/current-theme (disable-theme kotct/current-theme))
-  (if (member theme custom-known-themes)
+  (if (and (not force-load)
+           (member theme custom-known-themes))
       (enable-theme theme)
     (load-theme theme 'no-confirm))
   (setf kotct/current-theme theme)

@@ -18,7 +18,6 @@
 (setf package-archive-priorities
       '(("melpa-stable" . 20)
         ("gnu" . 10)
-        ("marmalade" . 10)
         ("melpa" . 0)))
 
 ;; (require 'packup)

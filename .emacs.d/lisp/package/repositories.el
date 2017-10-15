@@ -16,7 +16,7 @@
                "http://elpa.gnu.org/packages/"))
 
 (setf package-archive-priorities
-      '(("melpa-stable" . 10)
+      '(("melpa-stable" . 20)
         ("gnu" . 10)
         ("marmalade" . 10)
         ("melpa" . 0)))

@@ -19,6 +19,7 @@
     web-mode ;; for editing web files
     elixir-mode ;; for editing Elixir code
     rust-mode ;; for editing Rust code
+    yaml-mode ;; for editing YAML files
     buttercup ;; for tests
     smartparens ;; for dealing with paired control flow symbols
     gitignore-mode ;; for editing .gitignore files

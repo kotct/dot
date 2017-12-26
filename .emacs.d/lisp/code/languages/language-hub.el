@@ -2,6 +2,7 @@
   '(c
     elisp
     elixir
+    fish
     ruby
     rust
     java

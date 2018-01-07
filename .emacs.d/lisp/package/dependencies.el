@@ -25,6 +25,7 @@
     gitignore-mode ;; for editing .gitignore files
     gitattributes-mode ;; for editing .gitattributes files
     gitconfig-mode ;; for editing .git/config files
+    fish-mode ;; for editing fish shell configuration files
 
     ;; THEMES
     solarized-theme)

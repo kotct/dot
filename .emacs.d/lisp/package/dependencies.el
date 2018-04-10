@@ -26,6 +26,8 @@
     gitattributes-mode ;; for editing .gitattributes files
     gitconfig-mode ;; for editing .git/config files
     fish-mode ;; for editing fish shell configuration files
+    go-mode ;; for editing go code
+    go-autocomplete ;; AC support for go
 
     ;; THEMES
     solarized-theme)

@@ -7,7 +7,8 @@
     rust
     java
     sh
-    web-c)
+    web-c
+    go)
   "A list of packages configured by the language-hub.")
 
 (let ((to-compile ()))

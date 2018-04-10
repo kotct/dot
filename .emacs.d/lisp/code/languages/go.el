@@ -1,5 +1,3 @@
-(add-to-list 'exec-path "/home/cooperc/gocode/bin/")
-
 (add-hook 'go-mode-hook (lambda ()
                           (local-set-key (kbd "M-.") 'godef-jump)))
 

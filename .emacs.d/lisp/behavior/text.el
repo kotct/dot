@@ -8,7 +8,7 @@
 
 ;;; ace jump mode
 (global-set-key (kbd "C-c SPC") #'avy-goto-word-1)
-(global-set-key (kbd "C-c '") #'avy-goto-char-1)
+(global-set-key (kbd "C-c '") #'avy-goto-char)
 
 ;; save zapped chars to kill ring
 (setf avy-zap-function #'kill-region)

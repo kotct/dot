@@ -6,7 +6,7 @@
 
 (require 'cl)
 
-;;; ace jump mode
+;;; avy jump mode
 (global-set-key (kbd "C-c SPC") #'avy-goto-word-1)
 (global-set-key (kbd "C-c '") #'avy-goto-char)
 

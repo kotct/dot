@@ -12,7 +12,7 @@
     markdown-mode ;; major mode for markdown
     smart-tabs-mode ;; indentation with tabs and spaces
     avy ;; immediately jump to any visible character
-    avy-zap ;; zap-to-char but harnessing ace-jump
+    avy-zap ;; zap-to-char but harnessing avy
     editorconfig ;; editorconfig plugin
     hl-todo ;; highlight TODO, FIXME, FAIL, etc.
     highlight-symbol ;; navigate between and highlight symbols

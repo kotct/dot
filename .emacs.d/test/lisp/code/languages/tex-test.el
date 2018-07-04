@@ -1,5 +1,9 @@
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "../../../../lisp/code/"))
 
+;; we have to require flyspell since the spy on flyspell-mode-on has to
+;; override the actual function, not the other way around
+(require 'flyspell)
+
 (kotct/load-corresponding)
 
 (describe "tex config"
@@ -7,7 +11,7 @@
     :var (test-buffer)
 
     (before-each
-      (setf test-buffer (generate-new-buffer "*kotct/test-buffer*"))
+      (setf test-buffer (generate-new-buffer "*kotct/tex-test-buffer*"))
       (set-buffer test-buffer))
 
     (after-each

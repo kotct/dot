@@ -1,14 +1,24 @@
 ;;; M-x: ido-completed M-x
 ;;; C-c C-c M-x: normal M-x
-;;; 
+;;;
 ;;; implicitly rebinds C-x C-f, C-x C-b, and similar functions to use ido
 ;;; different keybindings for ido navigation based on menu mode
 ;;; see docs for ido, ido-vertical-mode, and ido-grid-mode
 
+(ivy-mode +1)
+(counsel-mode +1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(global-set-key (kbd "C-c C-r") #'ivy-resume)
+(define-key (kbd "RET") #'ivy-alt-done)
+(define-key (kbd "C-<return>") #'ivy-done)
+(define-key (kbd "C-j") #'ivy-immediate-done)
+
 
 ;;; ido
-(ido-mode t)
-(setf ido-enable-flex-matching t)
+;; (ido-mode t)
+(with-eval-after-load 'ido
+  (setf ido-enable-flex-matching t))
 
 (defvar kotct/ido-current-menu-mode
   ;; set initially below, using kotct/ido-set-menu-mode
@@ -44,12 +54,12 @@ MODE is a symbol which can be grid (default), vertical, or normal."
 (kotct/ido-set-menu-mode 'grid)
 
 ;;; smex
-(smex-initialize)
-(global-set-key (kbd "M-x") #'smex)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; (smex-initialize)
+;; (global-set-key (kbd "M-x") #'smex)
+;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; keep things contained within ~/.emacs.d
-(setf smex-save-file "~/.emacs.d/smex-items")
+;; (setf smex-save-file "~/.emacs.d/smex-items")
 
 ;;; autocomplete
 (ac-config-default)

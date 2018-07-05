@@ -10,9 +10,9 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (global-set-key (kbd "C-c C-r") #'ivy-resume)
-(define-key (kbd "RET") #'ivy-alt-done)
-(define-key (kbd "C-<return>") #'ivy-done)
-(define-key (kbd "C-j") #'ivy-immediate-done)
+(define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-done)
+(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
 
 
 ;;; ido

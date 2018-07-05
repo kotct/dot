@@ -5,7 +5,8 @@
               (magit-define-popup-option
                 popup
                 ?S "Sign using gpg" "--gpg-sign=" #'magit-read-gpg-secret-key))
-            popups-to-add-sign)))
+            popups-to-add-sign))
+  (setf magit-completing-read-function 'magit-ido-completing-read))
 
 (global-set-key (kbd "C-x m") #'magit-status)
 

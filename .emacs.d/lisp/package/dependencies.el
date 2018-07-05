@@ -3,6 +3,7 @@
     ido-vertical-mode ;; use vertical menus for ido
     ido-grid-mode ;; use a grid selection menu for ido
     smex ;; ido-enabled M-x
+    helm ;; ido but better
     anzu ;; nicer search environment
     volatile-highlights ;; highlight changed areas
     buffer-move ;; easily move buffers between windows

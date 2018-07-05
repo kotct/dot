@@ -1,14 +1,36 @@
 ;;; M-x: ido-completed M-x
 ;;; C-c C-c M-x: normal M-x
-;;; 
+;;;
 ;;; implicitly rebinds C-x C-f, C-x C-b, and similar functions to use ido
 ;;; different keybindings for ido navigation based on menu mode
 ;;; see docs for ido, ido-vertical-mode, and ido-grid-mode
 
+(require 'helm-config)
+(helm-mode +1)
+(global-set-key [remap find-file] #'helm-find-files)
+(global-set-key [remap occur] #'helm-occur)
+(global-set-key [remap switch-to-buffer] #'helm-buffers-list)
+(global-set-key [remap switch-buffer] #'helm-buffers-list)
+(global-set-key [remap execute-extended-command] #'helm-M-x)
+(define-key helm-find-files-map (kbd "C-<return>")
+  (lambda ()
+    (interactive)
+    (setf helm-saved-action
+          ;; this is a rewritten version of helm-point-file-in-dired, so that
+          ;; foo/. will open foo in dired and place point at .
+          ;; it just shifts where expand-file-name is called
+          (lambda (file)
+            (unless (and helm--url-regexp
+                         (string-match-p helm--url-regexp file))
+              (let ((target (helm-substitute-in-filename file)))
+                (dired (expand-file-name (file-name-directory target)))
+                ;; this won't place point at '.', but i don't really care
+                (dired-goto-file (expand-file-name target))))))
+    (helm-maybe-exit-minibuffer)))
 
 ;;; ido
-(ido-mode t)
-(setf ido-enable-flex-matching t)
+(with-eval-after-load 'ido
+  (setf ido-enable-flex-matching t))
 
 (defvar kotct/ido-current-menu-mode
   ;; set initially below, using kotct/ido-set-menu-mode
@@ -44,12 +66,12 @@ MODE is a symbol which can be grid (default), vertical, or normal."
 (kotct/ido-set-menu-mode 'grid)
 
 ;;; smex
-(smex-initialize)
-(global-set-key (kbd "M-x") #'smex)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; (smex-initialize)
+;; (global-set-key (kbd "M-x") #'smex)
+;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; keep things contained within ~/.emacs.d
-(setf smex-save-file "~/.emacs.d/smex-items")
+;; (setf smex-save-file "~/.emacs.d/smex-items")
 
 ;;; autocomplete
 (ac-config-default)

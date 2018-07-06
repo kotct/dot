@@ -1,5 +1,8 @@
 ;;; dot/.emacs
 
+;; load any absolute must-have code
+(load "~/.emacs-emergency" 'noerror 'nomessage 'nosuffix)
+
 ;; Initialize the package repository.
 (package-initialize)
 

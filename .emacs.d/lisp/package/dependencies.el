@@ -28,6 +28,7 @@
     fish-mode ;; for editing fish shell configuration files
     go-mode ;; for editing go code
     go-autocomplete ;; AC support for go
+    goto-chg ;; jump forward and backward through changes
 
     ;; THEMES
     solarized-theme)

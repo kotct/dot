@@ -18,7 +18,6 @@ This is what the do-commands look for, and the flag the mark-commands store.")
   "Run BODY, but if we don't have emacs 25 or later, let-bind
 a modified `package-archive-contents' that only includes the package-desc
 from the most-preferred repository"
-  (message "%s" emacs-version)
   (if (version< emacs-version "25.1")
       `(let ((package-archive-contents
               (mapcar (lambda (pkg)

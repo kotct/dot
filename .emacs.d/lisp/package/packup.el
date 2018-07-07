@@ -14,11 +14,32 @@
   "In Packup, the current mark character.
 This is what the do-commands look for, and the flag the mark-commands store.")
 
+(defun kotct/package-latest-available (package)
+  "Get the lastest-available package-desc for PACKAGE, preferring repositories
+as listed in `package-archive-priorities' or `kotct/package-ordered-archives'.
+Does not automatically refresh the package list."
+  (if (version< emacs-version "25.1")
+      ;; no package-archive-priorities, so use kotct/package-ordered-archives
+      (let ((versions (cdr (assoc package package-archive-contents)))
+            found-desc)
+        (dolist (archive kotct/package-ordered-archives)
+          (when (not found-desc)
+            ;; no match yet, keep looking
+            (setf found-desc (car (cl-member archive versions
+                                             :key #'package-desc-archive
+                                             :test #'string=)))))
+        found-desc)
+    ;; package-archive-priorities means we only have to check
+    ;; the first package-desc, because that should be from the best repo
+    (cadr (assoc package package-archive-contents))))
+
 (defun kotct/package-up-to-date-p (package)
-  "Returns true if PACKAGE is up-to-date.
-Does not automatically refresh package list."
-  (every (lambda (x) (package-installed-p package (package-desc-version x)))
-         (cdr (assq package package-archive-contents))))
+  "Returns T if PACKAGE is installed and up-to-date.
+Does not automatically refresh package list.
+Before emacs 25, we have to manually check in preferred-repository order."
+  (let ((latest (kotct/package-latest-available package)))
+    (when latest
+      (package-installed-p package (package-desc-version latest)))))
 
 (defun kotct/packup-insert-package-row (package-name package-desc-version)
   "Inserts a package row into current buffer."
@@ -143,9 +164,9 @@ If an prefix-arg is passed unmark ARG times."
   (package-refresh-contents)
   (let ((install-list nil))
     (dolist (package kotct/dependency-list)
-      (when (or (not (package-installed-p package))
-                (not (kotct/package-up-to-date-p package)))
-        (apply #'kotct/packup-insert-package-row (list package (package-desc-version (cadr (assq package package-alist)))))))))
+      (when (not (kotct/package-up-to-date-p package))
+        (apply #'kotct/packup-insert-package-row (list package (package-desc-version (kotct/package-latest-available package))))))))
+
 
 (defun kotct/packup-initialize-buffer ()
   "Initializes the packup buffer."
@@ -208,38 +229,52 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
   (let (install-list)
     (dolist (package kotct/dependency-list)
 
-      (let ((updating nil))
-        (if (or (not (package-installed-p package))
-                (and update (not (kotct/package-up-to-date-p package)) (setf updating t)))
-            (add-to-list 'install-list
-                         (cons package
-                               ;; haxily say we need the next version by adding a .1 to the version
-                               ;; ie if we have version 2.3.0 ask for 2.3.0.1
-                               (if updating
-                                   (list (append (package-desc-version (cadr (assq package package-alist)))
-                                                 '(1)))))))))
+      (if (or (not (package-installed-p package))
+              (and update (not (kotct/package-up-to-date-p package))))
+          (add-to-list 'install-list
+                       (cons (kotct/package-latest-available package)
+                             (cadr (assoc package package-alist))))))
 
     (if install-list
 
         (progn (with-output-to-temp-buffer "*packup: packages to upgrade*"
                  (princ "Packages to be installed:")
-                 (dolist (package install-list)
-                   (message (symbol-name (car package)))
+                 (dolist (package-cons install-list)
+                   (message (symbol-name (package-desc-name (car package-cons))))
                    (terpri)
-                   (princ (symbol-name (car package)))
-                   (princ (if (cdr package) " (update)" " (install)"))))
+                   (princ (symbol-name (package-desc-name (car package-cons))))
+                   (princ (if (cdr package-cons)
+                              (format " (update %s -> %s)"
+                                      (package-version-join (package-desc-version (cdr package-cons)))
+                                      (package-version-join (package-desc-version (car package-cons))))
+                            (format " (install %s)"
+                                    (package-version-join (package-desc-version (car package-cons))))))))
                (if (or auto-update
                        (y-or-n-p "Auto install/update these package(s)?"))
-                   (progn (package-download-transaction (package-compute-transaction () install-list))
+                   (progn (package-download-transaction
+                           (package-compute-transaction
+                            () (mapcar (lambda (package-cons)
+                                         (list (package-desc-name (car package-cons))
+                                               (package-desc-version (car package-cons))))
+                                       install-list)))
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed."))
                  (let ((manual-install-list nil))
-                   (dolist (package install-list)
+                   (dolist (package-cons install-list)
                      (if (y-or-n-p (format "Package %s is %s. Install it? "
-                                           (car package)
-                                           (if (cdr package) "out of date" "missing")))
-                         (add-to-list 'manual-install-list package)))
-                   (progn (package-download-transaction (package-compute-transaction () manual-install-list))
+                                           (package-desc-name (car package-cons))
+                                           (if (cdr package-cons)
+                                               (format "out of date (%s -> %s)"
+                                                       (package-version-join (package-desc-version (cdr package-cons)))
+                                                       (package-version-join (package-desc-version (car package-cons))))
+                                             "missing")))
+                         (add-to-list 'manual-install-list package-cons)))
+                   (progn (package-download-transaction
+                           (package-compute-transaction
+                            () (mapcar (lambda (package-cons)
+                                         (list (package-desc-name (car package-cons))
+                                               (package-desc-version (car package-cons))))
+                                       manual-install-list) ))
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed.")))))
 

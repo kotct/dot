@@ -14,6 +14,26 @@
   "In Packup, the current mark character.
 This is what the do-commands look for, and the flag the mark-commands store.")
 
+(defmacro kotct/with-stable-package-archive-contents (body)
+  "Run BODY, but if we don't have emacs 25 or later, let-bind
+a modified `package-archive-contents' that only includes the package-desc
+from the most-preferred repository"
+  (message "%s" emacs-version)
+  (if (version< emacs-version "25.1")
+      `(let ((package-archive-contents
+              (mapcar (lambda (pkg)
+                        (let (desc)
+                          (dolist (archive kotct/package-ordered-archives)
+                            (when (not desc)
+                              ;; no match yet, keep looking
+                              (setf desc (car (cl-member archive (cdr pkg)
+                                                         :key #'package-desc-archive
+                                                         :test #'string=)))))
+                          (list (car pkg) desc)))
+                      package-archive-contents)))
+         ,body)
+    `(progn ,body)))
+
 (defun kotct/package-latest-available (package)
   "Get the lastest-available package-desc for PACKAGE, preferring repositories
 as listed in `package-archive-priorities' or `kotct/package-ordered-archives'.
@@ -252,11 +272,12 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                (if (or auto-update
                        (y-or-n-p "Auto install/update these package(s)?"))
                    (progn (package-download-transaction
-                           (package-compute-transaction
-                            () (mapcar (lambda (package-cons)
-                                         (list (package-desc-name (car package-cons))
-                                               (package-desc-version (car package-cons))))
-                                       install-list)))
+                           (kotct/with-stable-package-archive-contents
+                            (package-compute-transaction
+                             () (mapcar (lambda (package-cons)
+                                          (list (package-desc-name (car package-cons))
+                                                (package-desc-version (car package-cons))))
+                                        install-list))))
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed."))
                  (let ((manual-install-list nil))
@@ -270,11 +291,12 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                                              "missing")))
                          (add-to-list 'manual-install-list package-cons)))
                    (progn (package-download-transaction
-                           (package-compute-transaction
-                            () (mapcar (lambda (package-cons)
-                                         (list (package-desc-name (car package-cons))
-                                               (package-desc-version (car package-cons))))
-                                       manual-install-list) ))
+                           (kotct/with-stable-package-archive-contents
+                            (package-compute-transaction
+                             () (mapcar (lambda (package-cons)
+                                          (list (package-desc-name (car package-cons))
+                                                (package-desc-version (car package-cons))))
+                                        manual-install-list))))
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed.")))))
 

@@ -282,13 +282,13 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                           (message "Dependency installation completed."))
                  (let ((manual-install-list nil))
                    (dolist (package-cons install-list)
-                     (if (y-or-n-p (format "Package %s is %s. Install it? "
+                     (if (y-or-n-p (format "Package %s is %s. Install %s? "
                                            (package-desc-name (car package-cons))
                                            (if (cdr package-cons)
-                                               (format "out of date (%s -> %s)"
-                                                       (package-version-join (package-desc-version (cdr package-cons)))
-                                                       (package-version-join (package-desc-version (car package-cons))))
-                                             "missing")))
+                                               (format "out of date (%s)"
+                                                       (package-version-join (package-desc-version (cdr package-cons))))
+                                             "missing")
+                                           (package-version-join (package-desc-version (car package-cons)))))
                          (add-to-list 'manual-install-list package-cons)))
                    (progn (package-download-transaction
                            (kotct/with-stable-package-archive-contents

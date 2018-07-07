@@ -8,7 +8,8 @@
     java
     sh
     web-c
-    go)
+    go
+    tex)
   "A list of packages configured by the language-hub.")
 
 (let ((to-compile ()))

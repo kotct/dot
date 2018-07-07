@@ -17,6 +17,7 @@ network-security.data
 session.*
 recentf
 custom.el
+eshell/
 
 # packages
 elpa/

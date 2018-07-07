@@ -38,10 +38,11 @@ When you're done, try running M-x kotct/omnisharp-install-server again."))
       (message "Heads up! For sick autocompletion and autodocs, you should install OmniSharp!
 Do M-x kotct/omnisharp-install-server and we'll take care of it."))))
 
-(add-hook 'csharp-mode-hook (lambda ()
-                              (auto-complete-mode -1)
-                              (company-mode +1)
-                              (kotct/omnisharp-maybe-start)))
+(add-hook 'csharp-mode-hook
+          (lambda ()
+            (auto-complete-mode -1)
+            (company-mode +1)
+            (kotct/omnisharp-maybe-start)))
 
 (defvar omnisharp-company-active-map
   nil

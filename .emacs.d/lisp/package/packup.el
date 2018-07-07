@@ -187,16 +187,6 @@ If an prefix-arg is passed unmark ARG times."
       (when (not (kotct/package-up-to-date-p package))
         (apply #'kotct/packup-insert-package-row (list package (package-desc-version (kotct/package-latest-available package))))))))
 
-
-(defun kotct/packup-initialize-buffer ()
-  "Initializes the packup buffer."
-  (kill-all-local-variables)
-  (use-local-map packup-mode-map)
-  (setf major-mode 'packup-mode
-        mode-name "Packup"
-        buffer-read-only t)
-  (kotct/packup-initialize-buffer-contents))
-
 (defun kotct/packup-refresh ()
   "Refreshes packages in current buffer."
   (interactive)
@@ -219,6 +209,16 @@ If an prefix-arg is passed unmark ARG times."
     (define-key map "g" #'kotct/packup-refresh)
     (define-key map "?" #'kotct/packup-help)
     map))
+
+(defun kotct/packup-initialize-buffer ()
+  "Initializes the packup buffer."
+  (kill-all-local-variables)
+  (use-local-map packup-mode-map)
+  (setf major-mode 'packup-mode
+        mode-name "Packup"
+        buffer-read-only t)
+  (kotct/packup-initialize-buffer-contents))
+
 
 ;;;###autoload
 (defun kotct/packup ()

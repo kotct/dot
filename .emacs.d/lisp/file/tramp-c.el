@@ -1,9 +1,5 @@
 ;;; C-c C-f: find the current file as sudo
 
-;; ssh is faster than the default scp
-(with-eval-after-load 'tramp
-  (setf tramp-default-method "ssh"))
-
 (defun kotct/sudo-edit (&optional arg)
   "Edit currently visited file as root.
 With a prefix ARG prompt for a file to visit.

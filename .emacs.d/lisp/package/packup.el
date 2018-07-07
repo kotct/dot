@@ -10,7 +10,7 @@
 
 (package-initialize)
 
-(defvar kotct/packup-marker-char ?x
+(defvar kotct/packup-marker-char ?*
   "In Packup, the current mark character.
 This is what the do-commands look for, and the flag the mark-commands store.")
 
@@ -152,7 +152,7 @@ Returns \"\" if there is no package name on the line."
 (defun kotct/packup-mark (arg &optional interactive)
   "Mark the package for update at point in the Packup buffer.
 If a region is selected, mark all the packages in the region.
-If an prefix-arg is passed mark ARG times."
+If a prefix-arg is passed mark ARG times."
   (interactive (list current-prefix-arg t))
   (cond
    ((use-region-p)
@@ -169,7 +169,8 @@ If an prefix-arg is passed mark ARG times."
        (lambda ()
          (forward-char 1)
          (delete-char 1)
-         (insert kotct/packup-marker-char)))))))
+         (insert kotct/packup-marker-char)))
+      (forward-char)))))
 
 (defun kotct/packup-unmark (arg &optional interactive)
   "Unmark the package for update at point in the Packup buffer.
@@ -193,6 +194,18 @@ If an prefix-arg is passed unmark ARG times."
     (let ((kotct/packup-marker-char ?\040))
       (kotct/packup-mark-packages-in-region (point-min) (point-max)))))
 
+(defun kotct/packup-next ()
+  "Go to the next package in the current packup buffer."
+  (interactive)
+  (move-beginning-of-line 2)
+  (forward-char))
+
+(defun kotct/packup-prev ()
+  "Go to the previous package in the current packup buffer."
+  (interactive)
+  (move-beginning-of-line 0)
+  (forward-char))
+
 (defun kotct/packup-initialize-buffer-contents ()
   "Initialize contents of the current packup buffer.
 
@@ -214,9 +227,10 @@ contents of the buffer."
     (let ((inhibit-read-only t))
       (erase-buffer))
     (kotct/packup-initialize-buffer-contents)
-    (when (= (point-min) (point-max))
-      (let ((inhibit-read-only t))
-        (insert "Everything is up to date!\n")))))
+    (if (= (point-min) (point-max))
+        (let ((inhibit-read-only t))
+          (insert "Everything is up to date!\n"))
+      (goto-char 2))))
 
 (defun kotct/packup-help ()
   "Show packup help."
@@ -230,8 +244,11 @@ contents of the buffer."
     (define-key map "u" #'kotct/packup-unmark)
     (define-key map "U" #'kotct/packup-unmark-all)
     (define-key map "x" #'kotct/packup-do-update)
+    (define-key map "n" #'kotct/packup-next)
+    (define-key map "p" #'kotct/packup-prev)
     (define-key map "g" #'kotct/packup-refresh)
     (define-key map "?" #'kotct/packup-help)
+    (define-key map "q" #'quit-window)
     map)
   "The keymap for packup-mode.")
 
@@ -257,6 +274,7 @@ contents of the buffer."
         (progn
           (kill-buffer buffer)
           (message "Nothing to update!"))
+      (goto-char 2)
       (pop-to-buffer-same-window buffer))))
 
 ;;;###autoload

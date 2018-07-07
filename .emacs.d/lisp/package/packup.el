@@ -15,7 +15,7 @@
 This is what the do-commands look for, and the flag the mark-commands store.")
 
 (defmacro kotct/with-stable-package-archive-contents (body)
-  "Run BODY, but if we don't have emacs 25 or later, let-bind
+  "Run BODY, but if we don't have Emacs 25 or later, let-bind
 a modified `package-archive-contents' that only includes the package-desc
 from the most-preferred repository."
   (if (version< emacs-version "25.1")
@@ -41,6 +41,7 @@ from the most-preferred repository."
 (defun kotct/package-latest-available (package)
   "Get the lastest-available package-desc for PACKAGE, preferring repositories
 as listed in `package-archive-priorities' or `kotct/package-ordered-archives'.
+
 Does not automatically refresh the package list."
   (if (version< emacs-version "25.1")
       ;; no package-archive-priorities, so use kotct/package-ordered-archives
@@ -63,15 +64,16 @@ Does not automatically refresh the package list."
     (cadr (assoc package package-archive-contents))))
 
 (defun kotct/package-up-to-date-p (package)
-  "Returns T if PACKAGE is installed and up-to-date.
+  "Return non-nil if PACKAGE is installed and up-to-date.
+
 Does not automatically refresh package list.
-Before emacs 25, we have to manually check in preferred-repository order."
+Before Emacs 25, we have to manually check in preferred-repository order."
   (let ((latest (kotct/package-latest-available package)))
     (when latest
       (package-installed-p package (package-desc-version latest)))))
 
 (defun kotct/packup-insert-package-row (package-name package-desc-version)
-  "Inserts a package row into current buffer."
+  "Insert a package row into current buffer."
   (let ((inhibit-read-only t))
     (insert (format "[%c] %s -> %s\n" kotct/packup-marker-char package-name package-desc-version))))
 
@@ -128,7 +130,7 @@ as in '[x]'."
 
 (defun kotct/packup-get-package-name ()
   "Get package name on current line.
-Returns \"\" if there is no package name on the line."
+Return \"\" if there is no package name on the line."
   (save-excursion
     (beginning-of-line)
     (forward-char 4)
@@ -221,7 +223,7 @@ contents of the buffer."
         (apply #'kotct/packup-insert-package-row (list package (package-desc-version (kotct/package-latest-available package))))))))
 
 (defun kotct/packup-refresh ()
-  "Refreshes packages in current buffer."
+  "Refresh packages in current packup buffer."
   (interactive)
   (when (eq major-mode 'packup-mode)
     (let ((inhibit-read-only t))
@@ -253,7 +255,7 @@ contents of the buffer."
   "The keymap for packup-mode.")
 
 (defun kotct/packup-initialize-buffer ()
-  "Initializes the packup buffer."
+  "Initialize the packup buffer."
   (kill-all-local-variables)
   (use-local-map packup-mode-map)
   (setf major-mode 'packup-mode
@@ -264,7 +266,7 @@ contents of the buffer."
 
 ;;;###autoload
 (defun kotct/packup ()
-  "Creates an interactive buffer to install/update packages."
+  "Create an interactive buffer to install/update packages."
   (interactive)
   (let ((old-buf (current-buffer))
         (buffer (get-buffer-create "*packup*")))
@@ -279,8 +281,9 @@ contents of the buffer."
 
 ;;;###autoload
 (defun kotct/packup-install-dependencies (no-refresh &optional update auto-update)
-  "Installs the dependencies.
+  "Install the dependencies.
 With a non-nil or prefix arg NO-REFRESH, do not refresh package list.
+
 If UPDATE is non-nil, out-of-date packages will be added to install list.
 If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
   (interactive "P")

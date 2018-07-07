@@ -21,7 +21,7 @@ and then install the correct wrapper."
               (customize-save-variable 'omnisharp-server-executable-path "~/.emacs.d/bin/omnisharp")
               (message "Ready to roll! Do M-x omnisharp-mode to start OmniSharp."))
           (message "Looks like you're using Arch Linux!
-Please insall omnisharp-roslyn and msbuild-stable from the AUR.
+Please install omnisharp-roslyn and msbuild-stable from the AUR.
 When you're done, try running M-x kotct/omnisharp-install-server again."))
       ;; default to built-in installation
       (omnisharp-install-server nil))))

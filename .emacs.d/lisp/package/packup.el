@@ -213,7 +213,10 @@ contents of the buffer."
   (when (eq major-mode 'packup-mode)
     (let ((inhibit-read-only t))
       (erase-buffer))
-    (kotct/packup-initialize-buffer-contents)))
+    (kotct/packup-initialize-buffer-contents)
+    (when (= (point-min) (point-max))
+      (let ((inhibit-read-only t))
+        (insert "Everything is up to date!\n")))))
 
 (defun kotct/packup-help ()
   "Show packup help."

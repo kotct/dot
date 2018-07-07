@@ -67,6 +67,8 @@ Before emacs 25, we have to manually check in preferred-repository order."
     (insert (format "[%c] %s -> %s\n" kotct/packup-marker-char package-name package-desc-version))))
 
 (defun kotct/packup-mark-packages-in-region (start end)
+  "Mark all packages in the current packup buffer that are between
+START and END. START should be at the beginning of a line."
   (let ((inhibit-read-only t))
     (if (> start end)
         (error "start > end"))
@@ -87,6 +89,8 @@ Before emacs 25, we have to manually check in preferred-repository order."
     (forward-line)))
 
 (defun kotct/packup-marker-regexp ()
+  "Return a regexp to search for `kotct/packup-marker-char' surrounded by quotes,
+as in '[x]'."
   (concat "^\\[" (regexp-quote (char-to-string kotct/packup-marker-char)) "\\]"))
 
 (defmacro kotct/packup-map-over-marks (body)
@@ -114,7 +118,7 @@ Before emacs 25, we have to manually check in preferred-repository order."
      results))
 
 (defun kotct/packup-get-package-name ()
-  "Gets package name on current line.
+  "Get package name on current line.
 Returns \"\" if there is no package name on the line."
   (save-excursion
     (beginning-of-line)
@@ -127,7 +131,7 @@ Returns \"\" if there is no package name on the line."
         ""))))
 
 (defun kotct/packup-do-update ()
-  "Executes update in current buffer."
+  "Execute update in current buffer."
   (interactive)
   (let ((inhibit-read-only t))
     (save-excursion
@@ -167,18 +171,25 @@ If an prefix-arg is passed unmark ARG times."
     (kotct/packup-mark arg interactive)))
 
 (defun kotct/packup-mark-all ()
+  "Mark all packages in the current packup buffer."
   (interactive)
   (save-excursion
     (kotct/packup-mark-packages-in-region (point-min) (point-max))))
 
 
 (defun kotct/packup-unmark-all ()
+  "Unmark all packages in the current packup buffer."
   (interactive)
   (save-excursion
     (let ((kotct/packup-marker-char ?\040))
       (kotct/packup-mark-packages-in-region (point-min) (point-max)))))
 
 (defun kotct/packup-initialize-buffer-contents ()
+  "Initialize contents of the current packup buffer.
+
+This refreshes `package-archive-contents' and finds all packages that need
+updating or installing. It then uses this information to write the
+contents of the buffer."
   (let ((inhibit-read-only t))
     (kill-region (point-min) (point-max)))
   (package-refresh-contents)
@@ -196,6 +207,7 @@ If an prefix-arg is passed unmark ARG times."
     (kotct/packup-initialize-buffer-contents)))
 
 (defun kotct/packup-help ()
+  "Show packup help."
   (interactive)
   (message "g-refresh m-mark u-unmark x-execute ?-help"))
 
@@ -208,7 +220,8 @@ If an prefix-arg is passed unmark ARG times."
     (define-key map "x" #'kotct/packup-do-update)
     (define-key map "g" #'kotct/packup-refresh)
     (define-key map "?" #'kotct/packup-help)
-    map))
+    map)
+  "The keymap for packup-mode.")
 
 (defun kotct/packup-initialize-buffer ()
   "Initializes the packup buffer."

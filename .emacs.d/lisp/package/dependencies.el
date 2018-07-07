@@ -33,4 +33,9 @@
     solarized-theme)
   "A list of all packages required for operation.")
 
+(with-eval-after-load 'package
+  (setf package-pinned-packages
+        '(;; stable highlight-symbol is very old and VERY LOUD
+          (highlight-symbol . "melpa"))))
+
 (provide 'dependencies)

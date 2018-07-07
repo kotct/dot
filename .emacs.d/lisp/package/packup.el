@@ -17,11 +17,16 @@ This is what the do-commands look for, and the flag the mark-commands store.")
 (defmacro kotct/with-stable-package-archive-contents (body)
   "Run BODY, but if we don't have emacs 25 or later, let-bind
 a modified `package-archive-contents' that only includes the package-desc
-from the most-preferred repository"
+from the most-preferred repository."
   (if (version< emacs-version "25.1")
       `(let ((package-archive-contents
               (mapcar (lambda (pkg)
-                        (let (desc)
+                        ;; first check package-pinned-packages
+                        (let* ((pinned-archive (cdr (assoc (car pkg) package-pinned-packages)))
+                               (desc (when pinned-archive
+                                       (car (cl-member pinned-archive (cdr pkg)
+                                                       :key #'package-desc-archive
+                                                       :test #'string=)))))
                           (dolist (archive kotct/package-ordered-archives)
                             (when (not desc)
                               ;; no match yet, keep looking
@@ -39,8 +44,13 @@ as listed in `package-archive-priorities' or `kotct/package-ordered-archives'.
 Does not automatically refresh the package list."
   (if (version< emacs-version "25.1")
       ;; no package-archive-priorities, so use kotct/package-ordered-archives
-      (let ((versions (cdr (assoc package package-archive-contents)))
-            found-desc)
+      (let* ((versions (cdr (assoc package package-archive-contents)))
+             ;; check package-pinned-packages first
+             (pinned-archive (cdr (assoc package package-pinned-packages)))
+             (found-desc (when pinned-archive
+                     (car (cl-member pinned-archive versions
+                                     :key #'package-desc-archive
+                                     :test #'string=)))))
         (dolist (archive kotct/package-ordered-archives)
           (when (not found-desc)
             ;; no match yet, keep looking

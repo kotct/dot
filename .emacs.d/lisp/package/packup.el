@@ -29,18 +29,18 @@ Does not automatically refresh package list."
   (let ((inhibit-read-only t))
     (if (> start end)
         (error "start > end"))
-    (goto-char start)			; assumed at beginning of line
+    ;; assume we are at beginning of line
+    (goto-char start)
     (while (< (point) end)
       (forward-char 1)
-      (progn
-        (delete-char 1)
-        (insert kotct/packup-marker-char))
+      (delete-char 1)
+      (insert kotct/packup-marker-char)
       (forward-line 1))))
 
 (defun kotct/packup-repeat-over-lines (arg function)
   "Helper function for iterating over lines ARG times, and applying FUNCTION on each line."
   (while (and (> arg 0) (not (eobp)))
-    (setq arg (1- arg))
+    (setf arg (1- arg))
     (beginning-of-line)
     (save-excursion (funcall function))
     (forward-line)))
@@ -50,43 +50,40 @@ Does not automatically refresh package list."
 
 (defmacro kotct/packup-map-over-marks (body)
   "Call BODY on each marked line in current buffer."
-  `(prog1
-       (let ((inhibit-read-only t) case-fold-search found results)
-         (let ((regexp (kotct/packup-marker-regexp)) next-position)
-           (save-excursion
-             (goto-char (point-min))
-             ;; remember position of next marked package before BODY
-             ;; can insert lines before the just found package,
-             ;; confusing us by finding the same marked package again
-             ;; and again and...
-             (setq next-position (and (re-search-forward regexp nil t)
-                                      (point-marker))
-                   found (not (null next-position)))
-             (while next-position
-               (goto-char next-position)
-               (setq results (cons ,body results))
-               ;; move after last match
-               (goto-char next-position)
-               (forward-line 1)
-               (set-marker next-position nil)
-               (setq next-position (and (re-search-forward regexp nil t)
-                                        (point-marker))))))
-         (if t
-             results
-           nil))))
+  `(let ((inhibit-read-only t)
+         (regexp (kotct/packup-marker-regexp))
+         case-fold-search next-position results)
+     (save-excursion
+       (goto-char (point-min))
+       ;; remember position of next marked package before BODY
+       ;; can insert lines before the just found package,
+       ;; confusing us by finding the same marked package again
+       ;; and again and...
+       (setf next-position (and (re-search-forward regexp nil t)
+                                (point-marker)))
+       (while next-position
+         (goto-char next-position)
+         (setf results (cons ,body results))
+         ;; move after last match
+         (goto-char next-position)
+         (forward-line 1)
+         (set-marker next-position nil)
+         (setf next-position (and (re-search-forward regexp nil t)
+                                  (point-marker)))))
+     results))
 
 (defun kotct/packup-get-package-name ()
-    "Gets package name on current line.
+  "Gets package name on current line.
 Returns \"\" if there is no package name on the line."
-    (save-excursion
-      (beginning-of-line)
-      (forward-char 4)
-      (let ((point (point-marker)))
-        (if (re-search-forward " " nil t)
-            (prog2
-                (backward-char)
-                (buffer-substring point (point-marker)))
-          ""))))
+  (save-excursion
+    (beginning-of-line)
+    (forward-char 4)
+    (let ((point (point-marker)))
+      (if (re-search-forward " " nil t)
+          (progn
+            (backward-char)
+            (buffer-substring point (point-marker)))
+        ""))))
 
 (defun kotct/packup-do-update ()
   "Executes update in current buffer."
@@ -95,7 +92,7 @@ Returns \"\" if there is no package name on the line."
     (save-excursion
       (goto-char (point-min))
       (let ((kotct/dependency-list (kotct/packup-map-over-marks (intern (kotct/packup-get-package-name)))))
-        (kotct/packup-install-dependencies nil t t))))
+        (kotct/packup-install-dependencies nil 'update 'auto-update))))
   (kotct/packup-refresh))
 
 (defun kotct/packup-mark (arg &optional interactive)
@@ -135,10 +132,10 @@ If an prefix-arg is passed unmark ARG times."
 
 
 (defun kotct/packup-unmark-all ()
-    (interactive)
-    (save-excursion
-      (let ((kotct/packup-marker-char ?\040))
-        (kotct/packup-mark-packages-in-region (point-min) (point-max)))))
+  (interactive)
+  (save-excursion
+    (let ((kotct/packup-marker-char ?\040))
+      (kotct/packup-mark-packages-in-region (point-min) (point-max)))))
 
 (defun kotct/packup-initialize-buffer-contents ()
   (let ((inhibit-read-only t))
@@ -146,15 +143,15 @@ If an prefix-arg is passed unmark ARG times."
   (package-refresh-contents)
   (let ((install-list nil))
     (dolist (package kotct/dependency-list)
-      (if (or (not (package-installed-p package))
-              (not (kotct/package-up-to-date-p package)))
-          (apply 'kotct/packup-insert-package-row (list package (package-desc-version (cadr (assq package package-alist)))))))))
+      (when (or (not (package-installed-p package))
+                (not (kotct/package-up-to-date-p package)))
+        (apply #'kotct/packup-insert-package-row (list package (package-desc-version (cadr (assq package package-alist)))))))))
 
 (defun kotct/packup-initialize-buffer ()
   "Initializes the packup buffer."
   (kill-all-local-variables)
   (use-local-map packup-mode-map)
-  (setq major-mode 'packup-mode
+  (setf major-mode 'packup-mode
         mode-name "Packup"
         buffer-read-only t)
   (kotct/packup-initialize-buffer-contents))
@@ -162,24 +159,24 @@ If an prefix-arg is passed unmark ARG times."
 (defun kotct/packup-refresh ()
   "Refreshes packages in current buffer."
   (interactive)
-  (if (eq major-mode 'packup-mode)
+  (when (eq major-mode 'packup-mode)
     (let ((inhibit-read-only t))
-      (erase-buffer)
-      (kotct/packup-initialize-buffer-contents))))
+      (erase-buffer))
+    (kotct/packup-initialize-buffer-contents)))
 
 (defun kotct/packup-help ()
   (interactive)
   (message "g-refresh m-mark u-unmark x-execute ?-help"))
 
 (defvar packup-mode-map
-  (let ((map (make-keymap)))
-    (define-key map "m" 'kotct/packup-mark)
-    (define-key map "M" 'kotct/packup-mark-all)
-    (define-key map "u" 'kotct/packup-unmark)
-    (define-key map "U" 'kotct/packup-unmark-all)
-    (define-key map "x" 'kotct/packup-do-update)
-    (define-key map "g" 'kotct/packup-refresh)
-    (define-key map "?" 'kotct/packup-help)
+  (let ((map (make-sparse-keymap)))
+    (define-key map "m" #'kotct/packup-mark)
+    (define-key map "M" #'kotct/packup-mark-all)
+    (define-key map "u" #'kotct/packup-unmark)
+    (define-key map "U" #'kotct/packup-unmark-all)
+    (define-key map "x" #'kotct/packup-do-update)
+    (define-key map "g" #'kotct/packup-refresh)
+    (define-key map "?" #'kotct/packup-help)
     map))
 
 ;;;###autoload
@@ -192,8 +189,8 @@ If an prefix-arg is passed unmark ARG times."
     (kotct/packup-initialize-buffer)
     (if (= (point-min) (point-max))
         (progn
-         (kill-buffer buffer)
-         (message "Nothing to update!"))
+          (kill-buffer buffer)
+          (message "Nothing to update!"))
       (pop-to-buffer-same-window buffer))))
 
 ;;;###autoload
@@ -206,7 +203,9 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
 
   (unless no-refresh (package-refresh-contents))
 
-  (let ((install-list nil))
+  ;; install-list is a list of cons cells
+  ;; the car of each is a package-desc, the cdr is the currently installed package-desc
+  (let (install-list)
     (dolist (package kotct/dependency-list)
 
       (let ((updating nil))

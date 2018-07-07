@@ -10,10 +10,13 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (global-set-key (kbd "C-c C-r") #'ivy-resume)
+(global-set-key (kbd "M-i") #'counsel-imenu)
 (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
 (define-key ivy-minibuffer-map (kbd "C-<return>") #'ivy-done)
 (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
 
+;; all the initial inputs are shit
+(setf ivy-initial-inputs-alist ())
 
 ;;; ido
 ;; (ido-mode t)

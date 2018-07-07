@@ -1,5 +1,6 @@
 (defvar languages
   '(c
+    csharp
     elisp
     elixir
     fish

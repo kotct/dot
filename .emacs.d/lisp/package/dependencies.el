@@ -35,8 +35,4 @@
     solarized-theme)
   "A list of all packages required for operation.")
 
-(setf package-pinned-packages
-      '(;; csharp-mode stable is incompatible with emacs 26
-        (csharp-mode . "melpa")))
-
 (provide 'dependencies)

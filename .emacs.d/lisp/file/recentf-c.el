@@ -9,7 +9,7 @@
 (setf recentf-max-saved-items 200)
 
 ;; Set timer to save `recentf-list' every 5 minutes.
-(run-at-time t (* 5 60) #'recentf-save-list)
+(run-at-time (* 5 60) (* 5 60) #'recentf-save-list)
 
 ;; recentf completion using `ido-mode'
 ;;

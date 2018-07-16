@@ -13,8 +13,6 @@ We really like to see the following types of contributions:
 
 We'd rather not see any poorly-worded issues or stuff that doesn't work.
 
-<!-- TODO: Add Code of Conduct/link to CoC .md file here? -->
-
 ## Workflow
 
 It is a good idea to open an Issue for any new features or support you want to see before doing any work to make sure you don't waste your time.

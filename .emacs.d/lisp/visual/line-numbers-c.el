@@ -14,4 +14,4 @@
 (add-to-list 'linum-disabled-modes-list 'package-menu-mode)
 (add-to-list 'linum-disabled-modes-list 'magit--mode)
 
-(provide 'linum-c)
+(provide 'line-numbers-c)

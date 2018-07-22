@@ -1,3 +1,4 @@
+---
 language: emacs-lisp
 sudo: false
 cache: apt

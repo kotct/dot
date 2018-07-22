@@ -17,8 +17,28 @@
     (add-to-list 'linum-disabled-modes-list 'package-menu-mode)
     (add-to-list 'linum-disabled-modes-list 'magit--mode)))
 
+(defun kotct/display-line-numbers--turn-off ()
+  "Turns off `display-line-numbers-mode' for the current buffer."
+  (display-line-numbers-mode -1))
+
+(defun kotct/line-numbers--set-up-display-line-numbers ()
+  "Sets up `display-line-numbers-mode'.
+
+This mode was added in Emacs 26.1 and is recommended over `linum-mode' because
+it generally works better."
+  (progn
+    ;; inhibit global-linum-mode
+    (global-linum-mode -1)
+    (global-display-line-numbers-mode 1)
+
+    ;; add some hooks to turn off display-line-numbers mode
+    (add-hook 'dired-mode-hook #'kotct/display-line-numbers--turn-off)
+    (add-hook 'git-commit-mode-hook #'kotct/display-line-numbers--turn-off)
+    (add-hook 'magit-mode-hook #'kotct/display-line-numbers--turn-off)
+    (add-hook 'package-menu-mode-hook #'kotct/display-line-numbers--turn-off)))
+
 (if (not (version< emacs-version "26.1"))
-    nil
+    (kotct/line-numbers--set-up-display-line-numbers)
   (kotct/line-numbers--set-up-linum))
 
 (provide 'line-numbers-c)

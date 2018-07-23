@@ -1,5 +1,5 @@
 (kotct/hub "visual"
-           (linum-c
+           (line-numbers-c
             startup-c
             frame-c
             text-visuals

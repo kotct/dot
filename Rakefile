@@ -6,16 +6,13 @@ require 'fileutils'
 RAKEFILES = Dir.glob(File.expand_path(File.join('*', 'Rakefile'), File.dirname(__FILE__)), File::FNM_DOTMATCH)
 
 RAKEFILES.each do |rakefile|
-
 	if !FileUtils.identical?(rakefile, __FILE__)
 		load rakefile
 	end
-
 end
 
-desc "Runs the install task from all sub-Rakefiles if they have it"
+desc 'Runs the install task from all sub-Rakefiles if they have it'
 task :install do
-
 	tasks = Rake.application.tasks
 	tasks.select do |task|
 		task.name =~ /\:install/
@@ -23,5 +20,4 @@ task :install do
 		puts "Executing task: #{t.name.inspect}"
 		t.execute
 	end
-
 end

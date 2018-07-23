@@ -37,7 +37,7 @@ it generally works better."
     (add-hook 'magit-mode-hook #'kotct/display-line-numbers--turn-off)
     (add-hook 'package-menu-mode-hook #'kotct/display-line-numbers--turn-off)))
 
-(if (not (version< emacs-version "26.1"))
+(if (fboundp #'display-line-numbers-mode)
     (kotct/line-numbers--set-up-display-line-numbers)
   (kotct/line-numbers--set-up-linum))
 

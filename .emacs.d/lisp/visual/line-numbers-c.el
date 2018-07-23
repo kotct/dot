@@ -32,10 +32,11 @@ it generally works better."
     (global-display-line-numbers-mode 1)
 
     ;; add some hooks to turn off display-line-numbers mode
-    (add-hook 'dired-mode-hook #'kotct/display-line-numbers--turn-off)
-    (add-hook 'git-commit-mode-hook #'kotct/display-line-numbers--turn-off)
-    (add-hook 'magit-mode-hook #'kotct/display-line-numbers--turn-off)
-    (add-hook 'package-menu-mode-hook #'kotct/display-line-numbers--turn-off)))
+    (dolist (hook '(dired-mode-hook
+                    git-commit-mode-hook
+                    magit-mode-hook
+                    package-menu-mode-hook))
+      (add-hook hook #'kotct/display-line-numbers--turn-off))))
 
 (if (fboundp #'display-line-numbers-mode)
     (kotct/line-numbers--set-up-display-line-numbers)

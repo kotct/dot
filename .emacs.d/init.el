@@ -37,7 +37,7 @@ Makes tests runnable and other dev-only goodies.")
 
 ;; Used by hubs to register themselves
 (defmacro kotct/hub (hubname features &optional autoloads)
-  "Loads the hub denoted by HUBNAME.
+  "Load the hub denoted by HUBNAME.
 
 Defines a variable of the format kotct/HUBNAME-features to be the
 list FEATURES.

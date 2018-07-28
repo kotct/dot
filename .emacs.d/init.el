@@ -69,8 +69,9 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
 (defun kotct/load-hubs (&optional frame)
   "Load the hubs defined in in `kotct/hub-list'.
 
-Pass FRAME if the function is being called on `after-make-frame-functions'
-and we need to remove the hook and specifically use the frame."
+Pass FRAME if the function is being called on
+`after-make-frame-functions' and we need to remove the hook and
+specifically use the frame."
   ;; If byte-compiled files are older, load newer version.
   (let ((load-prefer-newer t))
     (when frame

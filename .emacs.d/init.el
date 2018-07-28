@@ -67,8 +67,7 @@ If AUTOLOADS is non-nil, update the autoloads for that directory."
   (normal-top-level-add-to-load-path kotct/hub-list))
 
 (defun kotct/load-hubs (&optional frame)
-  "Does the majority of initialization for dot/.emacs,
-by loading the hubs defined in `kotct/hub-list'.
+  "Load the hubs defined in in `kotct/hub-list'.
 
 Pass FRAME if the function is being called on `after-make-frame-functions'
 and we need to remove the hook and specifically use the frame."

@@ -30,6 +30,10 @@ In general, here's a suggested workflow:
    If the maintainers ask for a revision to your proposed changes, make it promptly to help get your PR merged as soon as possible.
    Inactive PR's or Issues may be marked as Deferred or closed if no response is given.
 
+## Code Style
+
+We would prefer that contributions be in line with @bbatsov's [EmacsLisp style guide](https://github.com/bbatsov/emacs-lisp-style-guide).
+
 ## Branching/Versioning Scheme
 
 ***Note: This guide is intended mainly for core contributors.***

@@ -10,7 +10,7 @@
 ;; (Set this in your user hub.)
 (defvar kotct/dev-mode
   nil
-  "Whether or not kotct/dot emacs dev mode is enabled.
+  "Whether or not kotct/dot Emacs dev mode is enabled.
 Makes tests runnable and other dev-only goodies.")
 
 

@@ -3,9 +3,6 @@
 ;; load any absolute must-have code
 (load "~/.emacs-preload" 'noerror 'nomessage 'nosuffix)
 
-;; Initialize the package repository.
-(package-initialize)
-
 ;; Create variable to determine if we are in dev mode or not.
 ;; (Set this in your user hub.)
 (defvar kotct/dev-mode

@@ -2,6 +2,7 @@
            (dependencies
             repositories
             verification)
-           (packup))
+           (packup
+	        git-update))
 
 (provide 'package-hub)

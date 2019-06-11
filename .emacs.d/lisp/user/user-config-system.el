@@ -8,6 +8,9 @@
   "~/.emacs.d/lisp/user/default-username"
   "The file that sets the default username for the machine.  (Ignored by git.)")
 
+(defvar kotct/directory "~/.emacs.d"
+  "The path to your instance of kotct/dot or one of it's subdirectories.")
+
 (defmacro kotct/personal-packages (&rest packages)
   "Appends PACKAGES to `kotct/dependency-list'"
   (setf kotct/dependency-list (append kotct/dependency-list packages))
@@ -25,28 +28,6 @@
         (if (zerop exit-code)
             (buffer-string)
           (error "Error running git %s\n%s" args (buffer-string)))))))
-
-(defun kotct/user-fetch-config (username)
-  "Fetch USERNAME's personal config from GitHub, out of the
-repository USERNAME/.emacs."
-  (message "fetching config for %s" username)
-  (let ((default-directory "~/.emacs.d/lisp/user/users/")
-        (url (format "https://github.com/%s/.emacs.git" username)))
-    (kotct/run-git "clone" url username)))
-
-(defun kotct/user-update-config (&optional username)
-  "Update USERNAME's personal config git repository.
-If USERNAME is nil, prompt for a username."
-  (interactive)
-  (unless username
-    (setf username
-          (kotct/user-ask-username "Update config for: " 'require-match)))
-  (let ((default-directory (format "~/.emacs.d/lisp/user/users/%s" username)))
-    (kotct/run-git "pull" "origin" "master"))
-  (if (eq username kotct/user-current-username)
-      ;; reload the config
-      (kotct/user-switch-username username))
-  (message "@%s's config updated!" username))
 
 (defun kotct/user-get-default-username ()
   "Look up the default username set on this machine."

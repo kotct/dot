@@ -4,9 +4,8 @@ sudo: false
 cache: apt
 
 env:
-  - EVM_EMACS=emacs-24.5-travis
   - EVM_EMACS=emacs-25.3-travis
-  - EVM_EMACS=emacs-26.1-travis
+  - EVM_EMACS=emacs-26.2-travis
 
 before_install:
   - git clone https://github.com/rejeep/evm.git ~/.evm

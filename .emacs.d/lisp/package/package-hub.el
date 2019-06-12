@@ -3,6 +3,6 @@
             repositories
             verification)
            (packup
-	        git-update))
+            git-update))
 
 (provide 'package-hub)

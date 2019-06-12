@@ -8,9 +8,6 @@
   "~/.emacs.d/lisp/user/default-username"
   "The file that sets the default username for the machine.  (Ignored by git.)")
 
-(defvar kotct/directory "~/.emacs.d"
-  "The path to your instance of kotct/dot or one of it's subdirectories.")
-
 (defmacro kotct/personal-packages (&rest packages)
   "Appends PACKAGES to `kotct/dependency-list'"
   (setf kotct/dependency-list (append kotct/dependency-list packages))

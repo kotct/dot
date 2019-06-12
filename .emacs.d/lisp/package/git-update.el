@@ -3,9 +3,12 @@
 ;;;  kotct/update-dot-config
 ;;;  kotct/update-user-config
 
-(require  'user-config-system)
+(require 'user-config-system)
 
 (package-initialize)
+
+(defvar kotct/directory "~/.emacs.d"
+  "The path to your instance of kotct/dot or one of it's subdirectories.")
 
 (defun kotct/git-repository-diff (directory)
   "Fetches in DIRECTORY and returns the difference between the common ancestor of HEAD and origin/master in DIRECTORY."
@@ -18,8 +21,7 @@
   (not (string= (kotct/git-repository-diff directory) "")))
 
 (defun kotct/user-fetch-config (username)
-  "Fetch USERNAME's personal config from GitHub, out of the
-repository USERNAME/.emacs."
+  "Fetch USERNAME's personal config from GitHub, out of the repository USERNAME/.emacs."
   (message "fetching config for %s" username)
   (let ((default-directory "~/.emacs.d/lisp/user/users/")
         (url (format "https://github.com/%s/.emacs.git" username)))
@@ -43,7 +45,7 @@ Returns true if an update occured."
                   (y-or-n-p (format "Pull the most recent changes to %s?" directory))))
           (if updating
               (let ((default-directory directory))
-                (kotct/run-git "pull" "origin" "master")
+                (kotct/run-git "pull" "--rebase" "origin" "master")
                 (message (format "%s updated!" directory)))
             (message "Okay we promise we didn't do anything!"))
           ;; reset buffer what not
@@ -52,6 +54,13 @@ Returns true if an update occured."
           updating))
     (progn (message (format "%s is up to date." directory))
            nil)))
+
+;;;###autoload
+(defun kotct/update-dot-config (&optional auto-update)
+  "Update USERNAME's personal config git repository if the USERNAME's personal config is out of date.
+Will auto update if AUTO-UPDATE is true."
+  (interactive "P")
+  (kotct/update-git-repository kotct/directory auto-update))
 
 ;;;###autoload
 (defun kotct/update-user-config (&optional username auto-update)
@@ -63,16 +72,8 @@ Will auto update if AUTO-UPDATE is true."
     (setf username
           (kotct/user-ask-username "Update config for: " 'require-match)))
   (if (and (kotct/update-git-repository (format "~/.emacs.d/lisp/user/users/%s" username) auto-update)
-
            (eq username kotct/user-current-username))
       ;; reload the config
       (kotct/user-switch-username username)))
-
-;;;###autoload
-(defun kotct/update-dot-config (&optional auto-update)
-  "Update USERNAME's personal config git repository if the USERNAME's personal config is out of date.
-Will auto update if AUTO-UPDATE is true."
-  (interactive "P")
-  (kotct/update-git-repository kotct/directory auto-update))
 
 (provide 'git-update)

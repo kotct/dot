@@ -1,6 +1,6 @@
 ;;; M-x: ido-completed M-x
 ;;; C-c C-c M-x: normal M-x
-;;; 
+;;;
 ;;; implicitly rebinds C-x C-f, C-x C-b, and similar functions to use ido
 ;;; different keybindings for ido navigation based on menu mode
 ;;; see docs for ido, ido-vertical-mode, and ido-grid-mode
@@ -53,5 +53,9 @@ MODE is a symbol which can be grid (default), vertical, or normal."
 
 ;;; autocomplete
 (ac-config-default)
+
+;;; company
+(with-eval-after-load 'company
+  (define-key company-mode-map (kbd "TAB") #'company-indent-or-complete-common))
 
 (provide 'completion-c)

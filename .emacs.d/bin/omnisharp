@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+
+if ! lsb_release -ds | grep "Arch Linux" > /dev/null; then
+	echo "The omnisharp wrapper is only meant to be used with Arch Linux!"
+	echo "Please use M-x kotct/omnisharp-install-server to get omnisharp."
+	exit 1;
+fi
+
+export MONO_PATH=/opt/omnisharp-roslyn
+exec mono --assembly-loader=strict ${MONO_PATH}/OmniSharp.exe "$@"

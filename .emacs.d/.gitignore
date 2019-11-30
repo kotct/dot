@@ -18,6 +18,7 @@ session.*
 recentf
 custom.el
 eshell/
+.lsp-*
 
 # packages
 elpa/

@@ -4,7 +4,7 @@ sudo: false
 cache: apt
 
 env:
-  - EVM_EMACS=emacs-25.3-travis-linux-xenial
+  - EVM_EMACS=emacs-25.3-travis
   - EVM_EMACS=emacs-26.3-travis-linux-xenial
 
 before_install:

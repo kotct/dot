@@ -29,7 +29,6 @@
     go-mode ;; for editing go code
     go-autocomplete ;; AC support for go
     lsp-mode ;; for editing with any language that has a language server
-    lsp-ui ;; to support viewing lsp-bound files with flycheck and code lenses
 
     ;; THEMES
     solarized-theme)

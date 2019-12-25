@@ -16,10 +16,4 @@
 ;; Don't indent `where' clauses in Rust.
 (setf rust-indent-where-clause nil)
 
-;; Enable LSP (to talk to RLS) on all rust-mode buffers
-;;
-;; NOTE This could get quite annoying if you're not aiming to use RLS
-(require 'lsp-mode)
-(add-hook #'rust-mode-hook #'lsp)
-
 (provide 'rust)

@@ -51,9 +51,9 @@
                      (/ (face-attribute 'default :height) 10.0))))
     (set-face-attribute 'default nil :height (floor (* 10.0 new-size)))))
 
-(defun kotct/font-upscale-height () (interactive "*") (kotct/font-rescale-height +1.0))
-(defun kotct/font-downscale-height () (interactive "*") (kotct/font-rescale-height -1.0))
-(defun kotct/font-reset-height () (interactive "*") (kotct/font-set-height kotct/font-default-height))
+(defun kotct/font-upscale-height () (interactive) (kotct/font-rescale-height +1.0))
+(defun kotct/font-downscale-height () (interactive) (kotct/font-rescale-height -1.0))
+(defun kotct/font-reset-height () (interactive) (kotct/font-set-height kotct/font-default-height))
 
 (global-unset-key (kbd "C-x C-+"))
 (global-unset-key (kbd "C-x C-="))

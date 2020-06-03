@@ -49,17 +49,19 @@ Returns true if an update occured."
               (insert (format "%s" (kotct/git-repository-diff directory)))
               (pop-to-buffer-same-window buffer)
               ;; prompt user about updating and update if they want
-              (let updating (or auto-update
-                                (y-or-n-p (format "Pull the most recent changes to %s?" directory))))
-              (if updating
-                  (let ((default-directory directory))
-                    (kotct/run-git "pull" "--rebase" "origin" "master")
-                    (message (format "%s updated!" directory)))
-                (message "Okay we promise we didn't do anything!"))
-              ;; reset buffer what not
-              (kill-buffer buffer)
-              (set-buffer old-buffer)
-              updating))
+              (let ((updating (or auto-update
+                                  (y-or-n-p (format "Pull the most recent changes to %s?" directory)))))
+
+                (if updating
+                    (let ((default-directory directory))
+                      (kotct/run-git "pull" "--rebase" "origin" "master")
+                      (message (format "%s updated!" directory)))
+                  (message "Okay we promise we didn't do anything!"))
+
+                ;; reset buffer what not
+                (kill-buffer buffer)
+                (set-buffer old-buffer)
+                updating)))
         (message (format "%s is up to date." directory))
         nil)
     (error (format "Error: kotct/update-git-repository doesn't support updating non-master branches, and %s is on branch %s."

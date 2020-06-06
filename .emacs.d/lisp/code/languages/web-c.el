@@ -19,6 +19,4 @@
 (setf web-mode-enable-control-block-indentation nil)
 (setf web-mode-script-padding 0)
 
-(add-hook 'web-mode-hook (lambda () (setf indent-tabs-mode t)))
-
 (provide 'web-c)

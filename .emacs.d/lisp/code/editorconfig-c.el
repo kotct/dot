@@ -43,10 +43,11 @@ style for the current buffer.  If this hash table is empty, no properties were
 applied to the buffer, so the user is at the whims of Emacs' default style for
 the active mode, which may not be desirable."
 
-  (let ((fn (buffer-file-name))
-        (bn (buffer-name)))
-    (if (and fn (= 0 (hash-table-count props)))
-        (message(format "EditorConfig mode is active for buffer %s, but no properties were applied." bn)))))
+  (if kotct/warn-on-editorconfig-with-no-props
+      (let ((fn (buffer-file-name))
+            (bn (buffer-name)))
+        (if (and fn (= 0 (hash-table-count props)))
+            (message(format "EditorConfig mode is active for buffer %s, but no properties were applied." bn))))))
 
 (add-hook #'editorconfig-after-apply-functions #'kotct/check-editorconfig-props)
 

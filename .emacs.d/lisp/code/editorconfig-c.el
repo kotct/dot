@@ -27,6 +27,12 @@ Debug warning is suppressed if SUPPRESS is non-nil."
 
 (kotct/editorconfig-check-for-core kotct/editorconfig-suppress-core-not-found-warning)
 
+(defvar kotct/warn-on-editorconfig-with-no-props
+  t
+  "If not false-y, warn when editing a file with no editorconfig properties
+applying, indicating that the user is stuck with Emacs' default style for the
+active buffer.")
+
 (defun kotct/check-editorconfig-props (props)
   "Warn the user if a file is being edited with EditorConfig active but no
 properties were applied.

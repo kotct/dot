@@ -27,4 +27,19 @@ Debug warning is suppressed if SUPPRESS is non-nil."
 
 (kotct/editorconfig-check-for-core kotct/editorconfig-suppress-core-not-found-warning)
 
+(defun kotct/check-editorconfig-props (props)
+  "Warn the user if a file is being edited with EditorConfig active but no
+properties were applied.
+
+The argument PROPS is a property hash table provided by the EditorConfig
+package, and contains key-value pairs corresponding to the user's configured
+style for the current buffer.  If this hash table is empty, no properties were
+applied to the buffer, so the user is at the whims of Emacs' default style for
+the active mode, which may not be desirable."
+
+  (let ((fn (buffer-file-name))
+        (bn (buffer-name)))
+    (if (and fn (= 0 (hash-table-count props)))
+        (message(format "EditorConfig mode is active for buffer %s, but no properties were applied." bn)))))
+
 (provide 'editorconfig-c)

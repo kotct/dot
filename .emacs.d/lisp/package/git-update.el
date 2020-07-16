@@ -27,13 +27,6 @@
 (defun kotct/git-branch-is-master (directory)
   (string= (string-trim (kotct/git-current-branch directory)) "master"))
 
-(defun kotct/user-fetch-config (username)
-  "Fetch USERNAME's personal config from GitHub, out of the repository USERNAME/.emacs."
-  (message "fetching config for %s" username)
-  (let ((default-directory "~/.emacs.d/lisp/user/users/")
-        (url (format "https://github.com/%s/.emacs.git" username)))
-    (kotct/run-git "clone" url username)))
-
 (defun kotct/update-git-repository (directory &optional auto-update)
   "Fetches changes in DIRECTORY, and pulls from DIRECTORY if instructed by the user or AUTO-UPDATE is true.
 Returns true if an update occured."

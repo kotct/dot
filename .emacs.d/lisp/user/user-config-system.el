@@ -1,5 +1,12 @@
 ;;; C-x C-z: switch personal configs
 
+(defun kotct/user-fetch-config (username)
+  "Fetch USERNAME's personal config from GitHub, out of the repository USERNAME/.emacs."
+  (message "fetching config for %s" username)
+  (let ((default-directory "~/.emacs.d/lisp/user/users/")
+        (url (format "https://github.com/%s/.emacs.git" username)))
+    (kotct/run-git "clone" url username)))
+
 (defvar kotct/user-current-username
   nil
   "The username associated with the currently loaded personal config.")

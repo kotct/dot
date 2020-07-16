@@ -1,3 +1,4 @@
+(require 'linum)
 (require 'linum-off)
 
 (defun kotct/line-numbers--set-up-linum ()

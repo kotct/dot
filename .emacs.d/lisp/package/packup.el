@@ -4,9 +4,11 @@
 ;;;  kotct/packup-install-dependencies
 ;;;  kotct/packup-update
 
-(require 'dependencies)
 (require 'package)
 (require 'cl-lib)
+
+(require 'dependencies)
+(require 'repositories)
 
 (package-initialize)
 

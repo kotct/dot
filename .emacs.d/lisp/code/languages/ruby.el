@@ -1,3 +1,5 @@
+(require 'ruby-mode)
+
 (require 'indentation)
 
 ;; Set ruby-indent-level to global-tab-width

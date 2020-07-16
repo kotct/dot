@@ -4,6 +4,7 @@
 ;;;  kotct/update-user-config
 
 (require 'user-config-system)
+(require 'verification)
 
 (package-initialize)
 

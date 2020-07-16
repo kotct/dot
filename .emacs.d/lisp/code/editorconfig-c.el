@@ -1,3 +1,5 @@
+(require 'editorconfig)
+
 ;; Enable EditorConfig mode
 (editorconfig-mode +1)
 

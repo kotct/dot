@@ -4,6 +4,8 @@
 ;;; C-+: undo C-=
 ;;; C-M-w: copy sexp to kill ring, appending if called repeatedly
 
+(require 'avy-zap)
+(require 'expand-region)
 (require 'cl-lib)
 
 ;;; avy jump mode

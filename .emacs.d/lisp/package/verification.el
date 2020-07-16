@@ -1,5 +1,8 @@
 (require 'cl-lib)
 
+(require 'dependencies)
+(require 'packup)
+
 ;; check to make sure all dependencies are installed before continuing
 (defun kotct/check-dependency-list (&optional frame)
   "Check to make sure all dependencies in `kotct/dependency-list' are installed.

@@ -1,3 +1,5 @@
+(require 'smie)
+
 (defvar global-tab-width 4
   "The global tab width.
 Defaults to 4.")

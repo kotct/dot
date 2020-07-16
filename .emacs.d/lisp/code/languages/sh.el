@@ -1,3 +1,5 @@
+(require 'sh-script)
+
 (require 'indentation)
 
 ;; Synchronize `sh-basic-offset' and `sh-indentation' to the global tab size

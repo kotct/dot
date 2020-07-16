@@ -1,5 +1,8 @@
 ;;; C-x C-z: switch personal configs
 
+(require 'theme)
+(require 'verification)
+
 (defun kotct/user-fetch-config (username)
   "Fetch USERNAME's personal config from GitHub, out of the repository USERNAME/.emacs."
   (message "fetching config for %s" username)

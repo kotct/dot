@@ -1,3 +1,5 @@
+(require 'cc-mode)
+
 (require 'indentation)
 
 ;; set style to linux

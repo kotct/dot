@@ -1,3 +1,5 @@
+(require 'web-mode)
+
 ;; Make a bunch of extensions open as web mode things.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.sass\\'" . web-mode))

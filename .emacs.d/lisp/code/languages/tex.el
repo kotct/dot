@@ -1,3 +1,6 @@
+(require 'flyspell)
+(require 'ispell)
+
 (add-hook 'tex-mode-hook (lambda ()
                            (visual-line-mode +1)
                            (require 'ispell)

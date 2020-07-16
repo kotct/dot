@@ -1,3 +1,5 @@
+(require 'rust-mode)
+
 (require 'indentation)
 
 ;; Set `rust-indent-offset' to the `global-tab-width' value.

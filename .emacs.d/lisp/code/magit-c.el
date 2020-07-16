@@ -1,3 +1,5 @@
+(require 'magit)
+
 (with-eval-after-load 'magit
   (let ((popups-to-add-sign '(magit-merge-popup
                               magit-rebase-popup)))

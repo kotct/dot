@@ -1,12 +1,12 @@
-;; set the default tab width to 4 chars
-;; this is the reference variable for the tab width
-(setf global-tab-width 4)
+(defvar global-tab-width 4
+  "The global tab width.
+Defaults to 4.")
 
 ;; define automated tab-setting system
 (defvar kotct/tab-variable-setters
   '((global-tab-width . setf))
   "An alist of symbols representing variables and the method
-used to set them to the tab width 
+used to set them to the tab width
 (almost always either setf or setq-default).")
 
 (defmacro kotct/setf-tab (var)
@@ -17,7 +17,7 @@ if the tab width changes."
      (setf kotct/tab-variable-setters (cons  '(,var . setf) kotct/tab-variable-setters))))
 
 (defmacro kotct/setq-default-tab (var)
-  "Set default value of the variable VAR to the tab width 
+  "Set default value of the variable VAR to the tab width
 and keep it updated if the tab width changes."
   `(progn
      (setq-default ,var global-tab-width)

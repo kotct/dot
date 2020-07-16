@@ -1,6 +1,6 @@
 ;;; M-x: ido-completed M-x
 ;;; C-c C-c M-x: normal M-x
-;;; 
+;;;
 ;;; implicitly rebinds C-x C-f, C-x C-b, and similar functions to use ido
 ;;; different keybindings for ido navigation based on menu mode
 ;;; see docs for ido, ido-vertical-mode, and ido-grid-mode

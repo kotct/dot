@@ -33,8 +33,9 @@
             (buffer-string)
           (error "Error running git %s\n%s" args (buffer-string)))))))
 
-(defun kotct/user-get-default-username ()
-  "Look up the default username set on this machine."
+(defun kotct/user-get-default-username (&optional frame)
+  "Look up the default username set on the terminal object displaying FRAME.
+If FRAME is nil or unspecified, get the default username for the default frame."
   (let ((filename kotct/user-default-username-file))
     (if (file-exists-p filename)
         (with-temp-buffer

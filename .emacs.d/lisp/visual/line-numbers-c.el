@@ -1,3 +1,5 @@
+(require 'linum-off)
+
 (defun kotct/line-numbers--set-up-linum ()
   "Sets up `linum-mode' to run globally except in a few cases."
   (progn
@@ -13,7 +15,6 @@
                            (propertize (format thing line) 'face 'linum))))
 
     ;; disable linum in certain modes
-    (require 'linum-off)
     (add-to-list 'linum-disabled-modes-list 'package-menu-mode)
     (add-to-list 'linum-disabled-modes-list 'magit--mode)))
 

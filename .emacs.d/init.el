@@ -4,6 +4,7 @@
 (load "~/.emacs-preload" 'noerror 'nomessage 'nosuffix)
 
 ;; Initialize the package repository.
+(require 'package)
 (package-initialize)
 
 ;; Create variable to determine if we are in dev mode or not.

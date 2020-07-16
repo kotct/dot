@@ -6,7 +6,7 @@
 
 (require 'dependencies)
 (require 'package)
-(require 'cl)
+(require 'cl-lib)
 
 (package-initialize)
 

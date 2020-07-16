@@ -4,7 +4,7 @@
 ;;; C-+: undo C-=
 ;;; C-M-w: copy sexp to kill ring, appending if called repeatedly
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;; avy jump mode
 (global-set-key (kbd "C-c SPC") #'avy-goto-word-1)

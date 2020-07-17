@@ -1,4 +1,4 @@
-(require 'web-mode)
+(eval-when-compile (require 'web-mode))
 
 ;; Make a bunch of extensions open as web mode things.
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))

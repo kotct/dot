@@ -1,4 +1,4 @@
-(require 'smartparens-config)
+(eval-when-compile (require 'smartparens-config))
 
 (smartparens-global-mode t)
 

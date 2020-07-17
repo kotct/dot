@@ -1,4 +1,4 @@
-(require 'cc-mode)
+(eval-when-compile (require 'cc-mode))
 
 (require 'indentation)
 

@@ -1,4 +1,4 @@
-(require 'editorconfig)
+(eval-when-compile (require 'editorconfig))
 
 ;; Enable EditorConfig mode
 (editorconfig-mode +1)

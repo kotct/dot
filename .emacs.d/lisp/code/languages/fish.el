@@ -1,4 +1,4 @@
-(require 'fish-mode)
+(eval-when-compile (require 'fish-mode))
 
 (smart-tabs-add-language-support fish fish-mode-hook
   ((fish-indent-line . standard-indent)

@@ -1,4 +1,4 @@
-(require 'sh-script)
+(eval-when-compile (require 'sh-script))
 
 (require 'indentation)
 

@@ -3,7 +3,9 @@
 ;; `require' these because we need some of recentf's things now prior
 ;; to the autoload at the end of the file.
 (require 'recentf)
-(require 'cl-lib)
+
+(eval-when-compile
+  (require 'cl-lib))
 
 ;; Keep only the last 200 saved items.
 (setf recentf-max-saved-items 200)

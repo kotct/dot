@@ -1,4 +1,4 @@
-(require 'smie)
+(eval-when-compile (require 'smie))
 
 (defvar global-tab-width 4
   "The global tab width.

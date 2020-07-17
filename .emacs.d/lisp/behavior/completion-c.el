@@ -5,9 +5,10 @@
 ;;; different keybindings for ido navigation based on menu mode
 ;;; see docs for ido, ido-vertical-mode, and ido-grid-mode
 
-(require 'ido)
-(require 'ido-vertical-mode)
-(require 'smex)
+(eval-when-compile
+  (require 'ido)
+  (require 'ido-vertical-mode)
+  (require 'smex))
 
 ;;; ido
 (ido-mode t)

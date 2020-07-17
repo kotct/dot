@@ -1,4 +1,4 @@
-(require 'package)
+(eval-when-compile (require 'package))
 
 ;; Add MELPA Stable
 (add-to-list 'package-archives

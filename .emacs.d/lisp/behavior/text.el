@@ -4,9 +4,15 @@
 ;;; C-+: undo C-=
 ;;; C-M-w: copy sexp to kill ring, appending if called repeatedly
 
-(require 'avy-zap)
-(require 'expand-region)
-(require 'cl-lib)
+
+(eval-when-compile
+  ;; expand-region does not register er/contract-region as an autoload, so we
+  ;; can do that for them :)
+  (autoload #'er/contract-region "expand-region-core")
+  (require 'avy-zap)
+  (require 'expand-region)
+  (require 'cl-lib))
+
 
 ;;; avy jump mode
 (global-set-key (kbd "C-c SPC") #'avy-goto-word-1)

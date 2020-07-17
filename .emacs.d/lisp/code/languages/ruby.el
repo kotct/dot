@@ -1,4 +1,4 @@
-(require 'ruby-mode)
+(eval-when-compile (require 'ruby-mode))
 
 (require 'indentation)
 

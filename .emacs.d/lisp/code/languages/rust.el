@@ -1,4 +1,4 @@
-(require 'rust-mode)
+(eval-when-compile (require 'rust-mode))
 
 (require 'indentation)
 

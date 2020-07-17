@@ -1,5 +1,6 @@
-(require 'linum)
-(require 'linum-off)
+(eval-when-compile
+  (require 'linum)
+  (require 'linum-off))
 
 (defun kotct/line-numbers--set-up-linum ()
   "Sets up `linum-mode' to run globally except in a few cases."

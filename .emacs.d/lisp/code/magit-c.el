@@ -1,4 +1,7 @@
-(require 'magit)
+(eval-when-compile
+  (autoload #'magit-define-popup-option "magit-popup")
+  (autoload #'magit-read-gpg-secret-key "magit-popup")
+  (require 'magit))
 
 (with-eval-after-load 'magit
   (let ((popups-to-add-sign '(magit-merge-popup

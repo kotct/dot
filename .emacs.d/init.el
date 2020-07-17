@@ -1,5 +1,7 @@
 ;;; dot/.emacs
 
+(setf gc-cons-threshold (* 512 1024 1024))
+
 ;; load any absolute must-have code
 (load "~/.emacs-preload" 'noerror 'nomessage 'nosuffix)
 
@@ -130,3 +132,5 @@ Despite this, your config appears to have loaded successfully.")
 ;; for each system.
 (setf custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+
+(add-hook #'after-init-hook (lambda () (setf gc-cons-threshold (* 2 1024 1024))))

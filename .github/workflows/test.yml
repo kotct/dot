@@ -15,7 +15,7 @@ jobs:
       - name: Install Emacs 26.3
         run: |
           sudo ~/.evm/bin/evm install emacs-26.3-travis --use --skip
-          emacs --version
+          ~/.evm/bin/emacs --version
 
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -26,10 +26,10 @@ jobs:
 
       - name: Run setup
         run: |
-          emacs --script .emacs.d/test/lisp/install.el
+          ~/.evm/bin/emacs --script .emacs.d/test/lisp/install.el
           echo "base-config" > .emacs.d/lisp/user/default-username
 
       - name: Run the tests
         run: |
-          emacs --script .emacs.d/test/lisp/run-tests.el
-          emacs --script .emacs.d/init.el
+          ~/.evm/bin/emacs --script .emacs.d/test/lisp/run-tests.el
+          ~/.evm/bin/emacs --script .emacs.d/init.el

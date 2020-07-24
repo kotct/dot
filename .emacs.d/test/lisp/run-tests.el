@@ -15,6 +15,6 @@
                ;; "/" at the beginning of the absolute filename
                (substring (file-truename filename) 1))
              (directory-files-recursively "~/.emacs.d/lisp/" ".el$"))))
-  (undercover))
+  (undercover (:report-file "coverage-final.json")))
 
 (kotct/run-tests)

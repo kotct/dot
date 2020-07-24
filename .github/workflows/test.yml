@@ -14,4 +14,4 @@ jobs:
 
       - name: Install Emacs 26.3
         run: |
-          sudo ~/.evm/bin/evm install emacs-26.3 --use --skip
+          sudo ~/.evm/bin/evm install emacs-26.3-travis --use --skip

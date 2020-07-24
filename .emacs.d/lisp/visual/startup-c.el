@@ -13,7 +13,7 @@
           (lambda ()
             (if (equal initial-scratch-message *inital-scratch-message-value*)
                 (setq initial-scratch-message
-                      (concat ";; init: " (emacs-init-time) (format-time-string " @ %F %T")
+                      (concat ";; init: " (emacs-init-time) (format-time-string " @ %F %T") " with " (format "%d" gcs-done) " GCs"
                               "\n;; " (user-login-name) "@" (system-name) " loaded config for " kotct/user-current-username
                               "\n;; need help? try <C-h ?>"
                               "\n;; scratch away\n\n")))))

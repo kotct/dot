@@ -4,19 +4,21 @@ on:
 
 jobs:
   test-emacs:
-    name: Install Emacs and Run TEsts
+    name: Install Emacs and Run Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Install EVM
-        run: |
-          git clone https://github.com/rejeep/evm.git ~/.evm
-          ~/.evm/bin/evm list
+      - name: Download Emacs 26.3 sources
+        run: wget -O /tmp/emacs-26.3.tar.xz https://ftp.gnu.org/pub/gnu/emacs/emacs-26.3.tar.xz
 
-      - name: Install Emacs 26.3
+      - name: Extract Emacs 26.3 sources
+        run: tar -C /tmp -xf /tmp/emacs-26.3.tar.xz
+
+      - name: Compile Emacs 26.3
         run: |
-          sudo ~/.evm/bin/evm install emacs-26.3-travis-linux-xenial --use --skip
-          sudo ~/.evm/bin/evm config path /tmp
-          ~/.evm/bin/emacs --version
+          cd /tmp/emacs-26.3
+          ./configure
+          make
+          sudo make install
 
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -27,10 +29,10 @@ jobs:
 
       - name: Run setup
         run: |
-          ~/.evm/bin/emacs --script .emacs.d/test/lisp/install.el
+          emacs --script .emacs.d/test/lisp/install.el
           echo "base-config" > .emacs.d/lisp/user/default-username
 
       - name: Run the tests
         run: |
-          ~/.evm/bin/emacs --script .emacs.d/test/lisp/run-tests.el
-          ~/.evm/bin/emacs --script .emacs.d/init.el
+          emacs --script .emacs.d/test/lisp/run-tests.el
+          emacs --script .emacs.d/init.el

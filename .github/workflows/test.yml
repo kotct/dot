@@ -15,6 +15,7 @@ jobs:
       - name: Install Emacs 26.3
         run: |
           sudo ~/.evm/bin/evm install emacs-26.3-travis-linux-xenial --use --skip
+          sudo ~/.evm/bin/evm config path /tmp
           ~/.evm/bin/emacs --version
 
       - name: Checkout the code

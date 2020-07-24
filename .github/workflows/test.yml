@@ -5,10 +5,19 @@ on:
 jobs:
   test-emacs:
     name: Run Tests (${{matrix.os}}, ${{matrix.emacs}})
+
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-16.04,ubuntu-18.04,ubuntu-20.04]
-        emacs: [24.5,25.3,26.3]
+        os:
+          - ubuntu-16.04
+          - ubuntu-18.04
+          - ubuntu-20.04
+        emacs:
+          - 24.5
+          - 25.3
+          - 26.3
+
     runs-on: ${{ matrix.os }}
     steps:
       - name: Download Emacs ${{ matrix.emacs }} sources

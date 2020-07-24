@@ -1,10 +1,10 @@
-name: Emacs Configuration Tests
+name: Emacs Tests
 on:
   - push
 
 jobs:
   test-emacs:
-    name: Run Emacs tests
+    name: Install Emacs and Run TEsts
     runs-on: ubuntu-latest
     steps:
       - name: Install EVM

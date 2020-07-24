@@ -16,7 +16,8 @@ jobs:
       - name: Compile Emacs 26.3
         run: |
           cd /tmp/emacs-26.3
-          ./configure --with-x-toolkit=no
+          sudo apt install libgnutls28-dev
+          ./configure --with-x-toolkit=no --with-xpm=no --with-gif=no
           make
           sudo make install
 

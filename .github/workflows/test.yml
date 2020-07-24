@@ -4,7 +4,7 @@ on:
 
 jobs:
   test-emacs:
-    name: Install Emacs and Run Tests
+    name: Run Tests (${{matrix.os}}, ${{matrix.emacs}})
     strategy:
       matrix:
         os: [ubuntu-16.04,ubuntu-18.04,ubuntu-20.04]

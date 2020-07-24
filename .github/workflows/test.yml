@@ -16,7 +16,7 @@ jobs:
       - name: Compile Emacs 26.3
         run: |
           cd /tmp/emacs-26.3
-          ./configure
+          ./configure --with-x-toolkit=no
           make
           sudo make install
 

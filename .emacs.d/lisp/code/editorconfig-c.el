@@ -47,7 +47,7 @@ the active mode, which may not be desirable."
       (let ((fn (buffer-file-name))
             (bn (buffer-name)))
         (if (and fn (= 0 (hash-table-count props)))
-            (message(format "EditorConfig mode is active for buffer %s, but no properties were applied." bn))))))
+            (message (format "EditorConfig mode is active for buffer %s, but no properties were applied." bn))))))
 
 (add-hook #'editorconfig-after-apply-functions #'kotct/check-editorconfig-props)
 

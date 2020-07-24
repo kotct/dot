@@ -1,0 +1,17 @@
+name: Emacs Configuration Tests
+on:
+  - push
+
+jobs:
+  test-emacs:
+    name: Run Emacs tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install EVM
+        run: |
+          git clone https://github.com/rejeep/evm.git ~/.evm
+          ~/.evm/bin/evm list
+
+      - name: Install Emacs 26.3
+        run: |
+          ~/.evm/bin/evm install emacs-26.3 --use --skip

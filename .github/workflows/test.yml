@@ -5,17 +5,21 @@ on:
 jobs:
   test-emacs:
     name: Install Emacs and Run Tests
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-16.04,ubuntu-18.04,ubuntu-20.04]
+        emacs: [24.5,25.3,26.3]
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Download Emacs 26.3 sources
-        run: wget -O /tmp/emacs-26.3.tar.xz https://ftp.gnu.org/pub/gnu/emacs/emacs-26.3.tar.xz
+      - name: Download Emacs ${{ matrix.emacs }} sources
+        run: wget -O /tmp/emacs-${{ matrix.emacs }}.tar.xz https://ftp.gnu.org/pub/gnu/emacs/emacs-${{ matrix.emacs }}.tar.xz
 
-      - name: Extract Emacs 26.3 sources
-        run: tar -C /tmp -xf /tmp/emacs-26.3.tar.xz
+      - name: Extract Emacs ${{ matrix.emacs }} sources
+        run: tar -C /tmp -xf /tmp/emacs-${{ matrix.emacs }}.tar.xz
 
-      - name: Compile Emacs 26.3
+      - name: Compile Emacs ${{ matrix.emacs }}
         run: |
-          cd /tmp/emacs-26.3
+          cd /tmp/emacs-${{ matrix.emacs }}
           sudo apt install libgnutls28-dev
           ./configure --with-x-toolkit=no --with-xpm=no --with-gif=no
           make

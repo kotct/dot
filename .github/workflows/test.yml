@@ -16,3 +16,20 @@ jobs:
         run: |
           sudo ~/.evm/bin/evm install emacs-26.3-travis --use --skip
           emacs --version
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Symlink our .emacs.d to ~
+        run: |
+          ln -sv "$(pwd)/.emacs.d" ~/.emacs.d
+
+      - name: Run setup
+        run: |
+          emacs --script .emacs.d/test/lisp/install.el
+          echo "base-config" > .emacs.d/lisp/user/default-username
+
+      - name: Run the tests
+        run: |
+          emacs --script .emacs.d/test/lisp/run-tests.el
+          emacs --script .emacs.d/init.el

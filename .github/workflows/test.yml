@@ -45,6 +45,8 @@ jobs:
           echo "base-config" > .emacs.d/lisp/user/default-username
 
       - name: Run the tests
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
           emacs --script .emacs.d/test/lisp/run-tests.el
           emacs --script .emacs.d/init.el

@@ -4,12 +4,12 @@
 
 (load-file (concat (file-name-directory load-file-name) "/dot-tests.el"))
 
+(defun parent-dir (str)
+  (file-name-directory (directory-file-name str)))
+
 (let ((coverage-report-file
        (concat
-        (file-name-directory
-         (file-name-directory
-          (file-name-directory
-           (file-name-directory load-file-name)))) "/coverage-final.json")))
+        (parent-dir (parent-dir (parent-dir (parent-dir load-file-name)))) "coverage-final.json")))
   (when (require 'undercover nil 'noerror)
     ;; undercover can't search for matching files recursively
     ;; override a local function that fixes this

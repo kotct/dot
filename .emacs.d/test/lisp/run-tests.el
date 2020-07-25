@@ -19,6 +19,7 @@
 			     (file-name-directory
 			      (file-name-directory
 			       (file-name-directory
-				(file-name-directory load-file-name)))) "/coverage-final.json"))))
+				(file-name-directory load-file-name)))) "/coverage-final.json"))
+	      (:send-report nil)))
 
 (kotct/run-tests)

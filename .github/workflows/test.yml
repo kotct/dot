@@ -53,3 +53,8 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -fs https://codecov.io/bash)
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: coverage-final.json
+          path: ./coverage-final.json

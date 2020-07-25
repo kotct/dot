@@ -9,7 +9,8 @@
 
 (let ((coverage-report-file
        (concat
-        (parent-dir (parent-dir (parent-dir (parent-dir load-file-name)))) "coverage-final.json")))
+        (parent-dir (parent-dir (parent-dir (parent-dir load-file-name)))) "coverage-final.json"))
+      (undercover-force-coverage t))
   (when (require 'undercover nil 'noerror)
     ;; undercover can't search for matching files recursively
     ;; override a local function that fixes this

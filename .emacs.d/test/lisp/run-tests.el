@@ -24,7 +24,6 @@
                (directory-files-recursively "~/.emacs.d/lisp/" ".el$"))))
     (message (format "Running undercover, writing report to %s" coverage-report-file))
     (undercover (:report-file coverage-report-file)
-                (:report-format 'simplecov)
                 (:send-report nil))))
 
 (kotct/run-tests)

@@ -22,13 +22,14 @@
       (expect visual-line-mode :to-be-truthy))
 
     (describe "flyspell-mode"
-      (spy-on #'executable-find :and-call-fake
-              (lambda (command)
-                (string= command "findme")))
+      (before-each
+        (spy-on #'executable-find :and-call-fake
+          (lambda (command)
+            (string= command "findme")))
 
-      ;; we need this noop because the real flyspell-mode-on will
-      ;; try to start ispell-program name (which of course won't work)
-      (spy-on #'flyspell-mode-on :and-call-fake (lambda ()))
+        ;; we need this noop because the real flyspell-mode-on will
+        ;; try to start ispell-program name (which of course won't work)
+        (spy-on #'flyspell-mode-on :and-call-fake (lambda ())))
 
       (it "is enabled when ispell-program-name can be found"
         (let ((ispell-program-name "findme"))

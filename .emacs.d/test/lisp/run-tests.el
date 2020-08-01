@@ -2,19 +2,25 @@
 
 (package-initialize)
 
-(load-file (concat (file-name-directory load-file-name) "/dot-tests.el"))
+(defun expanded-parent-dir (str)
+  (expand-file-name (file-name-directory (directory-file-name str))))
 
-(when (require 'undercover nil 'noerror)
-  ;; undercover can't search for matching files recursively
-  ;; override a local function that fixes this
-  (advice-add
-   #'undercover--wildcards-to-files :override
-   (lambda (_wildcards)
-     (mapcar (lambda (filename)
-               ;; undercover adds a leading "/", so remove the
-               ;; "/" at the beginning of the absolute filename
-               (substring (file-truename filename) 1))
-             (directory-files-recursively "~/.emacs.d/lisp/" ".el$"))))
-  (undercover))
+(load-file (concat (expanded-parent-dir load-file-name) "/dot-tests.el"))
+
+(defun kotct/locate-dot-el-files
+  (directory-files-recursively
+    (concat
+      (expanded-parent-dir ;; .emacs.d/
+        (expanded-parent-dir ;; .emacs.d/test/
+          (expanded-parent-dir ;; .emacs.d/test/lisp/
+            load-file-name))) ;; .emacs.d/test/lisp/run-tests.el
+      "lisp/") ;; .emacs.d/lisp/
+    ".el$"))
+
+(when (require 'undercover nil t)
+  (undercover
+    (kotct/locate-dot-el-files)
+    (:report-file "coverage-final.json")
+    (:send-report nil)))
 
 (kotct/run-tests)

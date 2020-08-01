@@ -2,10 +2,10 @@
 
 (package-initialize)
 
-(load-file (concat (file-name-directory load-file-name) "/dot-tests.el"))
+(defun expanded-parent-dir (str)
+  (expand-file-name (file-name-directory (directory-file-name str))))
 
-(defun parent-dir (str)
-  (file-name-directory (directory-file-name str)))
+(load-file (concat (expanded-parent-dir load-file-name) "/dot-tests.el"))
 
 (let ((coverage-report-file
        (concat

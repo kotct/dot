@@ -3,9 +3,20 @@
 ;;;  kotct/update-dot-config
 ;;;  kotct/update-user-config
 
-(require 'user-config-system)
-
 (package-initialize)
+
+(defun kotct/run-git (&rest args)
+  "Run a git command, specified by ARGS."
+  (let ((process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))
+    (with-temp-buffer
+      (let ((exit-code (apply 'call-process
+                              (append (list (executable-find "git")
+                                            nil (current-buffer) nil
+                                            "--no-pager" )
+                                      args))))
+        (if (zerop exit-code)
+            (buffer-string)
+          (error "Error running git %s\n%s" args (buffer-string)))))))
 
 (defvar kotct/directory "~/.emacs.d"
   "The path to your instance of kotct/dot or one of it's subdirectories.")

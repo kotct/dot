@@ -1,3 +1,5 @@
+(require 'git-update)
+
 ;;; C-x C-z: switch personal configs
 
 (defvar kotct/user-current-username
@@ -12,19 +14,6 @@
   "Appends PACKAGES to `kotct/dependency-list'"
   (setf kotct/dependency-list (append kotct/dependency-list packages))
   (kotct/check-dependency-list))
-
-(defun kotct/run-git (&rest args)
-  "Run a git command, specified by ARGS."
-  (let ((process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))
-    (with-temp-buffer
-      (let ((exit-code (apply 'call-process
-                              (append (list (executable-find "git")
-                                            nil (current-buffer) nil
-                                            "--no-pager" )
-                                      args))))
-        (if (zerop exit-code)
-            (buffer-string)
-          (error "Error running git %s\n%s" args (buffer-string)))))))
 
 (defun kotct/user-get-default-username ()
   "Look up the default username set on this machine."

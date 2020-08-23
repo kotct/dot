@@ -4,7 +4,7 @@
 ;;; C-+: undo C-=
 ;;; C-M-w: copy sexp to kill ring, appending if called repeatedly
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;; avy jump mode
 (global-set-key (kbd "C-c SPC") #'avy-goto-word-1)
@@ -28,7 +28,7 @@
   0
   "Number of commands since last `kotct/sexp-copy-as-kill'.")
 
-(add-hook 'pre-command-hook (lambda () (incf kotct/sexp-copy-count)))
+(add-hook 'pre-command-hook (lambda () (cl-incf kotct/sexp-copy-count)))
 
 (defun kotct/sexp-copy-as-kill (arg)
   "Save next sexp as if killed, but don't kill it, appending if called repeatedly."

@@ -6,7 +6,7 @@
 
 (require 'dependencies)
 (require 'package)
-(require 'cl)
+(require 'cl-lib)
 
 (package-initialize)
 
@@ -27,7 +27,7 @@ from the most-preferred repository."
                                        (car (cl-member pinned-archive (cdr pkg)
                                                        :key #'package-desc-archive
                                                        :test #'string=)))))
-                          (dolist (archive kotct/package-ordered-archives)
+                          (cl-dolist (archive kotct/package-ordered-archives)
                             (when (not desc)
                               ;; no match yet, keep looking
                               (setf desc (car (cl-member archive (cdr pkg)
@@ -52,7 +52,7 @@ Does not automatically refresh the package list."
                      (car (cl-member pinned-archive versions
                                      :key #'package-desc-archive
                                      :test #'string=)))))
-        (dolist (archive kotct/package-ordered-archives)
+        (cl-dolist (archive kotct/package-ordered-archives)
           (when (not found-desc)
             ;; no match yet, keep looking
             (setf found-desc (car (cl-member archive versions
@@ -218,7 +218,7 @@ contents of the buffer."
     (kill-region (point-min) (point-max)))
   (package-refresh-contents)
   (let ((install-list nil))
-    (dolist (package kotct/dependency-list)
+    (cl-dolist (package kotct/dependency-list)
       (when (not (kotct/package-up-to-date-p package))
         (apply #'kotct/packup-insert-package-row (list package (package-desc-version (kotct/package-latest-available package))))))))
 
@@ -293,7 +293,7 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
   ;; install-list is a list of cons cells
   ;; the car of each is a package-desc, the cdr is the currently installed package-desc
   (let (install-list)
-    (dolist (package kotct/dependency-list)
+    (cl-dolist (package kotct/dependency-list)
 
       (if (or (not (package-installed-p package))
               (and update (not (kotct/package-up-to-date-p package))))
@@ -305,7 +305,7 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
 
         (progn (with-output-to-temp-buffer "*packup: packages to upgrade*"
                  (princ "Packages to be installed:")
-                 (dolist (package-cons install-list)
+                 (cl-dolist (package-cons install-list)
                    (message (symbol-name (package-desc-name (car package-cons))))
                    (terpri)
                    (princ (symbol-name (package-desc-name (car package-cons))))
@@ -327,7 +327,7 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed."))
                  (let ((manual-install-list nil))
-                   (dolist (package-cons install-list)
+                   (cl-dolist (package-cons install-list)
                      (if (y-or-n-p (format "Package %s is %s. Install %s? "
                                            (package-desc-name (car package-cons))
                                            (if (cdr package-cons)

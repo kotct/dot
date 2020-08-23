@@ -3,7 +3,6 @@
 ;; `require' these because we need some of recentf's things now prior
 ;; to the autoload at the end of the file.
 (require 'recentf)
-(require 'cl)
 
 ;; Keep only the last 200 saved items.
 (setf recentf-max-saved-items 200)

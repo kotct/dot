@@ -3,8 +3,6 @@
 ;;;  kotct/update-dot-config
 ;;;  kotct/update-user-config
 
-(package-initialize)
-
 (defun kotct/run-git (&rest args)
   "Run a git command, specified by ARGS."
   (let ((process-environment (cons "GIT_TERMINAL_PROMPT=0" process-environment)))

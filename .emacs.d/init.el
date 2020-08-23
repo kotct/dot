@@ -3,8 +3,10 @@
 ;; load any absolute must-have code
 (load "~/.emacs-preload" 'noerror 'nomessage 'nosuffix)
 
+(require 'package)
 ;; Initialize the package repository.
-(package-initialize)
+(when (version< emacs-version "27.1")
+  (package-initialize))
 
 ;; Create variable to determine if we are in dev mode or not.
 ;; (Set this in your user hub.)
@@ -96,7 +98,8 @@ and we need to remove the hook and specifically use the frame."
 
 ;;; Asynchronous Byte Compilation
 (let* ((to-eval `(let ((default-directory "~/.emacs.d/lisp/"))
-                   (package-initialize)
+                   (when (version< emacs-version "27.1")
+                     (package-initialize))
                    (add-to-list 'load-path default-directory)
                    (normal-top-level-add-to-load-path ',kotct/hub-list)
                    (batch-byte-compile t)))

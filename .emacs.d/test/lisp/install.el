@@ -2,7 +2,6 @@
 (load-file "~/.emacs.d/lisp/package/repositories.el")
 (load-file "~/.emacs.d/lisp/package/packup.el")
 
-(package-initialize)
 (package-refresh-contents)
 
 ;; add undercover for coverage reporting

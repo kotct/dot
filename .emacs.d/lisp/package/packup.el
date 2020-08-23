@@ -8,7 +8,8 @@
 (require 'package)
 (require 'cl-lib)
 
-(package-initialize)
+(when (version< emacs-version "27.1")
+  (package-initialize))
 
 (defvar kotct/packup-marker-char ?*
   "In Packup, the current mark character.

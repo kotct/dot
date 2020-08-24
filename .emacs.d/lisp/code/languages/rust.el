@@ -1,4 +1,5 @@
 (require 'indentation)
+(require 'rust-mode)
 
 ;; Set `rust-indent-offset' to the `global-tab-width' value.
 (kotct/setq-default-tab rust-indent-offset)

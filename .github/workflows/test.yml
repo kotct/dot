@@ -1,0 +1,60 @@
+name: Emacs Tests
+on:
+  - push
+
+jobs:
+  test-emacs:
+    name: Run Tests (${{matrix.os}}, ${{matrix.emacs}})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-16.04
+          - ubuntu-18.04
+          - ubuntu-20.04
+        emacs:
+          - 26.3
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Download Emacs ${{ matrix.emacs }} sources
+        run: wget -O /tmp/emacs-${{ matrix.emacs }}.tar.xz https://ftp.gnu.org/pub/gnu/emacs/emacs-${{ matrix.emacs }}.tar.xz
+
+      - name: Extract Emacs ${{ matrix.emacs }} sources
+        run: tar -C /tmp -xf /tmp/emacs-${{ matrix.emacs }}.tar.xz
+
+      - name: Compile Emacs ${{ matrix.emacs }}
+        run: |
+          cd /tmp/emacs-${{ matrix.emacs }}
+          sudo apt install libgnutls28-dev
+          ./configure --with-x-toolkit=no --with-xpm=no --with-gif=no
+          make
+          sudo make install
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Symlink our .emacs.d to ~
+        run: |
+          ln -sv "$(pwd)/.emacs.d" ~/.emacs.d
+
+      - name: Run setup
+        run: |
+          emacs --script .emacs.d/test/lisp/install.el
+          echo "base-config" > .emacs.d/lisp/user/default-username
+
+      - name: Run the tests
+        run: |
+          emacs --script .emacs.d/test/lisp/run-tests.el
+          emacs --script .emacs.d/init.el
+
+      - name: Upload test coverage results
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -fs https://codecov.io/bash)
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: coverage-final.json
+          path: ./coverage-final.json

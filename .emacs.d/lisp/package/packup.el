@@ -50,9 +50,9 @@ Does not automatically refresh the package list."
              ;; check package-pinned-packages first
              (pinned-archive (cdr (assoc package package-pinned-packages)))
              (found-desc (when pinned-archive
-                     (car (cl-member pinned-archive versions
-                                     :key #'package-desc-archive
-                                     :test #'string=)))))
+                           (car (cl-member pinned-archive versions
+                                           :key #'package-desc-archive
+                                           :test #'string=)))))
         (cl-dolist (archive kotct/package-ordered-archives)
           (when (not found-desc)
             ;; no match yet, keep looking
@@ -221,7 +221,9 @@ contents of the buffer."
   (let ((install-list nil))
     (cl-dolist (package kotct/dependency-list)
       (when (not (kotct/package-up-to-date-p package))
-        (apply #'kotct/packup-insert-package-row (list package (package-desc-version (kotct/package-latest-available package))))))))
+        (apply #'kotct/packup-insert-package-row (list package (if (kotct/package-latest-available package)
+                                                                   (package-desc-version (kotct/package-latest-available package))
+                                                                 "couldn't find a version")))))))
 
 (defun kotct/packup-refresh ()
   "Refresh packages in current packup buffer."
@@ -293,14 +295,17 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
 
   ;; install-list is a list of cons cells
   ;; the car of each is a package-desc, the cdr is the currently installed package-desc
-  (let (install-list)
+  (let (install-list
+        not-found-list)
     (cl-dolist (package kotct/dependency-list)
 
       (if (or (not (package-installed-p package))
               (and update (not (kotct/package-up-to-date-p package))))
-          (add-to-list 'install-list
-                       (cons (kotct/package-latest-available package)
-                             (cadr (assoc package package-alist))))))
+          (if (kotct/package-latest-available package)
+              (add-to-list 'install-list
+                           (cons (kotct/package-latest-available package)
+                                 (cadr (assoc package package-alist))))
+            (add-to-list 'not-found-list package))))
 
     (if install-list
 
@@ -347,7 +352,10 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed.")))))
 
-      (message "No dependencies needing installation."))))
+      (message "No dependencies needing installation."))
+
+    ;; If any packages weren't found while updating error.
+    (if (not-found-list) (display-warning 'packup (format "Packages not found: %s" not-found-list) :error))))
 
 ;;;###autoload
 (defun kotct/packup-update (no-refresh)

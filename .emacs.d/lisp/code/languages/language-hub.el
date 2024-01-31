@@ -1,4 +1,4 @@
-(defvar languages
+(defvar kotct/languages
   '(c
     elisp
     elixir
@@ -13,7 +13,7 @@
   "A list of packages configured by the language-hub.")
 
 (let ((to-compile ()))
-  (dolist (feature languages)
+  (dolist (feature kotct/languages)
     (setf to-compile
           (cons (concat (file-name-directory load-file-name) (symbol-name feature) ".el") to-compile))
     (require feature))

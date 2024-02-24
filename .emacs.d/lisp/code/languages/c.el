@@ -7,6 +7,6 @@
 (kotct/setf-tab c-basic-offset)
 
 ;; use smart tabs
-(smart-tabs-insinuate 'c)
+;;(smart-tabs-insinuate 'c)
 
 (provide 'c)

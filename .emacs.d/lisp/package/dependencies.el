@@ -1,6 +1,5 @@
 (defvar kotct/dependency-list
-  '(linum-off ;; turn linum off in certain modes
-    ido-vertical-mode ;; use vertical menus for ido
+  '(ido-vertical-mode ;; use vertical menus for ido
     ido-grid-mode ;; use a grid selection menu for ido
     smex ;; ido-enabled M-x
     anzu ;; nicer search environment
@@ -22,9 +21,7 @@
     yaml-mode ;; for editing YAML files
     buttercup ;; for tests
     smartparens ;; for dealing with paired control flow symbols
-    gitignore-mode ;; for editing .gitignore files
-    gitattributes-mode ;; for editing .gitattributes files
-    gitconfig-mode ;; for editing .git/config files
+    git-modes ;; for editing .gitignore, .gitattributes, and .git/config files
     fish-mode ;; for editing fish shell configuration files
     go-mode ;; for editing go code
     go-autocomplete ;; AC support for go

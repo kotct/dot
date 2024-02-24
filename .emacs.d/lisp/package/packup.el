@@ -296,8 +296,9 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
   (let (install-list)
     (cl-dolist (package kotct/dependency-list)
 
-      (if (or (not (package-installed-p package))
-              (and update (not (kotct/package-up-to-date-p package))))
+      (if (and (or (not (package-installed-p package))
+		   (and update (not (kotct/package-up-to-date-p package))))
+	       package)
           (add-to-list 'install-list
                        (cons (kotct/package-latest-available package)
                              (cadr (assoc package package-alist))))))
@@ -306,7 +307,7 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
 
         (progn (with-output-to-temp-buffer "*packup: packages to upgrade*"
                  (princ "Packages to be installed:")
-                 (cl-dolist (package-cons install-list)
+                 (cl-dolist (package-cons (cl-remove-if (lambda (elem) (not (car elem))) install-list))
                    (message (symbol-name (package-desc-name (car package-cons))))
                    (terpri)
                    (princ (symbol-name (package-desc-name (car package-cons))))
@@ -324,11 +325,11 @@ If AUTO-UPDATE is non-nil, out-of-date/uninstalled packages will be updated."
                              () (mapcar (lambda (package-cons)
                                           (list (package-desc-name (car package-cons))
                                                 (package-desc-version (car package-cons))))
-                                        install-list))))
+                                        (cl-remove-if (lambda (elem) (not (car elem))) install-list)))))
                           (kill-buffer "*packup: packages to upgrade*")
                           (message "Dependency installation completed."))
                  (let ((manual-install-list nil))
-                   (cl-dolist (package-cons install-list)
+                   (cl-dolist (package-cons (cl-remove-if (lambda (elem) (not (car elem))) install-list))
                      (if (y-or-n-p (format "Package %s is %s. Install %s? "
                                            (package-desc-name (car package-cons))
                                            (if (cdr package-cons)

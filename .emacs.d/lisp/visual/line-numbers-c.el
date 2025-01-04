@@ -28,7 +28,7 @@ This mode was added in Emacs 26.1 and is recommended over `linum-mode' because
 it generally works better."
   (progn
     ;; inhibit global-linum-mode
-    (global-linum-mode -1)
+    (if (fboundp #'global-linum-mode) (global-linum-mode -1))
     (global-display-line-numbers-mode 1)
 
     ;; add some hooks to turn off display-line-numbers mode

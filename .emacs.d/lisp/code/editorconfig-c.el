@@ -21,7 +21,7 @@ and is ignored."
 
 Debug warning is suppressed if SUPPRESS is non-nil."
 
-  (if (and (not suppress) (fboundp 'editorconfig-exec-path))
+  (if (and (not suppress) (boundp 'editorconfig-exec-path))
       (if (not (executable-find editorconfig-exec-path))
           (message "EditorConfig C Core not found in `editorconfig-exec-path'."))))
 

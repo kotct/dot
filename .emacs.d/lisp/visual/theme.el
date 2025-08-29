@@ -42,6 +42,4 @@ If FORCE-LOAD is set, THEME is always loaded."
            (progn
              (setf x-underline-at-descent-line t))))))
 
-(kotct/switch-to-theme 'solarized-dark)
-
 (provide 'theme)

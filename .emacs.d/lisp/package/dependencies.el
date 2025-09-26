@@ -7,7 +7,6 @@
     buffer-move ;; easily move buffers between windows
     expand-region ;; expand region to successively larger sexps
     magit ;; make Git and Emacs both way cooler
-    auto-complete ;; code autocompletion
     markdown-mode ;; major mode for markdown
     smart-tabs-mode ;; indentation with tabs and spaces
     avy ;; immediately jump to any visible character
@@ -24,7 +23,6 @@
     git-modes ;; for editing .gitignore, .gitattributes, and .git/config files
     fish-mode ;; for editing fish shell configuration files
     go-mode ;; for editing go code
-    go-autocomplete ;; AC support for go
     lsp-mode ;; for editing with any language that has a language server
 
     ;; THEMES

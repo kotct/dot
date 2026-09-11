@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (kotct/hub "code"
            (editorconfig-c
             magit-c

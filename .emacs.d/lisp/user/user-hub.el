@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (kotct/hub "user"
            (user-config-system
             machine-local))

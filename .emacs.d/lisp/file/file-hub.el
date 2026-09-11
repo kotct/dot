@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (kotct/hub "file"
            (backup
             recentf-c

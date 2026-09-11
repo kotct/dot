@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (require 'fish-mode)
 
 ;;(smart-tabs-add-language-support fish fish-mode-hook

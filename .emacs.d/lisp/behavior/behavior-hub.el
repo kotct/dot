@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (kotct/hub "behavior"
            (completion-c
             pane-management

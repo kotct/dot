@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; (rebind) C-x C-+: increases font size by scaling `:height' frame parameter
 ;;; (rebind) C-x C-=: increases font size by scaling `:height' frame parameter
 ;;; (rebind) C-x C--: decreases font size by scaling `:height' frame parameter

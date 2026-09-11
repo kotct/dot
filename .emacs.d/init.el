@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; dot/.emacs
 
 ;; load any absolute must-have code

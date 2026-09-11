@@ -23,7 +23,7 @@
     git-modes ;; for editing .gitignore, .gitattributes, and .git/config files
     fish-mode ;; for editing fish shell configuration files
     go-mode ;; for editing go code
-    lsp-mode ;; for editing with any language that has a language server
+    ;; lsp-mode ;; for editing with any language that has a language server
 
     ;; THEMES
     solarized-theme)
